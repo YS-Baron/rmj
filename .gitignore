@@ -1,1 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
+/.idea/vcs.xml
+.idea/artifacts/
+.idea/inspectionProfiles/
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+rmj.iml
