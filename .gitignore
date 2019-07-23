@@ -7,3 +7,9 @@
 .idea/modules.xml
 .idea/workspace.xml
 rmj.iml
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+.idea/dataSources/
+.idea/uiDesigner.xml
+out/
+
