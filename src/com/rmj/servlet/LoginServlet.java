@@ -1,9 +1,8 @@
 package com.rmj.servlet;
 
-import com.alibaba.druid.util.StringUtils;
 import com.google.code.kaptcha.Constants;
+import com.rmj.common.Constant;
 import com.rmj.po.User;
-import com.rmj.service.BaseService;
 import com.rmj.service.impl.UserServiceImpl;
 import com.rmj.util.JsonUtil;
 
@@ -53,7 +52,7 @@ public class LoginServlet extends HttpServlet {
         req.getSession().invalidate();
         Cookie[] cookies = req.getCookies();
         for (Cookie cookie : cookies) {
-            if ("user".equals(cookie.getName())) {
+            if (Constant.USER_COOKIE.equals(cookie.getName())) {
                 cookie = new Cookie(cookie.getName(), "");
                 cookie.setPath("/");
                 resp.addCookie(cookie);
@@ -92,7 +91,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             map = userService.login(name, password);
             if (map.containsKey("user")) {
-                Cookie cookie = new Cookie("user", name);
+                Cookie cookie = new Cookie(Constant.USER_COOKIE, name);
                 cookie.setPath("/");
                 if ("1".equals(rember)) {
                     cookie.setMaxAge(3600 * 24 * 7);
@@ -100,7 +99,7 @@ public class LoginServlet extends HttpServlet {
                     cookie.setMaxAge(3600 * 24);
                 }
                 resp.addCookie(cookie);
-                req.getSession().setAttribute("user", name);
+                req.getSession().setAttribute(Constant.USER_SESSION, name);
                 User user = (User) map.get("user");
                 int role = user.getRole();
                 switch (role) {

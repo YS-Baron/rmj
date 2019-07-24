@@ -1,6 +1,7 @@
 package com.rmj.filter;
 
 import com.alibaba.druid.util.StringUtils;
+import com.rmj.common.Constant;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -69,7 +70,7 @@ public class LoginFiler implements Filter {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("user".equals(cookie.getName()) && !StringUtils.isEmpty(cookie.getValue())) {
+                if (Constant.USER_COOKIE.equals(cookie.getName()) && !StringUtils.isEmpty(cookie.getValue())) {
                     return true;
                 }
             }
@@ -78,7 +79,7 @@ public class LoginFiler implements Filter {
         HttpSession session = request.getSession(false);
         Object obj = null;
         if (session != null) {
-            obj = session.getAttribute("user");
+            obj = session.getAttribute(Constant.USER_SESSION);
         }
         return obj != null;
     }

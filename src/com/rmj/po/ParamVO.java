@@ -14,6 +14,19 @@ public class ParamVO {
     private String price;
     private Date startDate;
     private Date endDate;
+    private int uid;
+    private int hid;
+    private int pageNum;
+    private int pageSize;
+
+    public ParamVO() {
+    }
+
+    public ParamVO(int uid, int pageNum, int pageSize) {
+        this.uid = uid;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
 
     public String getName() {
         return name;
@@ -53,5 +66,37 @@ public class ParamVO {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public int getHid() {
+        return hid;
+    }
+
+    public void setHid(int hid) {
+        this.hid = hid;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

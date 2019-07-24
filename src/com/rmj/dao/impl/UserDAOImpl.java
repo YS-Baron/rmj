@@ -56,7 +56,15 @@ public class UserDAOImpl implements BaseDAO<User> {
 
     @Override
     public User getByName(String name) {
-        return null;
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "select tel from user where tel = ?";
+        User user = null;
+        try {
+            user = queryRunner.query(sql, new BeanHandler<>(User.class), name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
