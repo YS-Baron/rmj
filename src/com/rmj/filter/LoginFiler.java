@@ -17,8 +17,8 @@ import java.io.IOException;
  * @author YUSUI
  * created by YUSUI 2019/7/22
  */
-@WebFilter(value = "/*", initParams = {
-        @WebInitParam(name = "excludes", value = "static/,upload/")})
+//@WebFilter(value = "/*", initParams = {
+//        @WebInitParam(name = "excludes", value = "static/,upload/")})
 public class LoginFiler implements Filter {
 
     //被放过的文件

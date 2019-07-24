@@ -5,6 +5,7 @@ import com.rmj.po.ParamVO;
 import com.rmj.po.User;
 import com.rmj.util.DruidUtil;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -71,5 +72,17 @@ public class UserDAOImpl implements BaseDAO<User> {
     @Override
     public int countObj(ParamVO params) {
         return 0;
+    }
+
+    public User getByNameAndPwd(String name, String password) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "SELECT id,tel,nickname,email,image,role FROM user WHERE tel = ? AND password = ?";
+        User user = null;
+        try {
+            user = queryRunner.query(sql, new BeanHandler<>(User.class), name, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }
