@@ -11,6 +11,22 @@ public class HouseType {
     //名称
     private String typename;
 
+    public HouseType() {
+    }
+
+    public HouseType(int id) {
+        this.id = id;
+    }
+
+    public HouseType(String typename) {
+        this.typename = typename;
+    }
+
+    public HouseType(int id, String typename) {
+        this.id = id;
+        this.typename = typename;
+    }
+
     public int getId() {
         return id;
     }
