@@ -1,5 +1,6 @@
 package com.rmj.servlet;
 
+import com.alibaba.druid.util.StringUtils;
 import com.google.code.kaptcha.Constants;
 import com.rmj.common.Constant;
 import com.rmj.po.User;
@@ -68,13 +69,19 @@ public class LoginServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         int role = Integer.parseInt(req.getParameter("role"));
+        String realCode = (String) req.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        String checkCode = req.getParameter("checkCode");
         PrintWriter out = resp.getWriter();
-        map = userService.reg(name, password, role);
-        if (map.isEmpty()) {
-            out.print(JsonUtil.getJsonStr(1, "注册成功"));
-            resp.sendRedirect("main.jsp");
+        if (!realCode.equals(checkCode)) {
+            out.print(JsonUtil.getJsonStr("验证码错误！！！"));
         } else {
-            out.print(JsonUtil.getJsonStr(0, map));
+            map = userService.reg(name, password, role);
+            if (map.isEmpty()) {
+                out.print(JsonUtil.getJsonStr(1, "注册成功"));
+                resp.sendRedirect("main.jsp");
+            } else {
+                out.print(JsonUtil.getJsonStr(0, map));
+            }
         }
     }
 
