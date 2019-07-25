@@ -6,8 +6,12 @@ import com.rmj.dao.impl.UserDAOImpl;
 import com.rmj.po.ParamVO;
 import com.rmj.po.User;
 import com.rmj.service.BaseService;
+import com.rmj.util.FileUtils;
 import com.rmj.util.Md5Util;
 
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +50,7 @@ public class UserServiceImpl implements BaseService<User> {
 
     @Override
     public User getByName(String name) {
-        return null;
+        return userDAO.getByName(name);
     }
 
     @Override
@@ -102,5 +106,13 @@ public class UserServiceImpl implements BaseService<User> {
             save(user);
         }
         return map;
+    }
+
+    public int updateNormal(int id, String nickname, String email, String dir, Part part, String header) throws IOException {
+        String file = FileUtils.getFielName(header);
+        String filePath = dir + File.separator + file;
+        part.write(filePath);
+        User user = new User(id,nickname,email,"/upload/" + file);
+        return userDAO.update(user);
     }
 }

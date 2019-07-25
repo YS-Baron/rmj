@@ -51,13 +51,21 @@ public class UserDAOImpl implements BaseDAO<User> {
 
     @Override
     public int update(User user) {
-        return 0;
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "udpate user set nickname = ?,set email = ?,set image = ? where id = ?";
+        int res = 0;
+        try {
+            res = queryRunner.update(sql, user.getNickname(), user.getEamil(), user.getImage(), user.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     @Override
     public User getByName(String name) {
         QueryRunner queryRunner = new QueryRunner(ds);
-        String sql = "select tel from user where tel = ?";
+        String sql = "select id,nickname,email,tel,image from user where tel = ?";
         User user = null;
         try {
             user = queryRunner.query(sql, new BeanHandler<>(User.class), name);

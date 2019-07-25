@@ -21,6 +21,16 @@ public class User {
     //角色（1：租客；2：房东；0：管理员）
     private int role;
 
+    public User() {
+    }
+
+    public User(int id, String nickname, String eamil, String image) {
+        this.id = id;
+        this.nickname = nickname;
+        this.eamil = eamil;
+        this.image = image;
+    }
+
     public int getId() {
         return id;
     }
