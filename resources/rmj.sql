@@ -11,7 +11,7 @@
  Target Server Version : 80011
  File Encoding         : 65001
 
- Date: 22/07/2019 14:56:38
+ Date: 25/07/2019 09:32:13
 */
 
 SET NAMES utf8mb4;
@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `favorites`;
 CREATE TABLE `favorites`  (
   `uid` int(11) NULL DEFAULT NULL COMMENT '收藏的用户',
   `hid` int(11) NULL DEFAULT NULL COMMENT '房屋编号',
+  `date` datetime(0) NULL DEFAULT NULL,
   INDEX `uid`(`uid`) USING BTREE,
   INDEX `hid`(`hid`) USING BTREE,
   CONSTRAINT `favorites_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -42,10 +43,10 @@ CREATE TABLE `houses`  (
   `province` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '省',
   `city` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '城市',
   `address` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '具体地址',
-  `uid` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '房东',
+  `uid` int(11) NULL DEFAULT NULL COMMENT '房东',
   `roomNum` int(11) NULL DEFAULT NULL COMMENT '房间个数',
   `lastroom` int(11) NULL DEFAULT NULL COMMENT '剩余房间个数',
-  `isqualified` char(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否合格，1表示检查合格，0表示未检查或则不合格',
+  `isqualified` char(5) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '是否合格，1表示检查合格，0表示未检查或则不合格',
   `description` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '房屋描述',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `tid`(`tid`) USING BTREE,
@@ -57,7 +58,7 @@ CREATE TABLE `houses`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `housestype`;
 CREATE TABLE `housestype`  (
-  `id` int(11) NOT NULL COMMENT '类型编号',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '类型编号',
   `typename` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '类型名称',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -98,7 +99,7 @@ CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号用于与其他表的关联作用',
   `tel` char(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '电话号码和登录账号',
   `nickname` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称',
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `email` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `image` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像地址',
   `role` int(11) NULL DEFAULT NULL COMMENT '角色：1：租客；2：房东；0：管理员',
