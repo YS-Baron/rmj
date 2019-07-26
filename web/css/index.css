@@ -1,0 +1,562 @@
+body {
+    padding-bottom: 40px;
+    color: #5a5a5a;
+}
+
+@font-face{
+    font-family:"beida";
+
+    src:url("../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.eot")  format("embedded-opentype"),
+
+    url("../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.svg")  format("svg"),
+
+    url("../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.ttf")  format("truetype"),
+
+    url("../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff")  format("woff")
+
+}
+
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Flip around the padding for proper display in narrow viewports */
+.Z_layout_head {
+    -webkit-transition:all 1s;
+    background-color:#000;
+    background-color:rgba(0,0,0,.06);
+    color:#fff;
+    height:60px;
+    left:0;
+    line-height:60px;
+    position:fixed;
+    top:0;
+    transition:all 1s;
+    width:100%;
+    z-index:11
+}
+.Z_header_main a{
+    color: #fff;
+    text-decoration: none;
+}
+.Z_layout_head .Z_header_main .Z_logo_box {
+    float:left;
+    height:100%;
+    margin:0;
+    padding:14px 0;
+    width:160px;
+}
+.Z_layout_head .Z_header_main .Z_logo_box img{
+    height: 60px;
+    margin-top: -15px;
+}
+.Z_layout_head .Z_header_main .Z_logo {
+    float:left;
+    width:160px
+}
+.Z_layout_head .Z_header_main .Z_nav_box {
+    float:left;
+    font-size:0;
+    height:60px;
+    text-align:right;
+    width:780px
+}
+.Z_layout_head .Z_header_main .Z_nav_box li {
+    display:inline-block
+}
+.Z_layout_head .Z_header_main .Z_nav_box a {
+    font-size:15px;
+    margin-right:20px;
+    padding:9px 0
+}
+.Z_layout_head .Z_header_main .Z_nav_box .active {
+    position:relative
+}
+.Z_layout_head .Z_header_main .Z_nav_box .active:after {
+    -webkit-transform:translateX(-50%);
+    background:#ff961e;
+    border-radius:1px;
+    bottom:0;
+    content:"";
+    height:2px;
+    left:50%;
+    position:absolute;
+    transform:translateX(-50%);
+    width:100%
+}
+.Z_header_main{
+    width: 1200px;
+    margin: 0 auto;
+}
+.Z_layout_head .Z_header_main .Z_nav_box .become_houser {
+    border:1px solid #fff;
+    border-radius:2px;
+    font-size:15px;
+    padding:6px 14px;
+    position:relative;
+    text-align:center
+}
+.Z_layout_head .Z_header_main .Z_nav_box .app_download {
+    display:inline-block;
+    line-height:1;
+    position:relative
+}
+.Z_layout_head .Z_header_main .Z_nav_box .app_download:hover .qcode_box {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    -webkit-transform:scale(1);
+    opacity:1;
+    transform:scale(1)
+}
+.Z_layout_head .Z_header_main .Z_login_top {
+    float:left;
+    font-size:0;
+    height:100%;
+    text-align:right;
+    width:120px
+}
+.Z_layout_head .Z_header_main .Z_login_top a {
+    font-size:15px
+}
+.Z_layout_head .Z_header_main .Z_login_top .Z_headtop_tel {
+    margin-left:10px;
+    margin-right:10px
+}
+.Z_layout_head .Z_header_main .Z_login_top .Z_headtop_tel:hover {
+    text-decoration:underline
+}
+.Z_layout_head .Z_header_main .Z_login_top .Z_exit {
+    margin-right:0
+}
+.Z_layout_head .Z_header_main .Z_login_top .Z_exit:hover {
+    text-decoration:underline
+}
+.Z_layout_head .Z_header_main .Z_login_top .Z_exit_line {
+    margin-left:10px;
+    margin-right:10px
+}
+.Z_layout_head_active {
+    -webkit-box-shadow:0 2px 8px 0 rgba(0,0,0,.08);
+    background-color:#fff;
+    box-shadow:0 2px 8px 0 rgba(0,0,0,.08);
+    color:#000!important;
+    color:rgba(0,0,0,.85)!important
+}
+.Z_layout_head_active .Z_header_main .Z_nav_box .become_houser {
+    border:1px solid #000;
+    border:1px solid rgba(0,0,0,.4);
+    border-radius:2px;
+    font-size:15px;
+    padding:6px 14px;
+    text-align:center
+}
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+    padding-right: 0;
+    padding-left: 0;
+}
+.navbar-wrapper .navbar {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.navbar-wrapper .navbar .container {
+    width: auto;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+    height: 500px;
+    margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+    z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+    height: 500px;
+    background-color: #777;
+}
+.carousel-inner > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 500px;
+}
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.marketing h2 {
+    font-weight: normal;
+}
+.marketing .col-lg-4 p {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+    margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+    /* Navbar positioning foo */
+    .navbar-wrapper {
+        margin-top: 20px;
+    }
+    .navbar-wrapper .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .navbar-wrapper .navbar {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    /* The navbar becomes detached from the top, so we round the corners */
+    .navbar-wrapper .navbar {
+        border-radius: 4px;
+    }
+
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: 1.4;
+    }
+
+    .featurette-heading {
+        font-size: 50px;
+    }
+}
+
+@media (min-width: 992px) {
+    .featurette-heading {
+        margin-top: 120px;
+    }
+}
+.col-md-5 p{
+    font-size: 14px;
+}
+.ziroom-record * {
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.ziroom-record .placeholder {
+    color:#000;
+    color:rgba(0,0,0,.2)
+}
+.mb0 {
+    margin-bottom:0!important
+}
+.ziroom-record-mask {
+    background-color:#000;
+    background-color:rgba(0,0,0,.6);
+    bottom:0;
+    left:0;
+    position:fixed;
+    right:0;
+    top:0;
+    z-index:1000
+}
+.ziroom-record-wrapper {
+    -webkit-overflow-scrolling:touch;
+    -webkit-transform:translate(-50%,-50%);
+    background-color:#fff;
+    left:50%;
+    margin:auto;
+    overflow:hidden;
+    padding:40px 40px 60px;
+    position:fixed;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:486px;
+    z-index:5000
+}
+.ziroom-record-wrapper .ziroom-record-header .ziroom-record-title {
+    color:#000;
+    color:rgba(0,0,0,.85);
+    font-size:30px;
+    line-height:36px
+}
+.ziroom-record-wrapper .ziroom-record-header .ziroom-record-text {
+    font-size:17px;
+    line-height:20px;
+    margin-bottom:14px;
+    margin-top:14px
+}
+.ziroom-record-wrapper .ziroom-record-header .ziroom-record-text span {
+    color:#000;
+    color:rgba(0,0,0,.6)
+}
+.ziroom-record-wrapper .ziroom-record-header .ziroom-record-text a {
+    color:#ff961e
+}
+.ziroom-record-wrapper .ziroom-record-close {
+    height:18px;
+    line-height:18px;
+    text-align:right
+}
+.ziroom-record-wrapper .ziroom-record-close i {
+    cursor:pointer
+}
+.ziroom-record-input {
+    -webkit-overflow-scrolling:touch;
+    border:.5px solid #000;
+    border:.5px solid rgba(0,0,0,.2);
+    border-radius:2px;
+    height:50px;
+    overflow:hidden
+}
+.ziroom-record-input input {
+    border:0;
+    font-size:17px;
+    height:100%;
+    line-height:normal;
+    outline:0 none;
+    padding:15px 10px;
+    width:100%
+}
+.ziroom-record-input input::-webkit-input-placeholder {
+    color:#000;
+    color:rgba(0,0,0,.2);
+    font-size:17px;
+    line-height:normal;
+    vertical-align:middle
+}
+.record-inout-foucs {
+    border:.5px solid #ff961e
+}
+.record-inout-error {
+    border:.5px solid #ff3737
+}
+.asnyc-error-wrapper {
+    position:relative;
+    top:-15px;
+    width:100%
+}
+.asnyc-error-wrapper .ziroom-asnyc-error {
+    -webkit-overflow-scrolling:touch;
+    background-color:#ff3737;
+    background-color:rgba(255,55,55,.2);
+    border-radius:2px;
+    height:36px;
+    line-height:36px;
+    overflow:hidden;
+    padding:0 10px
+}
+.asnyc-error-wrapper .ziroom-asnyc-error div {
+    float:left
+}
+.asnyc-error-wrapper .ziroom-asnyc-error .asnyc-error-text {
+    -webkit-overflow-scrolling:touch;
+    color:#ff3737;
+    font-size:15px;
+    overflow:hidden;
+    padding-left:7px;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    width:95%
+}
+.asnyc-error-wrapper .ziroom-asnyc-error i {
+    color:#ff3737
+}
+.ziroom-login-accont-confrim {
+    -webkit-overflow-scrolling:touch;
+    margin-bottom:23px;
+    overflow:hidden
+}
+.ziroom-login-accont-confrim>div {
+    cursor:pointer;
+    float:left;
+    font-size:15px
+}
+.ziroom-login-accont-confrim>div i {
+    color:#000;
+    color:rgba(0,0,0,.2)
+}
+.ziroom-login-accont-confrim>div .iconicon_checklist_select {
+    color:#ff961e
+}
+.ziroom-login-accont-confrim>div span {
+    color:#000;
+    color:rgba(0,0,0,.4);
+    line-height:15px;
+    margin-left:7px
+}
+.ziroom-login-accont-confrim>a {
+    color:#ff961e;
+    float:right;
+    font-size:15px;
+    line-height:18px
+}
+.ziroom-record-btn {
+    background-color:#ff961e;
+    border-radius:2px;
+    color:#fff;
+    cursor:pointer;
+    height:46px;
+    line-height:46px;
+    text-align:center
+}
+.ziroom-login-swich {
+    color:#ff961e;
+    cursor:pointer;
+    font-size:17px;
+    line-height:20px;
+    margin-top:20px;
+    text-align:center
+}
+.ziroom-record-code {
+    -webkit-overflow-scrolling:touch;
+    overflow:hidden
+}
+.ziroom-record-code .ziroom-record-input {
+    float:left;
+    margin-right:10px;
+    width:406px
+}
+.ziroom-record-code .record-send {
+    background-color:#fff;
+    border:1px solid #ff961e;
+    border:1px solid rgba(255,150,30,.8);
+    border-radius:2px;
+    color:#ff961e;
+    color:rgba(255,150,30,.8);
+    cursor:pointer;
+    display:block;
+    float:left;
+    height:50px;
+    line-height:50px;
+    outline:0 none;
+    text-align:center;
+    width:136px
+}
+.ziroom-record-code .disabled {
+    background-color:#000;
+    background-color:rgba(0,0,0,.06);
+    border:0;
+    color:#000;
+    color:rgba(0,0,0,.4)
+}
+.ziroom-record-code .record-graph-img {
+    float:left;
+    height:50px;
+    width:136px
+}
+.ziroom-record-code .record-graph-img img {
+    display:block;
+    height:100%;
+    width:100%
+}
+.ziroom-register-confrim {
+    margin-bottom:21px
+}
+.ziroom-register-confrim .accont-confrim-free {
+    cursor:pointer;
+    font-size:15px;
+    line-height:15px
+}
+.ziroom-register-confrim .accont-confrim-free i {
+    color:#000;
+    color:rgba(0,0,0,.2)
+}
+.ziroom-register-confrim .accont-confrim-free .iconicon_checklist_select {
+    color:#ff961e
+}
+.ziroom-register-confrim .accont-confrim-free span {
+    color:#000;
+    color:rgba(0,0,0,.4);
+    margin-left:7px
+}
+.ziroom-register-confrim .accont-confrim-free a {
+    color:#ff961e;
+    text-decoration:underline
+}
+.noScrollBody {
+    -webkit-overflow-scrolling:touch;
+    bottom:0;
+    left:0;
+    overflow:hidden;
+    position:fixed;
+    right:0;
+    top:0
+}
+.ziroom-record-error {
+    clear:both;
+    color:#ff3737;
+    font-size:12px;
+    height:30px;
+    line-height:30px;
+
+}
+.ziroom-eye-input {
+    position:relative
+}
+.ziroom-eye-input>div {
+    cursor:pointer;
+    position:absolute;
+    right:10px;
+    top:15px
+}
+.ziroom-eye-input>div i {
+    color:#000;
+    color:rgba(0,0,0,.2);
+    font-size:12px
+}
+.ziroom-eye-input>div .active-eye {
+    color:#ff961e
+}
+.ziroom-rad{
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+.ziroom-rad input{
+    margin-right: 3px;
+}
+.ziroom-rad span{
+    margin-right: 20px;
+}
+#recordCloseHook i,#recordCloseHook1 i{
+    font-family: "beida";
+    font-size: 25px;
+}
