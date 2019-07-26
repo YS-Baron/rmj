@@ -5,6 +5,7 @@ import com.rmj.common.page.Page;
 import com.rmj.po.Favorites;
 import com.rmj.po.ParamVO;
 import com.rmj.service.impl.FavoritesServiceImpl;
+import com.rmj.service.impl.UserServiceImpl;
 import com.rmj.util.JsonUtil;
 
 import javax.servlet.ServletException;
@@ -23,9 +24,11 @@ import java.io.PrintWriter;
 public class FavoritesServlet extends HttpServlet {
 
     private FavoritesServiceImpl favoritesService;
+    private UserServiceImpl userService;
 
     public FavoritesServlet() {
         favoritesService = new FavoritesServiceImpl();
+        userService = new UserServiceImpl();
     }
 
     @Override
@@ -50,10 +53,10 @@ public class FavoritesServlet extends HttpServlet {
     }
 
     private void findAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int uid = Integer.parseInt(req.getParameter("uid"));
+        String tel = req.getParameter("tel");
         int pageNum = Integer.parseInt(req.getParameter("pageNum"));
         int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-        ParamVO params = new ParamVO(uid, pageNum, pageSize);
+        ParamVO params = new ParamVO(tel, pageNum, pageSize);
         Page page = favoritesService.listObjByPage(params);
         Object obj = JSON.toJSON(page);
         resp.getWriter().print(obj);
@@ -61,8 +64,9 @@ public class FavoritesServlet extends HttpServlet {
 
     private void doDel(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
-        int uid = Integer.parseInt(req.getParameter("uid"));
+        String tel = req.getParameter("tel");
         int hid = Integer.parseInt(req.getParameter("hid"));
+        int uid = userService.getByName(tel).getId();
         Favorites favorites = new Favorites(uid, hid);
         int res = favoritesService.remove(favorites);
         if (res > 0) {
@@ -75,8 +79,9 @@ public class FavoritesServlet extends HttpServlet {
 
     private void find(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
-        int uid = Integer.parseInt(req.getParameter("uid"));
+        String tel = req.getParameter("tel");
         int hid = Integer.parseInt(req.getParameter("hid"));
+        int uid = userService.getByName(tel).getId();
         Favorites favorites = favoritesService.getByUidAndHid(uid, hid);
         if (favorites != null) {
             //已收藏
@@ -89,8 +94,9 @@ public class FavoritesServlet extends HttpServlet {
 
     private void doAdd(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
-        int uid = Integer.parseInt(req.getParameter("uid"));
+        String tel = req.getParameter("tel");
         int hid = Integer.parseInt(req.getParameter("hid"));
+        int uid = userService.getByName(tel).getId();
         Favorites favorites = new Favorites(uid, hid);
         int res = favoritesService.save(favorites);
         if (res > 0) {
