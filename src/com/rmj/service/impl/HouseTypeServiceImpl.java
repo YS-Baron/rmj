@@ -41,7 +41,7 @@ public class HouseTypeServiceImpl implements BaseService<HouseType> {
 
     @Override
     public HouseType getByName(String name) {
-        return null;
+        return houseTypeDAO.getByName(name);
     }
 
     @Override

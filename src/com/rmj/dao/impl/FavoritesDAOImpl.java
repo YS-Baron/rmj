@@ -78,11 +78,11 @@ public class FavoritesDAOImpl implements BaseDAO<Favorites> {
     public List<Favorites> listObj(ParamVO params) {
         QueryRunner queryRunner = new QueryRunner(ds);
         String sql = "SELECT f.uid uid,f.hid hid,h.address address,h.price price,f.date date FROM favorites f " +
-                "LEFT JOIN houses h ON f.hid = h.id WHERE f.uid =? limit ?,?";
+                "LEFT JOIN houses h ON f.hid = h.id LEFT JOIN user u ON u.id = f.uid WHERE u.tel =? limit ?,?";
         List<Favorites> list = null;
         try {
             list = queryRunner.query(sql, new BeanListHandler<>(Favorites.class),
-                    params.getUid(), (params.getPageNum() - 1) * params.getPageSize(), params.getPageSize());
+                    params.getName(), (params.getPageNum() - 1) * params.getPageSize(), params.getPageSize());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,10 +92,11 @@ public class FavoritesDAOImpl implements BaseDAO<Favorites> {
     @Override
     public int countObj(ParamVO params) {
         QueryRunner queryRunner = new QueryRunner(ds);
-        String sql = "SELECT count(*) FROM favorites f LEFT JOIN houses h ON f.hid = h.id WHERE f.uid =?";
+        String sql = "SELECT count(*) FROM favorites f LEFT JOIN houses h ON f.hid = h.id " +
+                "LEFT JOIN user u ON u.id = f.uid WHERE u.tel =?";
         int res = 0;
         try {
-            long count = queryRunner.query(sql, new ScalarHandler<>(), params.getUid());
+            long count = queryRunner.query(sql, new ScalarHandler<>(), params.getName());
             res = (int) count;
         } catch (SQLException e) {
             e.printStackTrace();
