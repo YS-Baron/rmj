@@ -185,7 +185,7 @@
         <div class="wrap">
 
             <div class="right" fade-onload>
-                <a href="#apartment" class="hidden-sm text-item">如美公寓</a><a href="#house" class="hidden-sm text-item">如美租房</a><a href="#homestay" class="hidden-sm text-item">如美民宿</a><a href="http://localhost:63342/JS/delete.html?_ijt=svjeqj07r2ihgn602k4k2v6dp4" class="hidden-sm text-item">删除房源</a><a href="http://localhost:63342/JS/fabu.html?_ijt=8n89u8igdl9kqaajdm4jkmbgnl" class="hidden-sm text-item">发布房源</a>                <!--<a href="/en-us/cart">-->
+                <a href="#apartment" class="hidden-sm text-item">如美公寓</a><a href="#house" class="hidden-sm text-item">如美租房</a><a href="#homestay" class="hidden-sm text-item">如美民宿</a><a href="http://localhost:8080/rmj/delete.jsp" class="hidden-sm text-item">删除房源</a><a href="http://localhost:8080/rmj/show.jsp" class="hidden-sm text-item">发布房源</a>                <!--<a href="/en-us/cart">-->
 
             </div>
         </div>
@@ -238,7 +238,7 @@
                     </div>
                     <ul class="col-sm-12 col-xs-14 product-list">
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/apartment1.html?_ijt=vf4on61p1fauq64rplotiv733c">
+                            <a href="http://localhost:8080/rmj/apartment1.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -267,7 +267,7 @@
                             </a>
                         </li>
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/apartment2.html?_ijt=vf4on61p1fauq64rplotiv733c">
+                            <a href="http://localhost:8080/rmj/apartment2.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -296,7 +296,7 @@
                             </a>
                         </li>
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/apartment3.html?_ijt=vf4on61p1fauq64rplotiv733c">
+                            <a href="http://localhost:8080/rmj/apartment3.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -325,7 +325,7 @@
                             </a>
                         </li>
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/apartment4.html?_ijt=vf4on61p1fauq64rplotiv733c">
+                            <a href="http://localhost:8080/rmj/apartment4.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -411,7 +411,7 @@
                     </div>
                     <ul class="col-sm-12 col-xs-14 product-list">
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/house3.html?_ijt=898cgkldta75i7udutcu9fokkv">
+                            <a href="http://localhost:8080/rmj/house3.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -437,7 +437,7 @@
                             </a>
                         </li>
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/house1.html?_ijt=cqgp86d9kgdguvgba3co91stib">
+                            <a href="http://localhost:8080/rmj/house1.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -461,7 +461,7 @@
                             </a>
                         </li>
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/house2.html?_ijt=cqgp86d9kgdguvgba3co91stib">
+                            <a href="http://localhost:8080/rmj/house2.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -485,7 +485,7 @@
                             </a>
                         </li>
                         <li class="col-md-6 ">
-                            <a href="http://localhost:63342/JS/house4.html?_ijt=cqgp86d9kgdguvgba3co91stib">
+                            <a href="http://localhost:8080/rmj/house4.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"nid
@@ -600,7 +600,7 @@
                     <ul class="col-sm-12 col-xs-14 product-list">
 
                         <li class="col-md-6 he">
-                            <a href="http://localhost:63342/JS/homestay1.html?_ijt=pu81scv1i34ltgdcmh0p2nabnp">
+                            <a href="http://localhost:8080/rmj/homestay1.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img is-landscape"
@@ -630,7 +630,7 @@
                         </li>
 
                         <li class="col-md-6 he">
-                            <a href="http://localhost:63342/JS/homestay2.html?_ijt=pjpsvcn0icvoqq6lfjnfdvu8i0">
+                            <a href="http://localhost:8080/rmj/homestay2.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"
@@ -660,7 +660,7 @@
                         </li>
 
                         <li class="col-md-6 he">
-                            <a href="/en-us/products/soap-dispenser">
+                            <a href="http://localhost:8080/rmj/homestay3.jsp">
                                 <div class="item ">
                                     <div class="mo">
                                         <div class="super-img"
