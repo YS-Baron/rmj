@@ -10,22 +10,51 @@ import java.util.Date;
 public class ParamVO {
 
     private String name;
-    private String area;
-    private String price;
+    private double area;
+    private double price;
     private Date startDate;
     private Date endDate;
     private int uid;
     private int hid;
     private int pageNum;
     private int pageSize;
+    private int id;
+    private int tid;
+    private String address;
+    private String province;
+    private String city;
+
 
     public ParamVO() {
     }
-
     public ParamVO(int uid, int pageNum, int pageSize) {
         this.uid = uid;
         this.pageNum = pageNum;
         this.pageSize = pageSize;
+    }
+
+    public ParamVO( int tid, double price, double area,String province, String city, String addressint,int uid,int pageNum, int pageSize) {
+        this.area = area;
+        this.price = price;
+        this.uid = uid;
+        this.tid = tid;
+        this.address = address;
+        this.province = province;
+        this.city = city;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
+
+    public ParamVO(String province, String city,String address, int pageNum, int pageSize) {
+        this.address = address;
+        this.province = province;
+        this.city = city;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
+
+    public ParamVO(int hid) {
+        this.hid = hid;
     }
 
     public String getName() {
@@ -36,20 +65,37 @@ public class ParamVO {
         this.name = name;
     }
 
-    public String getArea() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public double getArea() {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(double area) {
         this.area = area;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getTid() {
+        return tid;
+    }
+
+    public void setTid(int tid) {
+        this.tid = tid;
     }
 
     public Date getStartDate() {
@@ -98,5 +144,30 @@ public class ParamVO {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
