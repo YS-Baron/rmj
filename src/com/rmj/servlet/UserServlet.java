@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 
 /**
  * 用户信息修改
@@ -21,10 +22,14 @@ import java.io.PrintWriter;
  * @author YUSUI
  * created by YUSUI 2019/7/24
  */
-@WebServlet(value = {"/user/updateNormal", "/user/get", "/user/updatePwd"})
+@WebServlet(value = {"/user/updateNormal", "/user/get", "/user/updatePwd","/active"})
 public class UserServlet extends HttpServlet {
 
     private UserServiceImpl userService;
+    //暂时存储修改的id和密码
+    private int modifyId;
+    private String modifyPwd;
+    private String code;
 
     public UserServlet() {
         userService = new UserServiceImpl();
@@ -45,9 +50,25 @@ public class UserServlet extends HttpServlet {
             doUpdateNormal(req, resp);
         } else if ("user/updatePwd".equals(path)) {
             doUpdatePwd(req, resp);
+        }else if("active".equals(path)){
+            doActive(req,resp);
         }
 
 
+    }
+
+    private void doActive(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        //确认之后就修改密码
+        String activeCode = req.getParameter("code");
+        if(code.equals(activeCode)){
+            User user = new User(modifyId,modifyPwd);
+            int res = userService.update(user);
+            if(res>0){
+                resp.getWriter().print(JsonUtil.getJsonStr(1,"修改成功"));
+            }else {
+                resp.getWriter().print(JsonUtil.getJsonStr(0,"修改失败"));
+            }
+        }
     }
 
     private void doUpdatePwd(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -56,9 +77,12 @@ public class UserServlet extends HttpServlet {
         if (StringUtils.isEmpty(email)) {
             out.print(JsonUtil.getJsonStr(0, "邮箱不能为空"));
         } else {
-            int id = Integer.parseInt(req.getParameter("id"));
-            String pwd = req.getParameter("password");
-            //TODO 邮箱验证修改密码
+            modifyId = Integer.parseInt(req.getParameter("id"));
+            modifyPwd = req.getParameter("password");
+            code = UUID.randomUUID().toString().replaceAll("-","");
+            //发送邮箱
+            userService.sendMail(email,code);
+            resp.getWriter().print(JsonUtil.getJsonStr("确认密码邮件已发送！！！请确认"));
         }
     }
 

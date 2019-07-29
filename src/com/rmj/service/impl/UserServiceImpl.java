@@ -7,8 +7,10 @@ import com.rmj.po.ParamVO;
 import com.rmj.po.User;
 import com.rmj.service.BaseService;
 import com.rmj.util.FileUtils;
+import com.rmj.util.MailUtils;
 import com.rmj.util.Md5Util;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +47,8 @@ public class UserServiceImpl implements BaseService<User> {
 
     @Override
     public int update(User user) {
-        return 0;
+        user.setPassword(Md5Util.md5(user.getPassword()));
+        return userDAO.updatePwd(user);
     }
 
     @Override
@@ -112,7 +115,20 @@ public class UserServiceImpl implements BaseService<User> {
         String file = FileUtils.getFielName(header);
         String filePath = dir + File.separator + file;
         part.write(filePath);
-        User user = new User(id,nickname,email,"/upload/" + file);
+        User user = new User(id, nickname, email, "/upload/" + file);
         return userDAO.update(user);
+    }
+
+    public void sendMail(String email, String code) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MailUtils.sendMail(email, code);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
