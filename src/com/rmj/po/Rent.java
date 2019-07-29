@@ -20,6 +20,20 @@ public class Rent {
     private double price;
     //该租房描述
     private String description;
+    //房屋具体地址
+    private String address;
+
+    public Rent() {
+    }
+
+    public Rent(int uid, int hid, Date startTime, Date endTime, double price, String description) {
+        this.uid = uid;
+        this.hid = hid;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.price = price;
+        this.description = description;
+    }
 
     public int getUid() {
         return uid;
@@ -67,5 +81,13 @@ public class Rent {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
