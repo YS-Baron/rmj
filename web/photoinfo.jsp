@@ -33,12 +33,12 @@
 
                 <li><a href="javascript:;" class="become_houser" target="_blank">成为房东</a></li>
             </ul>
-            <div class="Z_login_top" id="loginEntyWrapper">
+            <div class="Z_login_top" id="loginEntyWrapper" style="cursor: pointer">
                 <a href="login.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
                 <a href="javascript:;" class="Z_exit_line">|</a>
                 <a href="register.jsp" class=" Z_exit" rel="nofollow" id="zRegister">注册</a>
             </div>
-            <div class="Z_login_top" style="display: none">
+            <div class="Z_login_top" style="display: none" id="login_out">
                 <a href="#" class=" Z_headtop_tel" rel="nofollow"></a>
                 <a href="#" class=" Z_exit" rel="nofollow" id="tRegister">退出</a>
             </div>
@@ -174,7 +174,6 @@
                     <div class="Z_house_baseinfo  clearfix">
                         <div class="base_left">
                             <p>11.9㎡ | 15/33层</p>
-                            <p class="subway"><span class="address_icon"></span>小区距3号线(龙岗线)六约站步行约29米                                                        </p>
                         </div>
                         <div class="base_right">
                             <span>¥</span>
@@ -212,7 +211,6 @@
                     <div class="Z_house_baseinfo  clearfix">
                         <div class="base_left">
                             <p>10.7㎡ | 25/33层</p>
-                            <p class="subway"><span class="address_icon"></span>小区距3号线(龙岗线)六约站步行约29米                                                        </p>
                         </div>
                         <div class="base_right">
                             <span>¥</span>
@@ -249,7 +247,6 @@
                     <div class="Z_house_baseinfo  clearfix">
                         <div class="base_left">
                             <p>9.9㎡ | 15/33层</p>
-                            <p class="subway"><span class="address_icon"></span>小区距3号线(龙岗线)六约站步行约29米                                                        </p>
                         </div>
                         <div class="base_right">
                             <span>¥</span>
@@ -317,12 +314,45 @@
 <script src="js/jquery-1.11.1.js"></script>
 <script>
     $(function () {
+        function getCookie(cookieName) {
+            var strCookie = document.cookie;
+            var arrCookie = strCookie.split("; ");
+            for(var i = 0; i < arrCookie.length; i++){
+                var arr = arrCookie[i].split("=");
+                if(cookieName == arr[0]){
+                    return arr[1];
+                }
+            }
+            return null;
+        }
+        if(getCookie("user_cookie").length>=8){
+            $("#loginEntyWrapper").html(getCookie("user_cookie"));
+            $("#login_out").show();
+        }
+        $("#loginEntyWrapper").click(function () {
+            if(getCookie("user_cookie").length>=8){
+                window.location.href="myinfo.jsp"
+            }
+        });
+        $("#tRegister").click(function () {
+            $.ajax({
+                type:"post",
+                url:"${pageContext.request.contextPath}/logout",
+                success:function(data){
+
+                }
+            })
+        })
         $("#collect").click(function () {
             $("#aside_fixed").show();
-        })
+            $.ajax({
+                type:"post",
+                url:"${pageContext.request.contextPath}/fav/add",
+            })
+        });
         $(".curr").click(function () {
             $(this).parents("#Z_swiper_box").find(".Z_slider img").attr('src',$(this).children("img").attr("src"))
-        })
+        });
     })
 
 </script>

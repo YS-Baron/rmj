@@ -109,7 +109,7 @@ body {
 }
 .Z_layout_head .Z_header_main .Z_login_top {
     float:left;
-    font-size:0;
+    font-size:15px;
     height:100%;
     text-align:right;
     width:120px
@@ -453,7 +453,17 @@ body {
 .ziroom-record-code .ziroom-record-input {
     float:left;
     margin-right:10px;
-    width:406px
+    width:265px
+}
+.checkcode {
+    text-align: center;
+    border: 1px solid #ff961e;
+    color: #ff961e;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    float: left;
+    width: 130px;
 }
 .ziroom-record-code .record-send {
     background-color:#fff;

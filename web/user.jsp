@@ -29,12 +29,12 @@
 
                 <li><a href="javascript:;" class="become_houser" target="_blank">成为房东</a></li>
             </ul>
-            <div class="Z_login_top" id="loginEntyWrapper">
+            <div class="Z_login_top" id="loginEntyWrapper" style="cursor: pointer">
                 <a href="login.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
                 <a href="javascript:;" class="Z_exit_line">|</a>
                 <a href="register.jsp" class=" Z_exit" rel="nofollow" id="zRegister">注册</a>
             </div>
-            <div class="Z_login_top" style="display: none">
+            <div class="Z_login_top" style="display: none" id="login_out">
                 <a href="#" class=" Z_headtop_tel" rel="nofollow"></a>
                 <a href="#" class=" Z_exit" rel="nofollow" id="tRegister">退出</a>
             </div>
@@ -62,12 +62,12 @@
                         <div class="child-opt">
                             <a class="item parent-title" href="javascript:;">地址</a>
                             <div class="wrapper">
-                                <a class="item " href="//sz.ziroom.com/z/d23008679/">北京</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008672/">上海</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008674/">深圳</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008678/">杭州</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008677/">广州</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008676/">南京</a>
+                                <a class="item " href="javascript:;">北京</a>
+                                <a class="item " href="javascript:;">上海</a>
+                                <a class="item " href="javascript:;">深圳</a>
+                                <a class="item " href="javascript:;">杭州</a>
+                                <a class="item " href="javascript:;">广州</a>
+                                <a class="item " href="javascript:;">南京</a>
                             </div>
                         </div>
                     </div>
@@ -76,12 +76,12 @@
                         <div class="child-opt">
                             <a class="item parent-title" href="javascript:;">区域</a>
                             <div class="wrapper">
-                                <a class="item " href="//sz.ziroom.com/z/d23008679/">南山区</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008672/">宝安区</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008674/">福田区</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008678/">罗湖区</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008677/">龙华区</a>
-                                <a class="item " href="//sz.ziroom.com/z/d23008676/">龙岗区</a>
+                                <a class="item " href="javascript:;">南山区</a>
+                                <a class="item " href="javascript:;">宝安区</a>
+                                <a class="item " href="javascript:;">福田区</a>
+                                <a class="item " href="javascript:;">罗湖区</a>
+                                <a class="item " href="javascript:;">龙华区</a>
+                                <a class="item " href="javascript:;">龙岗区</a>
                             </div>
                         </div>
                     </div>
@@ -90,14 +90,14 @@
             <li class="f-item">
                 <strong class="title">租金</strong>
                 <div class="opt">
-                    <a class="active" href="//sz.ziroom.com/z/r0/">不限</a>
-                    <a class="" href="//sz.ziroom.com/z/r1/">1500元以下</a>
-                    <a class="" href="//sz.ziroom.com/z/r2/">1500-2500元</a>
-                    <a class="" href="//sz.ziroom.com/z/r3/">2500-4000元</a>
-                    <a class="" href="//sz.ziroom.com/z/r4/">4000-6000元</a>
-                    <a class="" href="//sz.ziroom.com/z/r5/">6000-8000元</a>
-                    <a class="" href="//sz.ziroom.com/z/r6/">8000-10000元</a>
-                    <a class="" href="//sz.ziroom.com/z/r7/">10000元以上</a>
+                    <a class="active" href="javascript:;">不限</a>
+                    <a class="" href="javascript:;">1500元以下</a>
+                    <a class="" href="javascript:;">1500-2500元</a>
+                    <a class="" href="javascript:;">2500-4000元</a>
+                    <a class="" href="javascript:;">4000-6000元</a>
+                    <a class="" href="javascript:;">6000-8000元</a>
+                    <a class="" href="javascript:;">8000-10000元</a>
+                    <a class="" href="javascript:;">10000元以上</a>
                     <div class="price" id="range">
                         <input type="text" name="low" class="low num" value="">&nbsp;- <input type="text" name="high" class="high num" value="">&nbsp;元 <input type="button" class="confirm" value="确定">
                     </div>
@@ -110,11 +110,11 @@
         <div class="Z_list-box">
             <div class="item">
                 <div class="pic-box">
-                    <a href="//sz.ziroom.com/x/784236934.html" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a>
+                    <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a>
                     <span class="ico ico-video"></span>
                 </div>
                 <div class="info-box">
-                    <h5 class="title sign"><a href="//sz.ziroom.com/x/784236934.html" target="_blank">合租·德兴城花园4居室-南卧</a></h5>
+                    <h5 class="title sign"><a href="photoinfo.jsp" target="_blank">合租·德兴城花园4居室-南卧</a></h5>
                     <div class="desc">
                         <div>10.7㎡ | 6/8层</div>
                     </div>
@@ -460,12 +460,45 @@
 <script src="js/jquery-1.11.1.js"></script>
 <script>
     $(function () {
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        }
+        function getCookie(cookieName) {
+            var strCookie = document.cookie;
+            var arrCookie = strCookie.split("; ");
+            for(var i = 0; i < arrCookie.length; i++){
+                var arr = arrCookie[i].split("=");
+                if(cookieName == arr[0]){
+                    return arr[1];
+                }
+            }
+            return null;
+        }
+        if(getCookie("user_cookie").length>=8){
+            $("#loginEntyWrapper").html(getCookie("user_cookie"));
+            $("#login_out").show();
+        }
+        $("#loginEntyWrapper").click(function () {
+            if(getCookie("user_cookie").length>=8){
+                window.location.href="myinfo.jsp"
+            }
+        })
         $(".opt-name").click(function () {
                 $(".child-opt").hide();
                 $(this).parents(".opt-type").find(".child-opt").show();
                 $(this).parents(".f-item").addClass("current")
-            }
-        )
+            })
+        $("#tRegister").click(function () {
+            $.ajax({
+                type:"post",
+                url:"${pageContext.request.contextPath}/logout",
+                success:function(data){
+
+                }
+            })
+        })
     })
 </script>
 

@@ -92,7 +92,7 @@ ul,li{
 }
 .Z_layout_head .Z_header_main .Z_login_top {
     float:left;
-    font-size:0;
+    font-size:15px;
     height:100%;
     text-align:right;
     width:120px
