@@ -158,7 +158,7 @@
     <div class="slideLeft">
         <div class="user">
             <div class="img">
-                <img src="" width="100" height="100">
+                <img src="" width="100" height="100" id="head">
             </div>
             <p>如美客a8e56</p>
         </div>
@@ -177,6 +177,7 @@
                     <td width="600">
                         <form class="s-m-imgForm" action="/index.php?r=user%2Favatar" enctype="multipart/form-data" method="post" id="form1" name="upform" dotype="ajax" callback="form1">
                             <input type="button" value="本地照片" class="ui_btn ui_org_btn" id="uploadImg">
+                            <input type="button" value="上传照片" class="ui_btn ui_org_btn" id="upImg">
                             <input type="file" name="file" id="J-m-imgFile" class="s-m-file">
                             <p class="gray mt10">仅支持JPG、PNG格式，文件小于3M。</p>
                         </form>
@@ -260,7 +261,6 @@
 </html>
 <script src="js/jquery-1.11.1.js"></script>
 <script>
-    $(function () {
         $("#sc").click(function () {
             $(".notFrameBox").hide();
             $(".t_spacemainboxright").show()
@@ -282,12 +282,12 @@
                 success:function(data){
                     $("#mytel").html(data.tel);
                     $("#nickname").val(data.nickname);
-                    $(".img>img").attr("src","${pageContext.request.contextPath}/"+data.image);
+                    $("#head>img").attr("src","${pageContext.request.contextPath}/"+data.image);
                     $(".trBorder img").attr("src","${pageContext.request.contextPath}/"+data.image);
                     $.ajax({
                         type:"post",
                         url:"${pageContext.request.contextPath}/user/updateNormal",
-                        data:{"id": data.id,"nickname":data.nickname,"email":Null,"headImage":"${pageContext.request.contextPath}/"+data.image},
+                        data:{"id": data.id,"nickname":data.nickname,"email":null,"headImage":null},
                         dataType:"json",
                         success:function(data){
                            console.log(data)
@@ -329,7 +329,6 @@
             })
         })
 
-    })
 
 </script>
 

@@ -65,7 +65,7 @@
 </html>
 <script src="js/jquery-1.11.1.js"></script>
 <script>
-    $(function () {
+
         $("#accontUserHook").blur(function () {
             var TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/;
             if(!TEL_REGEXP.test($("#accontUserHook").val())){
@@ -97,8 +97,9 @@
                 data:{"name":name,"password":password,"checkCode":checkCode,"remeber":remeber},
                 dataType:"json",
                 success:function(data){
+                    console.log(data)
                     $(".ziroom-record-code").find(".ziroom-record-error").html(data.msg);
-                    window.location.herf="index.jsp"
+                    window.location.herf=data
                 }
             })
             });
@@ -119,5 +120,4 @@
         $("#registerSendCodeHook").focus(function () {
             $(".ziroom-record-code").find(".ziroom-record-error").html("");
         })
-    })
 </script>

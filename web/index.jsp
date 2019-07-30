@@ -202,7 +202,6 @@
 </html>
 <script src="js/jquery-1.11.1.js"></script>
 <script>
-    $(function () {
         function getCookie(cookieName) {
             var strCookie = document.cookie;
             var arrCookie = strCookie.split("; ");
@@ -232,6 +231,5 @@
                 }
             })
         })
-    })
 </script>
 
