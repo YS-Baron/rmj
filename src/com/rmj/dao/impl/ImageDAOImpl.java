@@ -14,17 +14,18 @@ import java.util.List;
 
 public class ImageDAOImpl implements BaseDAO<Image> {
     private DataSource ds;
-    public ImageDAOImpl(){
-        ds= DruidUtil.getDruidDataSource();
+
+    public ImageDAOImpl() {
+        ds = DruidUtil.getDruidDataSource();
     }
 
     @Override
     public int insert(Image image) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="INSERT INTO image(hid,image) VALUES (?,?) ";
-        int res=0;
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "INSERT INTO image(hid,image) VALUES (?,?) ";
+        int res = 0;
         try {
-            res=queryRunner.update(sql,image.getHid(),image.getImage());
+            res = queryRunner.update(sql, image.getHid(), image.getImage());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -33,11 +34,24 @@ public class ImageDAOImpl implements BaseDAO<Image> {
 
     @Override
     public int delete(Image image) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="DELETE FROM image WHERE image=?";
-        int res=0;
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "DELETE FROM image WHERE id=?";
+        int res = 0;
         try {
-            res=queryRunner.update(sql,image.getImage());
+            res = queryRunner.update(sql, image.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    //删除房子所有图片
+    public int delete(int hid) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "DELETE FROM image WHERE hid=?";
+        int res = 0;
+        try {
+            res = queryRunner.update(sql, hid);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,7 +71,7 @@ public class ImageDAOImpl implements BaseDAO<Image> {
     @Override
     public Image getById(int id) {
         return null;
-}
+    }
 
     @Override
     public List<Image> listObj(ParamVO params) {
@@ -70,12 +84,24 @@ public class ImageDAOImpl implements BaseDAO<Image> {
         return 0;
     }
 
-    public int select(Image image) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="SELECT hid,image FROM image WHERE hid=？";
-        int res=0;
+    public List<Image> select(Image image) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        List<Image> list = null;
+        String sql = "SELECT id,hid,image FROM image WHERE hid=?";
         try {
-            image= (Image) queryRunner.query(sql, new BeanListHandler<Image>(Image.class),image.getHid());
+            list = queryRunner.query(sql, new BeanListHandler<>(Image.class), image.getHid());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public int insertImg(int hid, String image) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "INSERT INTO image (hid,image) VALUES (?,?)";
+        int res = 0;
+        try {
+            res = queryRunner.update(sql, hid, image);
         } catch (SQLException e) {
             e.printStackTrace();
         }

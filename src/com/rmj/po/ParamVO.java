@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * 查询条件的实体类
+ *
  * @author YUSUI
  * created by YUSUI 2019/7/23
  */
@@ -23,7 +24,10 @@ public class ParamVO {
     private String address;
     private String province;
     private String city;
-
+    private double sArea;
+    private double eArea;
+    private double sPrice;
+    private double ePrice;
 
     public ParamVO() {
     }
@@ -40,10 +44,9 @@ public class ParamVO {
         this.pageSize = pageSize;
     }
 
-    public ParamVO( int tid, double price, double area,String province, String city, String addressint,int uid,int pageNum, int pageSize) {
+    public ParamVO(int tid, double price, double area, String province, String city, String address, int pageNum, int pageSize) {
         this.area = area;
         this.price = price;
-        this.uid = uid;
         this.tid = tid;
         this.address = address;
         this.province = province;
@@ -52,7 +55,7 @@ public class ParamVO {
         this.pageSize = pageSize;
     }
 
-    public ParamVO(String province, String city,String address, int pageNum, int pageSize) {
+    public ParamVO(String province, String city, String address, int pageNum, int pageSize) {
         this.address = address;
         this.province = province;
         this.city = city;
@@ -62,6 +65,19 @@ public class ParamVO {
 
     public ParamVO(int hid) {
         this.hid = hid;
+    }
+
+    public ParamVO(int tid, double sPrice, double ePrice, double sArea, double eArea, String province, String city, String address, int pageNum, int pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+        this.tid = tid;
+        this.address = address;
+        this.province = province;
+        this.city = city;
+        this.sArea = sArea;
+        this.eArea = eArea;
+        this.sPrice = sPrice;
+        this.ePrice = ePrice;
     }
 
     public String getName() {
@@ -176,5 +192,37 @@ public class ParamVO {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public double getsArea() {
+        return sArea;
+    }
+
+    public void setsArea(double sArea) {
+        this.sArea = sArea;
+    }
+
+    public double geteArea() {
+        return eArea;
+    }
+
+    public void seteArea(double eArea) {
+        this.eArea = eArea;
+    }
+
+    public double getsPrice() {
+        return sPrice;
+    }
+
+    public void setsPrice(double sPrice) {
+        this.sPrice = sPrice;
+    }
+
+    public double getePrice() {
+        return ePrice;
+    }
+
+    public void setePrice(double ePrice) {
+        this.ePrice = ePrice;
     }
 }

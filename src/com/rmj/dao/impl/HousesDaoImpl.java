@@ -1,5 +1,6 @@
 package com.rmj.dao.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.rmj.dao.BaseDAO;
 import com.rmj.po.Houses;
 import com.rmj.po.ParamVO;
@@ -15,17 +16,18 @@ import java.util.*;
 
 public class HousesDaoImpl implements BaseDAO<Houses> {
     private DataSource ds;
-    public HousesDaoImpl(){
-        ds= DruidUtil.getDruidDataSource();
+
+    public HousesDaoImpl() {
+        ds = DruidUtil.getDruidDataSource();
     }
 
     @Override
     public int insert(Houses houses) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="INSERT INTO houses(id ,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,description) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        int res=0;
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "INSERT INTO houses(id ,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,description) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        int res = 0;
         try {
-            res=queryRunner.update(sql,houses.getId(),houses.getTid(),houses.getPrice(),houses.getArea(),houses.getProvince(),houses.getCity(),houses.getAddress(),houses.getUid(),houses.getRoomNum(),houses.getLastroom(),houses.getDescription());
+            res = queryRunner.update(sql, houses.getId(), houses.getTid(), houses.getPrice(), houses.getArea(), houses.getProvince(), houses.getCity(), houses.getAddress(), houses.getUid(), houses.getRoomNum(), houses.getLastroom(), houses.getDescription());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,11 +36,11 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
 
     @Override
     public int delete(Houses houses) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="DELETE FROM houses WHERE id =?";
-        int res=0;
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "DELETE FROM houses WHERE id =?";
+        int res = 0;
         try {
-            res=queryRunner.update(sql,houses.getId());
+            res = queryRunner.update(sql, houses.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,11 +49,14 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
 
     @Override
     public int update(Houses houses) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="UPDATE houses SET id=? ,SET tid=? ,SET price=? ,SET area=? ,SET province=? ,SET city=? ,SET address=? ,SET uid=? ,SET roomNum=? ,SET lastroom=?  ,description=? WHERW id=? ";
-        int res=0;
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "UPDATE houses SET tid=? , price=? , area=? , province=? ,city=? ,address=? ," +
+                "roomNum=? ,lastroom=? ,description=? where id=? ";
+        int res = 0;
         try {
-            res=queryRunner.update(sql,houses.getId(),houses.getTid(),houses.getPrice(),houses.getArea(),houses.getProvince(),houses.getCity(),houses.getAddress(),houses.getUid(),houses.getRoomNum(),houses.getLastroom(),houses.getDescription());
+            res = queryRunner.update(sql, houses.getTid(), houses.getPrice(), houses.getArea(),
+                    houses.getProvince(), houses.getCity(), houses.getAddress(), houses.getRoomNum(),
+                    houses.getLastroom(), houses.getDescription(), houses.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,12 +64,12 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
         return res;
     }
 
-    public int updateadmin(Houses houses){
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="UPDATE houses SET isQualified=? ";
-        int res=0;
+    public int updateadmin(Houses houses) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "UPDATE houses SET isQualified= 1 where id = ?";
+        int res = 0;
         try {
-            res=queryRunner.update(sql,houses.getIsQualified());
+            res = queryRunner.update(sql, houses.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,110 +83,117 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
 
     @Override
     public Houses getById(int id) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        String sql="SELECT id,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,description FROM houses WHERE id=? and isQualified=1";
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "SELECT id,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,description FROM houses WHERE id=?";
         Houses houses = null;
         try {
-            houses=queryRunner.query(sql,new BeanHandler<>(Houses.class),id);
+            houses = queryRunner.query(sql, new BeanHandler<>(Houses.class), id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return houses;
     }
-   //房主
+
+    //房主
     @Override
     public List<Houses> listObj(ParamVO params) {
-        QueryRunner queryRunner=new QueryRunner(ds);
-        List<Houses> houses=null;
-        String sql="SELECT id,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,description FROM houses WHERE uid=? limit ?,?";
+        QueryRunner queryRunner = new QueryRunner(ds);
+        List<Houses> houses = null;
+        String sql = "SELECT id,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,description FROM houses WHERE uid=? limit ?,?";
         try {
 
-          houses=queryRunner.query(sql,new BeanListHandler<Houses>(Houses.class),params.getUid(),(params.getPageNum() - 1) * params.getPageSize(), params.getPageSize());
+            houses = queryRunner.query(sql, new BeanListHandler<Houses>(Houses.class), params.getUid(), (params.getPageNum() - 1) * params.getPageSize(), params.getPageSize());
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return houses;
     }
+
     // 用户
-    public List<Houses> listUser(ParamVO params){
-        QueryRunner queryRunner=new QueryRunner(ds);
-        List<Houses> houses=null;
-        List<Object> objects=null;
-        String sql="SELECT id,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom  ,description FROM houses WHERE  isQualified=1 limit ?,?";
-            try {
-                if (params.getTid()!=0) {
-                    sql += " and tid=?";
-                    objects.add(params.getTid());
-                }
-                if (params.getPrice()!=0) {
-                    sql+=" and price=?";
-                    objects.add(params.getPrice());
-                }
-                if (params.getArea()!=0){
-                    sql+=" and area=?";
-                    objects.add(params.getArea());
-
-                }
-                if (params.getProvince()!=null){
-                    sql+=" and province=?";
-                    objects.add(params.getProvince());
-
-                }
-                if (params.getCity()!=null){
-                    sql+=" and city=?";
-                    objects.add(params.getCity());
-
-                }
-                if (params.getAddress()!=null){
-                    sql+=" and address=?";
-                    objects.add(params.getAddress());
-
-                } if (params.getUid()!=0){
-                    sql+=" and uid=?";
-                    objects.add(params.getUid());
-                }
-                houses=queryRunner.query(sql,new BeanListHandler<Houses>(Houses.class),objects,(params.getPageNum() - 1) * params.getPageSize(), params.getPageSize());
-        } catch (SQLException e) {
-                e.printStackTrace();
+    public List<Houses> listUser(ParamVO params) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        List<Houses> houses = null;
+        List<Object> list = new ArrayList<>();
+        String sql = "SELECT id,tid ,price ,area ,province ,city ,address,roomNum ,lastroom ," +
+                "description FROM houses WHERE  isQualified=1 ";
+        try {
+            if (params.getTid() != 0) {
+                sql += " and tid=?";
+                list.add(params.getTid());
             }
-            return houses;
+            if (params.getsPrice() > 0) {
+                sql += " and price>? and price < ?";
+                list.add(params.getsPrice());
+                list.add(params.getePrice());
+            }
+            if (params.getsArea() > 0) {
+                sql += " and area>? and area < ?";
+                list.add(params.getsArea());
+                list.add(params.geteArea());
+            }
+            if (!StringUtils.isEmpty(params.getProvince())) {
+                sql += " and province=?";
+                list.add(params.getProvince());
+
+            }
+            if (!StringUtils.isEmpty(params.getCity())) {
+                sql += " and city=?";
+                list.add(params.getCity());
+
+            }
+            if (!StringUtils.isEmpty(params.getAddress())) {
+                sql += " and address like %?%";
+                list.add(params.getAddress());
+
+            }
+            sql += " limit ?,?";
+            list.add((params.getPageNum() - 1) * params.getPageSize());
+            list.add(params.getPageSize());
+            houses = queryRunner.query(sql, list.toArray(), new BeanListHandler<Houses>(Houses.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return houses;
+    }
+
     @Override
     public int countObj(ParamVO params) {
         QueryRunner queryRunner = new QueryRunner(ds);
         String sql = "SELECT count(*) FROM houses WHERE uid=?";
         int res = 0;
         try {
-            long count=queryRunner.query(sql,new ScalarHandler<>(),params.getUid());
-            res=(int) count;
+            long count = queryRunner.query(sql, new ScalarHandler<>(), params.getUid());
+            res = (int) count;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return res;
     }
+
     //管理员
-    public List<Houses> listadmin(ParamVO params){
-        QueryRunner queryRunner=new QueryRunner(ds);
-        List<Houses> houses=null;
-        List<Object> objects=null;
-        String sql="SELECT id,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,isQualified ,description FROM houses WHERE  limit ?,?";
+    public List<Houses> listadmin(ParamVO params) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        List<Houses> houses = null;
+        List<Object> list = new ArrayList<>();
+        String sql = "SELECT id,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,isQualified " +
+                ",description FROM houses WHERE isqualified = 0 ";
         try {
-            if (params.getProvince()!=null){
-                sql+=" and province=?";
-                objects.add(params.getProvince());
-
+            if (!StringUtils.isEmpty(params.getProvince())) {
+                sql += " and province=?";
+                list.add(params.getProvince());
             }
-            if (params.getCity()!=null){
-                sql+=" and city=?";
-                objects.add(params.getCity());
-
+            if (!StringUtils.isEmpty(params.getCity())) {
+                sql += " and city=?";
+                list.add(params.getCity());
             }
-            if (params.getAddress()!=null){
-                sql+=" and address=?";
-                objects.add(params.getAddress());
-
+            if (!StringUtils.isEmpty(params.getAddress())) {
+                sql += " and address=?";
+                list.add(params.getAddress());
             }
-            houses=queryRunner.query(sql,new BeanListHandler<Houses>(Houses.class),objects,(params.getPageNum() - 1) * params.getPageSize(), params.getPageSize());
+            sql += " limit ?,?";
+            list.add((params.getPageNum() - 1) * params.getPageSize());
+            list.add(params.getPageSize());
+            houses = queryRunner.query(sql, list.toArray(), new BeanListHandler<>(Houses.class));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -191,72 +203,42 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
     public int countUser(ParamVO params) {
         QueryRunner queryRunner = new QueryRunner(ds);
         String sql = "SELECT count(*) FROM houses WHERE isQualified=1 ";
-        List<Houses> houses = null;
-        List<Object> objects = null;
-        int res = 0;
-            try {
-                if (params.getTid() != 0) {
-                    sql += " and tid=?";
-                    objects.add(params.getTid());
-                }
-                if (params.getPrice() != 0) {
-                    sql += " and price=?";
-                    objects.add(params.getPrice());
-                }
-                if (params.getArea() != 0) {
-                    sql += " and area=?";
-                    objects.add(params.getArea());
-
-                }
-                if (params.getProvince() != null) {
-                    sql += " and province=?";
-                    objects.add(params.getProvince());
-
-                }
-                if (params.getCity() != null) {
-                    sql += " and city=?";
-                    objects.add(params.getCity());
-
-                }
-                if (params.getAddress() != null) {
-                    sql += " and address=?";
-                    objects.add(params.getAddress());
-
-                }
-                if (params.getUid() != 0) {
-                    sql += " and uid=?";
-                    objects.add(params.getUid());
-                }
-                long count = queryRunner.query(sql, new ScalarHandler<>(), objects);
-                res = (int) count;
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return res;
-        }
-
-    public int countadmin(ParamVO params) {
-        QueryRunner queryRunner = new QueryRunner(ds);
-        String sql = "SELECT count(*) FROM houses ";
-        List<Houses> houses = null;
-        List<Object> objects = null;
+        List<Object> list = new ArrayList<>();
         int res = 0;
         try {
-            if (params.getProvince() != null) {
+            if (params.getTid() != 0) {
+                sql += " and tid=?";
+                list.add(params.getTid());
+            }
+            if (params.getsPrice() > 0) {
+                sql += " and price>? and price < ?";
+                list.add(params.getsPrice());
+                list.add(params.getePrice());
+            }
+            if (params.getsArea() > 0) {
+                sql += " and area>? and area < ?";
+                list.add(params.getsArea());
+                list.add(params.geteArea());
+            }
+            if (!StringUtils.isEmpty(params.getProvince())) {
                 sql += " and province=?";
-                objects.add(params.getProvince());
+                list.add(params.getProvince());
 
             }
-            if (params.getCity() != null) {
+            if (!StringUtils.isEmpty(params.getCity())) {
                 sql += " and city=?";
-                objects.add(params.getCity());
+                list.add(params.getCity());
 
             }
-            if (params.getAddress() != null) {
-                sql += " and address=?";
-                objects.add(params.getAddress());
+            if (!StringUtils.isEmpty(params.getAddress())) {
+                sql += " and address like %?%";
+                list.add(params.getAddress());
+
             }
-            long count = queryRunner.query(sql, new ScalarHandler<>(), objects);
+            sql += " limit ?,?";
+            list.add((params.getPageNum() - 1) * params.getPageSize());
+            list.add(params.getPageSize());
+            long count = queryRunner.query(sql, list.toArray(), new ScalarHandler<>());
             res = (int) count;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -264,6 +246,34 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
         return res;
     }
 
-
-
+    public int countadmin(ParamVO params) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "SELECT count(*) FROM houses WHERE isqualified = 0 ";
+        List<Object> list = new ArrayList<>();
+        int res = 0;
+        try {
+            if (!StringUtils.isEmpty(params.getProvince())) {
+                sql += " and province=?";
+                list.add(params.getProvince());
+            }
+            if (!StringUtils.isEmpty(params.getCity())) {
+                sql += " and city=?";
+                list.add(params.getCity());
+            }
+            if (!StringUtils.isEmpty(params.getAddress())) {
+                sql += " and address=?";
+                list.add(params.getAddress());
+            }
+            list.add((params.getPageNum() - 1) * params.getPageSize());
+            list.add(params.getPageSize());
+            sql += " limit ?,?";
+            long i = queryRunner.query(sql, list.toArray(), new ScalarHandler<>());
+            res = (int) i;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
+
+
+}
