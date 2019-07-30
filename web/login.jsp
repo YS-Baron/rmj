@@ -65,9 +65,8 @@
 </html>
 <script src="js/jquery-1.11.1.js"></script>
 <script>
-
+    var TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/;
         $("#accontUserHook").blur(function () {
-            var TEL_REGEXP = /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/;
             if(!TEL_REGEXP.test($("#accontUserHook").val())){
                 $(this).parent().next().html("请输入正确的手机号码")
             }
@@ -91,17 +90,22 @@
             if(password.length<=0){
                 $("#accontPsdHook").parent().next().html("密码不能为空！")
             };
-            $.ajax({
-                type:"post",
-                url:"${pageContext.request.contextPath}/login?<%=request.getQueryString()%>",
-                data:{"name":name,"password":password,"checkCode":checkCode,"remeber":remeber},
-                dataType:"json",
-                success:function(data){
-                    console.log(data)
-                    $(".ziroom-record-code").find(".ziroom-record-error").html(data.msg);
-                    window.location.herf=data
-                }
-            })
+            if(TEL_REGEXP.test($("#accontUserHook").val())&&password.length>=6){
+                $.ajax({
+                    type:"post",
+                    url:"${pageContext.request.contextPath}/login?<%=request.getQueryString()%>",
+                    data:{"name":name,"password":password,"checkCode":checkCode,"remeber":remeber},
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data)
+                        if(data.msg.endsWith(".jsp")){
+                            window.location.href=data.msg;
+                        }else {
+                            $(".ziroom-record-code").find(".ziroom-record-error").html(data.msg);
+                        }
+                    }
+                })
+            }
             });
         $("#accontPsdHook").blur(function () {
             if($("#accontPsdHook").val().length<6||$("#accontPsdHook").val().length>16){

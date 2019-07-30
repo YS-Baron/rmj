@@ -33,7 +33,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="javascript:;" rel="nofollow" id="tRegister">退出</a>
+                    <a href="${pageContext.request.contextPath}/logout" rel="nofollow" id="tRegister">退出</a>
                 </li>
             </ul>
         </div>
@@ -147,20 +147,15 @@
             <h5>履行中合同</h5>
             <p class="noContent">您还没有履行中的合同，快去签约吧！</p>
         </div>
-
-        <!-- 最近收藏 -->
-        <div class="collection">
-            <h5>最近收藏</h5>
-            <ul class="clearfix"><li><a href="http://www.ziroom.com/z/vr/62066279"><div class="img"><img src="http://pic.ziroom.com/house_images/g2m1/M00/25/F7/ChAFBlx2Wg-AJu-pAAKX2muAfZI181.jpg" onerror="this.src='http://www.ziroom.com//static/images/slist_1207/yuanwei-up.jpg'" width="285" height="190"></div><div class="clearfix"><p class="name fl">龙华区清湖4号线(龙华线)龙华富通天骏4居室-南卧</p><p class="price fr">¥1890/月</p></div></a></li></ul>
-        </div>    </div>
+    </div>
 </div>
 <div class="clearfix area mainCon" style="display: none">
     <div class="slideLeft">
         <div class="user">
-            <div class="img">
-                <img src="" width="100" height="100" id="head">
+            <div class="img" id="head">
+                <img src="" width="100" height="100">
             </div>
-            <p>如美客a8e56</p>
+            <p></p>
         </div>
         <ul>
             <li class="myUserInfo"><a href="javascript:;">个人信息</a></li>
@@ -175,9 +170,10 @@
                     <td width="100" >头像</td>
                     <td width="160" ><img src="" width="140" height="140" id="J-m-imgFileImg" style="border-radius: 50%" ></td>
                     <td width="600">
-                        <form class="s-m-imgForm" action="/index.php?r=user%2Favatar" enctype="multipart/form-data" method="post" id="form1" name="upform" dotype="ajax" callback="form1">
-                            <input type="button" value="本地照片" class="ui_btn ui_org_btn" id="uploadImg">
-                            <input type="button" value="上传照片" class="ui_btn ui_org_btn" id="upImg">
+                        <form class="s-m-imgForm">
+                            <input type="hidden" id="inn">
+                            <input type="button" value="本地图片" class="ui_btn ui_org_btn" id="uploadImg">
+                            <input type="button" value="确认" class="ui_btn ui_org_btn" id="uploadImg1">
                             <input type="file" name="file" id="J-m-imgFile" class="s-m-file">
                             <p class="gray mt10">仅支持JPG、PNG格式，文件小于3M。</p>
                         </form>
@@ -190,19 +186,19 @@
                 <tr style="">
                     <td>手机号</td>
                     <td colspan="2">
-                        <span class="gray" id="mytel"></span>&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:;" class="org j-m-change" onclick="window.location='/index.php?r=user/change-phone'">修改</a>
+                        <input type="text" class="gray" id="mytel" value="" style="width: 115px" readonly>
                     </td>
                 </tr>
                 <tr  style="">
                     <td>邮箱</td>
                     <td colspan="2">
-                        <input type="button" value="立即绑定" class="ui_btn ui_org_btn abled" id="yzTel1"onclick="window.location='/index.php?r=user/bind-email'">
+                        <input type="text" value="" class="gray" id="yzTel1">
                 </tr>
                 <tr  style="">
                     <td>密码</td>
                     <td colspan="2">
-                        <a href="javascript:;" class="org j-m-change" onclick="window.location='/index.php?r=user/reset-password-verify'">修改密码</a>
+                        <input type="password" style="display: none">
+                        <a href="javascript:;" class="org j-m-change" id="chanmi">修改密码</a>
                     </td>
                 </tr>
                 <tr>
@@ -260,6 +256,8 @@
 </body>
 </html>
 <script src="js/jquery-1.11.1.js"></script>
+<script src="js/localResizeIMG.js"></script>
+<script src="js/mobileBUGFix.mini.js"></script>
 <script>
         $("#sc").click(function () {
             $(".notFrameBox").hide();
@@ -271,6 +269,16 @@
             $(".t_spacemainboxright").hide();
             $(".notFrameBox").show()
         });
+        $("#chanmi").click(function () {
+            $(this).hide();
+            $(this).prev().show();
+        });
+        $("#nickname").focus(function () {
+            $(this).val("")
+        });
+        $("#yzTel1").focus(function () {
+            $(this).val("")
+        });
         $("#zi").click(function () {
             $(".zone_cont").hide();
             $(".mainCon").show();
@@ -280,18 +288,45 @@
                 data:{"name":getCookie("user_cookie")},
                 dataType:"json",
                 success:function(data){
-                    $("#mytel").html(data.tel);
+                    $("#mytel").val(data.tel);
                     $("#nickname").val(data.nickname);
+                    $("#yzTel1").val(data.email);
                     $("#head>img").attr("src","${pageContext.request.contextPath}/"+data.image);
                     $(".trBorder img").attr("src","${pageContext.request.contextPath}/"+data.image);
-                    $.ajax({
-                        type:"post",
-                        url:"${pageContext.request.contextPath}/user/updateNormal",
-                        data:{"id": data.id,"nickname":data.nickname,"email":null,"headImage":null},
-                        dataType:"json",
-                        success:function(data){
-                           console.log(data)
-                        }
+                    var id=data.id;
+                    $("#inn").val(id);
+                        $('input:file').localResizeIMG({
+                            success: function (result) {
+                                var img = new Image();
+                                img.src = result.base64;
+                                // $(".trBorder img").attr("src",img.src);
+                                $("#uploadImg1").click(function () {
+                                    var form = new FormData($('.s-m-imgForm'));
+                                $.ajax({
+                                    type:"post",
+                                    url:"${pageContext.request.contextPath}/user/udpateHead",
+                                    data:form,
+                                    processData:false,
+                                    contentType:false,
+                                    success:function(data){
+                                        console.log(data)
+                                    }
+                                })
+                            })
+                            }
+                        })
+                    $("#save_button").click(function () {
+                        var name= $("#nickname").val();
+                        var email= $("#yzTel1").val();
+                        $.ajax({
+                            type:"post",
+                            url:"${pageContext.request.contextPath}/user/updateNormal",
+                            data:{"id":id,"nickname":name,"email":email},
+                            dataType:"json",
+                            success:function(data){
+                                console.log(data)
+                            }
+                        })
                     })
                 }
             })
@@ -319,16 +354,6 @@
         if(getCookie("user_cookie").length>=8){
             $("#username").html(getCookie("user_cookie"));
         };
-        $("#tRegister").click(function () {
-            $.ajax({
-                type:"post",
-                url:"${pageContext.request.contextPath}/logout",
-                success:function(data){
-
-                }
-            })
-        })
-
 
 </script>
 

@@ -30,13 +30,13 @@
                 <li><a href="javascript:;" class="become_houser" target="_blank">成为房东</a></li>
             </ul>
             <div class="Z_login_top" id="loginEntyWrapper" style="cursor: pointer">
-                <a href="login.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
+                <a href="login.jsp?from=user.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
                 <a href="javascript:;" class="Z_exit_line">|</a>
                 <a href="register.jsp" class=" Z_exit" rel="nofollow" id="zRegister">注册</a>
             </div>
             <div class="Z_login_top" style="display: none" id="login_out">
                 <a href="#" class=" Z_headtop_tel" rel="nofollow"></a>
-                <a href="#" class=" Z_exit" rel="nofollow" id="tRegister">退出</a>
+                <a href="${pageContext.request.contextPath}/logout" class=" Z_exit" rel="nofollow" id="tRegister">退出</a>
             </div>
         </div>
     </div>
@@ -490,15 +490,6 @@
                 $(this).parents(".opt-type").find(".child-opt").show();
                 $(this).parents(".f-item").addClass("current")
             })
-        $("#tRegister").click(function () {
-            $.ajax({
-                type:"post",
-                url:"${pageContext.request.contextPath}/logout",
-                success:function(data){
-
-                }
-            })
-        })
     })
 </script>
 
