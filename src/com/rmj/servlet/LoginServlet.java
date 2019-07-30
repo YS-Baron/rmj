@@ -109,14 +109,15 @@ public class LoginServlet extends HttpServlet {
                 req.getSession().setAttribute(Constant.USER_SESSION, name);
                 User user = (User) map.get("user");
                 int role = user.getRole();
+                String fromPage = req.getParameter("from");
                 switch (role) {
                     case 0:
                         //管理员界面
                         req.getRequestDispatcher("admin.jsp").forward(req, resp);
                         break;
                     case 1:
-                        //主页
-                        req.getRequestDispatcher("main.jsp").forward(req, resp);
+                        //跳转到点击登入的页面之中
+                        req.getRequestDispatcher(fromPage).forward(req, resp);
                         break;
                     case 2:
                         //房东页面

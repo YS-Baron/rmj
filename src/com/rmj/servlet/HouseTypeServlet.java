@@ -54,12 +54,17 @@ public class HouseTypeServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
-        HouseType houseType = new HouseType(id, name);
-        int res = houseTypeService.update(houseType);
-        if (res > 0) {
-            out.print(JsonUtil.getJsonStr(1, "更新成功"));
+        HouseType type = houseTypeService.getByName(name);
+        if (type != null) {
+            out.print(JsonUtil.getJsonStr(0, "名称不可重复"));
         } else {
-            out.print(JsonUtil.getJsonStr(0, "更新失败"));
+            HouseType houseType = new HouseType(id, name);
+            int res = houseTypeService.update(houseType);
+            if (res > 0) {
+                out.print(JsonUtil.getJsonStr(1, "更新成功"));
+            } else {
+                out.print(JsonUtil.getJsonStr(0, "更新失败"));
+            }
         }
     }
 

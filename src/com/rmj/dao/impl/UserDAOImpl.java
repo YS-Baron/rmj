@@ -101,4 +101,16 @@ public class UserDAOImpl implements BaseDAO<User> {
         }
         return user;
     }
+
+    public int updatePwd(User user) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "update user set password = ? where id = ?";
+        int res = 0;
+        try {
+            res = queryRunner.update(sql, user.getPassword(), user.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
