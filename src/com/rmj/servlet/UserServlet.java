@@ -62,16 +62,16 @@ public class UserServlet extends HttpServlet {
     }
 
     private void doUdpateHead(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-//        int id = Integer.parseInt(req.getParameter("id"));
+        int id = Integer.parseInt(req.getParameter("id"));
         String dir = req.getServletContext().getRealPath("upload");
         Part part = req.getPart("headImage");
         String header = part.getHeader("Content-Disposition");
-//        int res = userService.updateHead(id, header, part, dir);
-//        if (res > 0) {
-//            resp.getWriter().print(JsonUtil.getJsonStr(1, "修改成功"));
-//        } else {
-//            resp.getWriter().print(JsonUtil.getJsonStr(0, "修改失败"));
-//        }
+        int res = userService.updateHead(id, header, part, dir);
+        if (res > 0) {
+            resp.getWriter().print(JsonUtil.getJsonStr(1, "修改成功"));
+        } else {
+            resp.getWriter().print(JsonUtil.getJsonStr(0, "修改失败"));
+        }
     }
 
     private void doActive(HttpServletRequest req, HttpServletResponse resp) throws IOException {
