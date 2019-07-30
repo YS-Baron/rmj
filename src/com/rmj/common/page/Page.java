@@ -36,6 +36,10 @@ public class Page {
      */
     private List<?> items;
 
+    public Page() {
+        super();
+    }
+
     public final Integer getStartRow() {
         if (startRow == null) {
             startRow = (currentPage == null ? 0 : (currentPage - 1) * getPageSize());
