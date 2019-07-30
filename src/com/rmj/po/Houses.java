@@ -31,7 +31,20 @@ public class Houses {
     //房间的描述
     private String description;
 
-    public Houses(int id, int tid, double price, double area, String province, String city, String address, int uid, int roomNum, int lastroom,  String description) {
+    public Houses(int tid, double price, double area, String province, String city, String address, int uid, int roomNum, int lastroom, String description) {
+        this.tid = tid;
+        this.price = price;
+        this.area = area;
+        this.province = province;
+        this.city = city;
+        this.address = address;
+        this.uid = uid;
+        this.roomNum = roomNum;
+        this.lastroom = lastroom;
+        this.description = description;
+    }
+
+    public Houses(int id, int tid, double price, double area, String province, String city, String address, int uid, int roomNum, int lastroom, String description) {
         this.id = id;
         this.tid = tid;
         this.price = price;

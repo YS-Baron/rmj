@@ -1,7 +1,6 @@
 package com.rmj.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
-import com.rmj.dao.BaseDAO;
 import com.rmj.dao.impl.UserDAOImpl;
 import com.rmj.po.ParamVO;
 import com.rmj.po.User;
@@ -112,7 +111,7 @@ public class UserServiceImpl implements BaseService<User> {
     }
 
     public int updateNormal(int id, String nickname, String email, String dir, Part part, String header) throws IOException {
-        String file = FileUtils.getFielName(header);
+        String file = FileUtils.getFileName(header);
         String filePath = dir + File.separator + file;
         part.write(filePath);
         User user = new User(id, nickname, email, "/upload/" + file);

@@ -6,7 +6,7 @@ package com.rmj.util;
  */
 public class FileUtils {
 
-    public static String getFielName(String header){
+    public static String getFileName(String header){
         String[] temArr1 = header.split(";");
         String[] temArr2 = temArr1[2].split("=");
         String fileName = temArr2[1].substring(temArr2[1].lastIndexOf("\\")+1).replaceAll("\"","");
