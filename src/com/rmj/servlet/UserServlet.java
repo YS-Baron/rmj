@@ -7,6 +7,7 @@ import com.rmj.service.impl.UserServiceImpl;
 import com.rmj.util.JsonUtil;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import java.util.UUID;
  * created by YUSUI 2019/7/24
  */
 @WebServlet(value = {"/user/updateNormal", "/user/get", "/user/updatePwd", "/active", "/user/udpateHead"})
+@MultipartConfig
 public class UserServlet extends HttpServlet {
 
     private UserServiceImpl userService;
@@ -52,7 +54,7 @@ public class UserServlet extends HttpServlet {
             doUpdatePwd(req, resp);
         } else if ("active".equals(path)) {
             doActive(req, resp);
-        } else if ("udpateHead".equals(path)) {
+        } else if ("user/udpateHead".equals(path)) {
             doUdpateHead(req, resp);
         }
 
@@ -60,16 +62,16 @@ public class UserServlet extends HttpServlet {
     }
 
     private void doUdpateHead(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        int id = Integer.parseInt(req.getParameter("id"));
+//        int id = Integer.parseInt(req.getParameter("id"));
         String dir = req.getServletContext().getRealPath("upload");
         Part part = req.getPart("headImage");
         String header = part.getHeader("Content-Disposition");
-        int res = userService.updateHead(id, header, part, dir);
-        if (res > 0) {
-            resp.getWriter().print(JsonUtil.getJsonStr(1, "修改成功"));
-        } else {
-            resp.getWriter().print(JsonUtil.getJsonStr(0, "修改失败"));
-        }
+//        int res = userService.updateHead(id, header, part, dir);
+//        if (res > 0) {
+//            resp.getWriter().print(JsonUtil.getJsonStr(1, "修改成功"));
+//        } else {
+//            resp.getWriter().print(JsonUtil.getJsonStr(0, "修改失败"));
+//        }
     }
 
     private void doActive(HttpServletRequest req, HttpServletResponse resp) throws IOException {

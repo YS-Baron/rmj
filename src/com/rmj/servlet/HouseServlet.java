@@ -11,6 +11,7 @@ import com.rmj.util.JsonUtil;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import java.util.Map;
 
 @WebServlet(value = {"/hou/add", "/hou/del", "/hou/findAll", "/hou/update", "/hou/delImg", "/hou/addImg",
         "/hou/updateis", "/hou/getid", "/hou/findadmin", "/hou/findUser", "/hou/findhid"})
+@MultipartConfig
 public class HouseServlet extends HttpServlet {
     private HouseServiceImpl houseService;
     private UserServiceImpl userService;
