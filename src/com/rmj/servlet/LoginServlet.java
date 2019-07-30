@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
             map = userService.reg(name, password, role);
             if (map.isEmpty()) {
                 out.print(JsonUtil.getJsonStr(1, "注册成功"));
-                resp.sendRedirect("index.jsp");
+//                resp.sendRedirect("index.jsp");
             } else {
                 out.print(JsonUtil.getJsonStr(0, map));
             }
@@ -114,17 +114,17 @@ public class LoginServlet extends HttpServlet {
                     case 0:
                         //管理员界面
 //                        req.getRequestDispatcher("admin.jsp").forward(req, resp);
-                        out.print("admin.jsp");
+                        out.print(JsonUtil.getJsonStr("admin.jsp"));
                         break;
                     case 1:
                         //跳转到点击登入的页面之中
 //                        req.getRequestDispatcher(fromPage).forward(req, resp);
-                        out.print(fromPage);
+                        out.print(JsonUtil.getJsonStr(fromPage));
                         break;
                     case 2:
                         //房东页面
 //                        req.getRequestDispatcher("fangdong.jsp").forward(req, resp);
-                        out.print("fangdong.jsp");
+                        out.print(JsonUtil.getJsonStr("fangdong.jsp"));
                         break;
                     default:
                         out.print(JsonUtil.getJsonStr(0, "该用户异常!!!请联系管理员"));

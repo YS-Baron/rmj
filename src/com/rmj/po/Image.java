@@ -1,8 +1,13 @@
 package com.rmj.po;
 
 public class Image {
+
+    private int id;
    private int hid;
    private String image;
+
+    public Image() {
+    }
 
     public Image(ParamVO params, String s) {
         this.hid=params.getHid();
@@ -12,6 +17,11 @@ public class Image {
     public Image(int hid, String image) {
         this.hid = hid;
         this.image = image;
+    }
+
+    public Image(int id, int hid) {
+        this.id = id;
+        this.hid = hid;
     }
 
     public Image(int hid) {
@@ -36,5 +46,13 @@ public class Image {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
