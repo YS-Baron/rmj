@@ -29,6 +29,12 @@ public class User {
         this.password = password;
     }
 
+    public User(int id, String nickname, String eamil) {
+        this.id = id;
+        this.nickname = nickname;
+        this.eamil = eamil;
+    }
+
     public User(int id, String nickname, String eamil, String image) {
         this.id = id;
         this.nickname = nickname;

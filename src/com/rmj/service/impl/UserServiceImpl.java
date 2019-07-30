@@ -110,11 +110,8 @@ public class UserServiceImpl implements BaseService<User> {
         return map;
     }
 
-    public int updateNormal(int id, String nickname, String email, String dir, Part part, String header) throws IOException {
-        String file = FileUtils.getFileName(header);
-        String filePath = dir + File.separator + file;
-        part.write(filePath);
-        User user = new User(id, nickname, email, "/upload/" + file);
+    public int updateNormal(int id, String nickname, String email) throws IOException {
+        User user = new User(id, nickname, email);
         return userDAO.update(user);
     }
 
@@ -129,5 +126,12 @@ public class UserServiceImpl implements BaseService<User> {
                 }
             }
         }).start();
+    }
+
+    public int updateHead(int id, String header,Part part,String dir) throws IOException {
+        String file = FileUtils.getFileName(header);
+        String filePath = dir + File.separator + file;
+        part.write(filePath);
+        return userDAO.updateImage(id, "/upload/" + file);
     }
 }

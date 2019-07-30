@@ -22,7 +22,7 @@ import java.util.UUID;
  * @author YUSUI
  * created by YUSUI 2019/7/24
  */
-@WebServlet(value = {"/user/updateNormal", "/user/get", "/user/updatePwd","/active"})
+@WebServlet(value = {"/user/updateNormal", "/user/get", "/user/updatePwd", "/active", "/user/udpateHead"})
 public class UserServlet extends HttpServlet {
 
     private UserServiceImpl userService;
@@ -50,23 +50,38 @@ public class UserServlet extends HttpServlet {
             doUpdateNormal(req, resp);
         } else if ("user/updatePwd".equals(path)) {
             doUpdatePwd(req, resp);
-        }else if("active".equals(path)){
-            doActive(req,resp);
+        } else if ("active".equals(path)) {
+            doActive(req, resp);
+        } else if ("udpateHead".equals(path)) {
+            doUdpateHead(req, resp);
         }
 
 
     }
 
+    private void doUdpateHead(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        String dir = req.getServletContext().getRealPath("upload");
+        Part part = req.getPart("headImage");
+        String header = part.getHeader("Content-Disposition");
+        int res = userService.updateHead(id, header, part, dir);
+        if (res > 0) {
+            resp.getWriter().print(JsonUtil.getJsonStr(1, "修改成功"));
+        } else {
+            resp.getWriter().print(JsonUtil.getJsonStr(0, "修改失败"));
+        }
+    }
+
     private void doActive(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         //确认之后就修改密码
         String activeCode = req.getParameter("code");
-        if(code.equals(activeCode)){
-            User user = new User(modifyId,modifyPwd);
+        if (code.equals(activeCode)) {
+            User user = new User(modifyId, modifyPwd);
             int res = userService.update(user);
-            if(res>0){
-                resp.getWriter().print(JsonUtil.getJsonStr(1,"修改成功"));
-            }else {
-                resp.getWriter().print(JsonUtil.getJsonStr(0,"修改失败"));
+            if (res > 0) {
+                resp.getWriter().print(JsonUtil.getJsonStr(1, "修改成功"));
+            } else {
+                resp.getWriter().print(JsonUtil.getJsonStr(0, "修改失败"));
             }
         }
     }
@@ -79,9 +94,9 @@ public class UserServlet extends HttpServlet {
         } else {
             modifyId = Integer.parseInt(req.getParameter("id"));
             modifyPwd = req.getParameter("password");
-            code = UUID.randomUUID().toString().replaceAll("-","");
+            code = UUID.randomUUID().toString().replaceAll("-", "");
             //发送邮箱
-            userService.sendMail(email,code);
+            userService.sendMail(email, code);
             resp.getWriter().print(JsonUtil.getJsonStr("确认密码邮件已发送！！！请确认"));
         }
     }
@@ -91,11 +106,13 @@ public class UserServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         String nickname = req.getParameter("nickname");
         String email = req.getParameter("email");
-        String dir = req.getServletContext().getRealPath("upload");
-        Part part = req.getPart("headImage");
-        String header = part.getHeader("Content-Disposition");
-        userService.updateNormal(id, nickname, email, dir, part, header);
-
+        PrintWriter out = resp.getWriter();
+        int res = userService.updateNormal(id, nickname, email);
+        if (res > 0) {
+            out.print(JsonUtil.getJsonStr(1, "修改成功"));
+        } else {
+            out.print(JsonUtil.getJsonStr(0, "修改失败"));
+        }
     }
 
     private void doFind(HttpServletRequest req, HttpServletResponse resp) {
