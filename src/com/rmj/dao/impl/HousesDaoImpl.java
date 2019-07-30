@@ -121,12 +121,12 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
                 sql += " and tid=?";
                 list.add(params.getTid());
             }
-            if (params.getsPrice() > 0) {
+            if (params.getsPrice() >= 0) {
                 sql += " and price>? and price < ?";
                 list.add(params.getsPrice());
                 list.add(params.getePrice());
             }
-            if (params.getsArea() > 0) {
+            if (params.getsArea() >= 0) {
                 sql += " and area>? and area < ?";
                 list.add(params.getsArea());
                 list.add(params.geteArea());
