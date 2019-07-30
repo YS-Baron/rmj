@@ -28,6 +28,12 @@ public class ParamVO {
     public ParamVO() {
     }
 
+    public ParamVO(String name, int pageNum, int pageSize) {
+        this.name = name;
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
+
     public ParamVO(int uid, int pageNum, int pageSize) {
         this.uid = uid;
         this.pageNum = pageNum;

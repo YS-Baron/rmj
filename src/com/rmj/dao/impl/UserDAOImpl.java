@@ -52,10 +52,10 @@ public class UserDAOImpl implements BaseDAO<User> {
     @Override
     public int update(User user) {
         QueryRunner queryRunner = new QueryRunner(ds);
-        String sql = "udpate user set nickname = ?,set email = ?,set image = ? where id = ?";
+        String sql = "udpate user set nickname = ?,set email = ? where id = ?";
         int res = 0;
         try {
-            res = queryRunner.update(sql, user.getNickname(), user.getEamil(), user.getImage(), user.getId());
+            res = queryRunner.update(sql, user.getNickname(), user.getEamil(), user.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,6 +108,18 @@ public class UserDAOImpl implements BaseDAO<User> {
         int res = 0;
         try {
             res = queryRunner.update(sql, user.getPassword(), user.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    public int updateImage(int id, String header) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "update user set image = ? where id = ?";
+        int res = 0;
+        try {
+            res = queryRunner.update(sql, header, id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
