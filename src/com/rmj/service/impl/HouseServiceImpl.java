@@ -36,6 +36,8 @@ public class HouseServiceImpl implements BaseService<Houses> {
 
     @Override
     public int remove(Houses houses) {
+        //删除房屋图片
+        imageDAO.delete(houses.getId());
         return houseDao.delete(houses);
     }
 
@@ -121,8 +123,7 @@ public class HouseServiceImpl implements BaseService<Houses> {
 
     }
 
-    public int select(Image image) {
-
+    public List<Image> select(Image image) {
         return imageDAO.select(image);
     }
 
@@ -169,5 +170,12 @@ public class HouseServiceImpl implements BaseService<Houses> {
             map.put("msgFile", "图片上传服务器失败");
         }
         return map;
+    }
+
+    public int updateHead(int hid, String header, Part part, String dir) throws IOException {
+        String file = FileUtils.getFileName(header);
+        String filePath = dir + File.separator + file;
+        part.write(filePath);
+        return imageDAO.insertImg(hid, "/upload/" + file);
     }
 }

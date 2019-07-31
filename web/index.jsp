@@ -51,7 +51,7 @@
                     </div>
                     <div class="Z_login_top" style="display: none" id="login_out">
                         <a href="#" class=" Z_headtop_tel" rel="nofollow"></a>
-                        <a href="#" class=" Z_exit" rel="nofollow" id="tRegister">退出</a>
+                        <a href="${pageContext.request.contextPath}/logout" class=" Z_exit" rel="nofollow" id="tRegister">退出</a>
                     </div>
                 </div>
             </div>
@@ -202,7 +202,6 @@
 </html>
 <script src="js/jquery-1.11.1.js"></script>
 <script>
-    $(function () {
         function getCookie(cookieName) {
             var strCookie = document.cookie;
             var arrCookie = strCookie.split("; ");
@@ -223,15 +222,6 @@
                 window.location.href="myinfo.jsp"
             }
         })
-        $("#tRegister").click(function () {
-            $.ajax({
-                type:"post",
-                url:"${pageContext.request.contextPath}/logout",
-                success:function(data){
 
-                }
-            })
-        })
-    })
 </script>
 

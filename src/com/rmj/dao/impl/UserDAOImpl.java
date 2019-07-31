@@ -52,7 +52,7 @@ public class UserDAOImpl implements BaseDAO<User> {
     @Override
     public int update(User user) {
         QueryRunner queryRunner = new QueryRunner(ds);
-        String sql = "udpate user set nickname = ?,set email = ? where id = ?";
+        String sql = "update user set nickname = ?,email = ? where id = ?";
         int res = 0;
         try {
             res = queryRunner.update(sql, user.getNickname(), user.getEamil(), user.getId());
