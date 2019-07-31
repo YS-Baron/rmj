@@ -84,7 +84,6 @@ public class HouseServlet extends HttpServlet {
 
 
     private void doAdd(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        //TODO 待测试
         PrintWriter out = resp.getWriter();
 //        int id = Integer.parseInt(req.getParameter("id"));
         int tid = Integer.parseInt(req.getParameter("tid"));
@@ -164,7 +163,6 @@ public class HouseServlet extends HttpServlet {
 
 
     private void addImg(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        //TODO 待测
         PrintWriter out = resp.getWriter();
         int hid = Integer.parseInt(req.getParameter("hid"));
         String dir = req.getServletContext().getRealPath("upload");
