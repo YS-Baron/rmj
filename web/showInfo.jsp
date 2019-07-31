@@ -120,21 +120,53 @@
         }
         window.onload=allCity;
 
+        function show() {
+            var uid=$("#inputUid").val();
+            var id=$("#inputId").val();
+            var tid=$("#inputType").val();
+            var province=$("#selProvince").val();
+            var city=$("#selCity").val();
+            var address=$("#inputAddress").val();
+            var area=$("#inputArea").val();
+            var price=$("#inputPrice").val();
+            var roomNum=$("#inputNum").val();
+            var lastroom=$("#inputLast").val();
+            var description=$("#description").val();
+            var images=$("#file").val();
+            $.ajax({
+                type:"post",
+                url:"${pageContext.request.contextPath}/hou/add",
+                data:{"uid":uid,"id":id,"tid":tid,"province":province,"city":city,"address":address,"area":area,"price":price,"roomNum":roomNum,"lastroom":lastroom,"description":description,"images":images},
+                dataType:"json",
+                success:function (result) {
+                        console.log(result);
+                },
+                error:function () {
+                    alert("失败");
+                }
+            })
+        }
     </script>
 </head>
 <body>
-<form class="form-horizontal">
+<form class="form-horizontal" id="info">
     <div class="header"><h2>发布房屋信息</h2></div>
     <div class="form-group">
-        <label for="inputName" class="col-sm-2 control-label">小区名称</label>
+        <label for="inputUid" class="col-sm-2 control-label">房东编号</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName" placeholder="请输入小区名称">
+            <input type="text" class="form-control" id="inputUid" placeholder="请输入">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputId" class="col-sm-2 control-label">房屋编号</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputId" placeholder="请输入">
         </div>
     </div>
     <div class="form-group">
         <label  class="col-sm-2 control-label">房屋类型</label>
         <div class="col-sm-10">
-            <select class="form-control">
+            <select class="form-control" id="inputType">
                 <option>合租</option>
                 <option>整租</option>
             </select>
@@ -165,25 +197,31 @@
     <div class="form-group">
         <label for="inputArea" class="col-sm-2 control-label">房屋面积</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputArea" placeholder="请输入面积">
+            <input type="text" class="form-control" id="inputArea" placeholder="请输入面积">
         </div>
     </div>
     <div class="form-group">
-        <label for="inputNum" class="col-sm-2 control-label">房屋个数</label>
+        <label for="inputPrice" class="col-sm-2 control-label">房屋价格</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputNum" placeholder="请输入房间个数">
+            <input type="text" class="form-control" id="inputPrice" placeholder="请输入价格">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputNum" class="col-sm-2 control-label">房间个数</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputNum" placeholder="请输入房间个数">
         </div>
     </div>
     <div class="form-group">
         <label for="inputLast" class="col-sm-2 control-label">剩余房间</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputLast" placeholder="请输入个数">
+            <input type="text" class="form-control" id="inputLast" placeholder="请输入个数">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">房屋描述</label>
         <div class="col-sm-10">
-            <textarea class="form-control" placeholder="请输入信息"></textarea>
+            <textarea class="form-control" placeholder="请输入信息" id="description"></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -199,7 +237,7 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-primary btn-lg btn-block">提交</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="show()">提交</button>
 </form>
 </body>
 </html>
