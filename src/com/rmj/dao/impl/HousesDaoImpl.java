@@ -24,10 +24,12 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
     @Override
     public int insert(Houses houses) {
         QueryRunner queryRunner = new QueryRunner(ds);
-        String sql = "INSERT INTO houses(id ,tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom ,description) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO houses(tid ,price ,area ,province ,city ,address ,uid ,roomNum ,lastroom " +
+                ",description) VALUES (?,?,?,?,?,?,?,?,?,?)";
         int res = 0;
         try {
-            res = queryRunner.update(sql, houses.getId(), houses.getTid(), houses.getPrice(), houses.getArea(), houses.getProvince(), houses.getCity(), houses.getAddress(), houses.getUid(), houses.getRoomNum(), houses.getLastroom(), houses.getDescription());
+            res = queryRunner.update(sql, houses.getTid(), houses.getPrice(), houses.getArea(), houses.getProvince(),
+                    houses.getCity(), houses.getAddress(), houses.getUid(), houses.getRoomNum(), houses.getLastroom(), houses.getDescription());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -275,5 +277,17 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
         return res;
     }
 
-
+    public Houses selectByHourse(Houses houses) {
+        QueryRunner queryRunner = new QueryRunner(ds);
+        String sql = "SELECT id FROM houses WHERE tid = ? and price = ? and area = ? and province = ? and city = ? " +
+                "and address = ? and uid = ? and roomNum = ? and lastroom = ? and description = ?";
+        try {
+            houses = queryRunner.query(sql, new BeanHandler<>(Houses.class), houses.getTid(), houses.getPrice(),
+                    houses.getArea(), houses.getProvince(), houses.getCity(), houses.getAddress(), houses.getUid(),
+                    houses.getRoomNum(), houses.getLastroom(), houses.getDescription());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return houses;
+    }
 }

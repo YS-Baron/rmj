@@ -139,7 +139,7 @@ public class HouseServiceImpl implements BaseService<Houses> {
                 String str = String.valueOf(System.currentTimeMillis()) + "." + fileName;
                 String path = dir + File.separator + str;
                 part.write(path);
-                Image image = new Image(houses.getId(), File.separator + path);
+                Image image = new Image(houses.getId(), "/upload/" + str);
                 int imgRes = imageDAO.insert(image);
                 int housRes = houseDao.insert(houses);
                 if (imgRes > 0 && housRes > 0) {
@@ -149,21 +149,24 @@ public class HouseServiceImpl implements BaseService<Houses> {
                 }
             } else {
                 int imgRes = 0;
+                int housRes = houseDao.insert(houses);
+                int hid = houseDao.selectByHourse(houses).getId();
                 for (Part part : parts) {
                     String header = part.getHeader("Content-Disposition");
-                    String fileName = FileUtils.getFileName(header);
-                    String str = String.valueOf(System.currentTimeMillis()) + "." + fileName.split(".")[1];
-                    part.write(dir + File.separator + str);
-                    String path = dir + File.separator + str;
-                    part.write(path);
-                    Image image = new Image(houses.getId(), File.separator + path);
-                    imgRes = imageDAO.insert(image);
+                    if (header.contains("filename")) {
+                        String fileName = FileUtils.getFileName(header);
+                        String str = String.valueOf(System.currentTimeMillis()) + "." + fileName.split("\\.")[1];
+                        part.write(dir + File.separator + str);
+                        Image image = new Image(hid, "/upload/" + str);
+                        imgRes = imageDAO.insert(image);
+                    }
                 }
-                int housRes = houseDao.insert(houses);
                 if (imgRes > 0 && housRes > 0) {
                     map.put("msgImg", "图片添加成功");
-                } else {
-                    map.put("msgImg", "图片添加失败");
+                } else if(imgRes<0){
+                    map.put("msgImg", "图片添加失败，可以在管理页面重新添加");
+                }else {
+                    map.put("msgImg", "数据添加失败");
                 }
             }
         } catch (IOException e) {
