@@ -47,36 +47,36 @@
         }
     </style>
     <script src="js/jquery-3.4.1.js"></script>
-    <script src="js/localResizeIMG.js"></script>
-    <script src="js/mobileBUGFix.mini.js"></script>
+    <%--<script src="js/localResizeIMG.js"></script>--%>
+    <%--<script src="js/mobileBUGFix.mini.js"></script>--%>
     <script>
         //图片上传
-        var picArr = new Array();// 存储图片
-        $(function () {
+        // var picArr = new Array();// 存储图片
+        // $(function () {
 
-            $('input:file').localResizeIMG({
-                // width: 768,// 宽度
-                // quality: 0.8, // 压缩参数 1 不压缩 越小清晰度越低
-                success: function (result) {
-                    var img = new Image();
-                    img.src = result.base64;
-                    var _str = "<span class='crm-pic-look' style='background-image: url(" +  img.src + ")'><em id='delete_pic'>X</em></span>"
-                    var _i = picArr.length;
-                    picArr[_i] = result.base64;
-                    $('#chose_pic_btn').before(_str);
-                    //picArr[_i] = result.base64;
-                    //picArr[_i] = _i;
-                    // console.log(picArr);
-                }
-            });
+            // $('input:file').localResizeIMG({
+            //     width: 768,// 宽度
+            //     quality: 0.8, // 压缩参数 1 不压缩 越小清晰度越低
+            //     success: function (result) {
+            //         var img = new Image();
+            //         img.src = result.base64;
+            //         var _str = "<span class='crm-pic-look' style='background-image: url(" +  img.src + ")'><em id='delete_pic'>X</em></span>"
+            //         var _i = picArr.length;
+            //         picArr[_i] = result.base64;
+            //         $('#chose_pic_btn').before(_str);
+            //         //picArr[_i] = result.base64;
+            //         //picArr[_i] = _i;
+            //         // console.log(picArr);
+            //     }
+            // });
             // 删除
-            $(document).on('click', '#delete_pic', function (event) {
-                var aa = $(this).parents(".crm-pic-look").index();
-                picArr.splice(aa, 1);
-                $(this).parents(".crm-pic-look").remove();
-                //console.log(picArr);
-            });
-        });
+        //     $(document).on('click', '#delete_pic', function (event) {
+        //         var aa = $(this).parents(".crm-pic-look").index();
+        //         picArr.splice(aa, 1);
+        //         $(this).parents(".crm-pic-look").remove();
+        //         //console.log(picArr);
+        //     });
+        // });
         var cityList = new Array();
         cityList['北京市'] = ['朝阳区','东城区','西城区', '海淀区','宣武区','丰台区','怀柔','延庆','房山'];
         cityList['上海市'] = ['宝山区','长宁区','丰贤区', '虹口区','黄浦区','青浦区','南汇区','徐汇区','卢湾区'];
@@ -133,16 +133,16 @@
             // var lastroom=$("#inputLast").val();
             // var description=$("#description").val();
            var formData=new FormData();
-            var filesList=$("input[name='file']")[0].files[0];
+            var filesList=$("#image")[0].files;
             console.log(filesList);
-
             // var file={};
+            // var len=filesList.length;
             // for (var i=0;i<len;i++){
-            //     formData.append('images',filesList[i]);
+            //     // formData.append('images',filesList[i]);
+            //     console.log(filesList[i]);
             // }
-            formData.set('images',filesList);
-            formData.set('uid',$("#inputUid").val());
-            formData.set('id',$("#inputId").val());
+            formData.append('images',filesList);
+            formData.set('tel',$("#inputTel").val());
             formData.set('tid',$("#inputType").val());
             formData.set('province',$("#selProvince").val());
             formData.set('city',$("#selCity").val());
@@ -152,6 +152,7 @@
             formData.set('roomNum',$("#inputNum").val());
             formData.set('lastroom',$("#inputLast").val());
             formData.set('description',$("#description").val());
+
 
             $.ajax({
                 url:"${pageContext.request.contextPath}/hou/add",
@@ -187,6 +188,7 @@
                for (var i=0;i<data.length;i++){
                    var option=document.createElement("option");
                    $(option).text(data[i].typename);
+                   $(option).val(data[i].id);
                    $('#inputType').append(option);
                }
             }
@@ -197,15 +199,9 @@
 <form class="form-horizontal" id="info" enctype="multipart/form-data">
     <div class="header"><h2>发布房屋信息</h2></div>
     <div class="form-group">
-        <label for="inputUid" class="col-sm-2 control-label">房东编号</label>
+        <label for="inputTel" class="col-sm-2 control-label">房东手机号</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputUid" placeholder="请输入">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputId" class="col-sm-2 control-label">房屋编号</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputId" placeholder="请输入">
+            <input type="text" class="form-control" id="inputTel" placeholder="请输入">
         </div>
     </div>
     <div class="form-group">
@@ -271,13 +267,14 @@
     <div class="form-group">
         <label  class="col-sm-2 control-label">添加图片</label>
         <div class="col-sm-10">
-            <div class="release_up_pic">
-                <div class="up_pic">
-                    <div id="chose_pic_btn">
-                        <input type="file" accept="image/*" id="image" multiple="multiple" name="file">
-                    </div>
-                </div>
-            </div>
+            <%--<div class="release_up_pic">--%>
+                <%--<div class="up_pic">--%>
+                    <%--<div id="chose_pic_btn">--%>
+                        <%--<input type="file" accept="image/*" id="image" multiple="multiple">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <input type="file" accept="image/*" id="image" multiple value="上传图片">
         </div>
     </div>
     <button type="button" class="btn btn-primary btn-lg btn-block" onclick="show()">提交</button>
