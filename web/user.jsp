@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.rmj.common.Constant" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 2019/7/25
@@ -28,7 +28,6 @@
                 <li><a href="index.jsp" class="ani " >首页</a></li>
                 <li><a href="user.jsp" class="ani active " >租房</a></li>
 
-                <li><a href="javascript:;" class="become_houser" target="_blank">成为房东</a></li>
             </ul>
             <div class="Z_login_top" id="loginEntyWrapper" style="cursor: pointer">
                 <a href="login.jsp?from=user.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
@@ -78,7 +77,7 @@
                 <strong class="title">类型</strong>
                 <div class="opt">
                     <div class="price" id="ztype">
-                        <span class="left" style="margin-right: 20px;"><input type="radio" name="ztype" checked id="he">合租</span>  <input type="radio" name="ztype" id="zheng">整租
+                        <span class="left" style="margin-right: 20px;"><input type="checkbox"  id="he">合租</span>  <input type="checkbox" name="ztype" id="zheng">整租
                     </div>
                 </div>
             </li>
@@ -170,51 +169,36 @@
                 window.location.reload();
             }
         }
-        function getCookie(cookieName) {
-            var strCookie = document.cookie;
-            var arrCookie = strCookie.split("; ");
-            for(var i = 0; i < arrCookie.length; i++){
-                var arr = arrCookie[i].split("=");
-                if(cookieName == arr[0]){
-                    return arr[1];
-                }
-            }
-            return null;
+        function getCookie() {
+            var session = <%=session.getAttribute(Constant.USER_SESSION)%>
+            return session
         }
-        if(getCookie("user_cookie").length>=8){
-            $("#loginEntyWrapper").html(getCookie("user_cookie"));
+        if(getCookie()!=null){
+            $("#loginEntyWrapper").html(getCookie());
             $("#login_out").show();
         }
         $("#loginEntyWrapper").click(function () {
-            if(getCookie("user_cookie").length>=8){
+            if(getCookie()!=null){
                 window.location.href="myinfo.jsp"
             }
-        })
+        });
         $(".opt-name").click(function () {
                 $(".child-opt").show();
                 $(this).parents(".f-item").addClass("current")
             });
-    if($("#he").is(":checked")){
-        var tid=1;
-    }
-    if($("#zheng").is(":checked")){
-         tid=2;
-    }
     var sPrice=-1;
     var ePrice=-1;
     var sArea=-1;
     var eArea=-1;
-    var province=$("#selProvince").find("option").val();
-    var city=$("#selCity").find("option").val();
-    var address=$("#Z_search_input").val();
+    var province="";
+    var city="";
+    var address="";
     $.ajax({
         type:"get",
         url:"${pageContext.request.contextPath}/hou/findUser",
         data:{"tid":0,"sPrice":sPrice,"ePrice":ePrice,"sArea":sArea,"eArea":eArea,"province":province,"city":city,"address":address,"pageNum":1,"pageSize":12},
         dataType:"json",
         success:function(data){
-            console.log(data);
-
             $("#pagination").pagination(data.totalRows,    //分布总数量，必须参数
                 {
                     callback: getData,  //PageCallback() 为翻页调用次函数。
@@ -233,10 +217,20 @@
                 }else{
                     htype="整租";
                 }
-                classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp?id="'+data.id+' target="_blank" class="pic-wrap"><img class="lazy ifme'+i+'" src="" alt=""></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                $.ajax({
+                    type:"post",
+                    url:'${pageContext.request.contextPath}/hou/findhid',
+                    data:{"hid":val.id},
+                    dataType:"json",
+                    success:function(data){
+                        if(data.length>0){
+                                $(".item").find(".ifme"+i).attr("src","${pageContext.request.contextPath}"+data[0].image)
+                        }
+                    }
+                })
             })
-            $(".Z_list-box").html(classitem)
-
+            $(".Z_list-box").html(classitem);
         }
     });
     function getData(newindex,jq){
@@ -244,9 +238,9 @@
         var ePrice=-1;
         var sArea=-1;
         var eArea=-1;
-        var province=$("#selProvince").find("option").val();
-        var city=$("#selCity").find("option").val();
-        var address=$("#Z_search_input").val();
+        var province="";
+        var city="";
+        var address="";
         $.ajax({
             type:"get",
             url:"${pageContext.request.contextPath}/hou/findUser",
@@ -260,9 +254,20 @@
                     }else{
                         htype="整租";
                     }
-                    classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                    classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp?id="'+data.id+' target="_blank" class="pic-wrap"><img class="lazy ifme'+i+'" src="" alt=""></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                    $.ajax({
+                        type:"post",
+                        url:'${pageContext.request.contextPath}/hou/findhid',
+                        data:{"hid":val.id},
+                        dataType:"json",
+                        success:function(data){
+                            if(data.length>0){
+                                $(".item").find(".ifme"+i).attr("src","${pageContext.request.contextPath}"+data[0].image)
+                            }
+                        }
+                    })
                 })
-                $(".Z_list-box").html(classitem)
+                $(".Z_list-box").html(classitem);
             }
         });
     }
@@ -272,16 +277,44 @@ $("#Z_search_submit").click(function () {
     var ePrice=$("#range").find(".high").val();
     var sArea=$("#area").find(".low").val();
     var eArea=$("#area").find(".high").val();
-    var province=$("#selProvince").find("option").val();
-    var city=$("#selCity").find("option").val();
+    var province=$("#selProvince").find("option:selected").val();
+    var city=$("#selCity").find("option:selected").val();
     var address=$("#Z_search_input").val();
+    console.log(province)
+    if($("#he").is(":checked")){
+        var tid=1;
+    }
+    if($("#zheng").is(":checked")){
+        tid=2;
+    }
+    if($("#he").is(":checked")&&$("#zheng").is(":checked")){
+        tid=0;
+    }
+    if((!$("#he").is(":checked"))&&(!$("#zheng").is(":checked"))){
+        tid=0;
+    }
+    if(sPrice==null||sPrice<=0){
+        sPrice=-1;
+    }
+    if(ePrice==null||ePrice<=0){
+        ePrice=-1;
+    }else{
+        sPrice=0;
+    }
+    if(sArea==null||sArea<=0){
+        sArea=-1;
+    }
+    if(eArea==null||eArea<=0){
+        eArea=-1;
+    }else{
+        sArea=0;
+    }
     $.ajax({
         type:"get",
         url:"${pageContext.request.contextPath}/hou/findUser",
         data:{"tid":tid,"sPrice":sPrice,"ePrice":ePrice,"sArea":sArea,"eArea":eArea,"province":province,"city":city,"address":address,"pageNum":1,"pageSize":12},
         dataType:"json",
         success:function(data){
-            console.log(data)
             $("#pagination").pagination(data.totalRows,    //分布总数量，必须参数
                 {
                     callback: PageCallback,  //PageCallback() 为翻页调用次函数。
@@ -300,9 +333,20 @@ $("#Z_search_submit").click(function () {
                 }else{
                     htype="整租";
                 }
-                classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp?id="'+data.id+' target="_blank" class="pic-wrap"><img class="lazy ifme'+i+'" src="" alt=""></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                $.ajax({
+                    type:"post",
+                    url:'${pageContext.request.contextPath}/hou/findhid',
+                    data:{"hid":val.id},
+                    dataType:"json",
+                    success:function(data){
+                        if(data.length>0){
+                            $(".item").find(".ifme"+i).attr("src","${pageContext.request.contextPath}"+data[0].image)
+                        }
+                    }
+                })
             })
-            $(".Z_list-box").html(classitem)
+            $(".Z_list-box").html(classitem);
         }
     })
 });
@@ -313,9 +357,37 @@ $("#Z_search_submit").click(function () {
          var ePrice=$("#range").find(".high").val();
          var sArea=$("#area").find(".low").val();
          var eArea=$("#area").find(".high").val();
-         var province=$("#selProvince").find("option").val();
-         var city=$("#selCity").find("option").val();
+         var province=$("#selProvince").find("option:selected").val();
+         var city=$("#selCity").find("option:selected").val();
         var address=$("#Z_search_input").val();
+        if($("#he").is(":checked")){
+            var tid=1;
+        }
+        if($("#zheng").is(":checked")){
+            tid=2;
+        }
+        if($("#he").is(":checked")&&$("#zheng").is(":checked")){
+            tid=0;
+        }
+        if((!$("#he").is(":checked"))&&(!$("#zheng").is(":checked"))){
+            tid=0;
+        }
+        if(sPrice==null||sPrice<=0){
+            sPrice=-1;
+        }
+        if(ePrice==null||ePrice<=0){
+            ePrice=-1;
+        }else{
+            sPrice=0;
+        }
+        if(sArea==null||sArea<=0){
+            sArea=-1;
+        }
+        if(eArea==null||eArea<=0){
+            eArea=-1;
+        }else{
+            sArea=0;
+        }
         $.ajax({
             type:"get",
             url:"${pageContext.request.contextPath}/hou/findUser",
@@ -329,9 +401,20 @@ $("#Z_search_submit").click(function () {
                     }else{
                         htype="整租";
                     }
-                    classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                    classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp?id="'+data.id+' target="_blank" class="pic-wrap"><img class="lazy ifme'+i+'" src="" alt=""></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                    $.ajax({
+                        type:"post",
+                        url:'${pageContext.request.contextPath}/hou/findhid',
+                        data:{"hid":val.id},
+                        dataType:"json",
+                        success:function(data){
+                            if(data.length>0){
+                                $(".item").find(".ifme"+i).attr("src","${pageContext.request.contextPath}"+data[0].image)
+                            }
+                        }
+                    })
                 })
-                $(".Z_list-box").html(classitem)
+                $(".Z_list-box").html(classitem);
             }
         })
     }

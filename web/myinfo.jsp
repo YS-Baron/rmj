@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.rmj.common.Constant" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 2019/7/25
@@ -80,7 +80,7 @@
                 <div style="margin-bottom:8px;background:#eee;height:40px;line-height:40px;padding-left:10px;" class="clearfix">
 
                     <div class="fl">
-                        <p class="fb color_333"><a href="javascript:;" class="org" onclick="del()">我的收藏</a></p></div>
+                        <p class="fb color_333"><a href="javascript:;" class="org" >我的收藏</a></p></div>
                     <div class="fr page_c" id="page_show"></div>
                 </div>
                 <table class="collect_sheet" width="100%" cellspacing="0" cellpadding="0">
@@ -125,7 +125,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="page_collect"></div>
+                <div id="pagination" style="position: absolute;left:50%;transform: translate(-50%)" ></div>
             </div><!--ziroom_box_right_c -->
         </div>
     </div>
@@ -263,11 +263,56 @@
 </body>
 </html>
 <script src="js/jquery-1.11.1.js"></script>
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/jquery.pagination.js"></script>
 <script>
     $(function () {
         $("#sc").click(function () {
             $(".notFrameBox").hide();
-            $(".t_spacemainboxright").show()
+            $(".t_spacemainboxright").show();
+            $.ajax({
+                type:"get",
+                url:"${pageContext.request.contextPath}/fav/getAll",
+                data:{"tel":getCookie(),"pageNum":1,"pageSize":3},
+                dataType:"json",
+                success:function(data){
+                    console.log(data)
+                    <%--$("#pagination").pagination(data.totalRows,    //分布总数量，必须参数--%>
+                        <%--{--%>
+                            <%--callback: getData,  //PageCallback() 为翻页调用次函数。--%>
+                            <%--prev_text: "« 上一页",--%>
+                            <%--next_text: "下一页 »",--%>
+                            <%--items_per_page:data.items.length,--%>
+                            <%--num_edge_entries: 2,       //两侧首尾分页条目数--%>
+                            <%--num_display_entries: 10,    //连续分页主体部分分页条目数--%>
+                            <%--current_page: data.currentPage-1   //当前页索引--%>
+                            <%--// link_to: "?id=__id__"  //分页的js中会自动把"__id__"替换为当前的数。0　--%>
+                        <%--});--%>
+                    <%--var classitem="";--%>
+                    <%--$.each(data.items,function (i,val) {--%>
+                        <%--if(val.tid==1){--%>
+                            <%--var htype="合租";--%>
+                        <%--}else{--%>
+                            <%--htype="整租";--%>
+                        <%--}--%>
+                        <%--classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp?id="'+data.id+' target="_blank" class="pic-wrap"><img class="lazy ifme'+i+'" src="" alt=""></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';--%>
+                        <%--$.ajax({--%>
+                            <%--type:"post",--%>
+                            <%--url:'${pageContext.request.contextPath}/hou/findhid',--%>
+                            <%--data:{"hid":val.id},--%>
+                            <%--dataType:"json",--%>
+                            <%--success:function(data){--%>
+                                <%--if(data.length>0){--%>
+                                    <%--for(var i=0;i<data.length;i++){--%>
+                                        <%--$(".item").find(".ifme"+i).attr("src","${pageContext.request.contextPath}"+data[i].image)--%>
+                                    <%--}--%>
+                                <%--}--%>
+                            <%--}--%>
+                        <%--})--%>
+                    <%--});--%>
+                    <%--$(".Z_list-box").html(classitem);--%>
+                }
+            });
         });
         $("#kj").click(function () {
             $(".mainCon").hide();
@@ -362,20 +407,18 @@
                 $(this).parents(".content_cs").hide();
             })
         });
-        function getCookie(cookieName) {
-            var strCookie = document.cookie;
-            var arrCookie = strCookie.split("; ");
-            for(var i = 0; i < arrCookie.length; i++){
-                var arr = arrCookie[i].split("=");
-                if(cookieName == arr[0]){
-                    return arr[1];
-                }
-            }
-            return null;
+        function getCookie() {
+            var session = <%=session.getAttribute(Constant.USER_SESSION)%>
+            return session
         }
-        if(getCookie("user_cookie").length>=8){
+        if(getCookie()!=null){
             $("#username").html(getCookie("user_cookie"));
-        };
+        }
+        $("#loginEntyWrapper").click(function () {
+            if(getCookie()!=null){
+                window.location.href="myinfo.jsp"
+            }
+        })
 
     })
 

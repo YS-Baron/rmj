@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.rmj.common.Constant" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 2019/7/25
@@ -30,8 +30,6 @@
             <ul class="Z_nav_box">
                 <li><a href="index.jsp" class="ani " >首页</a></li>
                 <li><a href="user.jsp" class="ani active " >租房</a></li>
-
-                <li><a href="javascript:;" class="become_houser" target="_blank">成为房东</a></li>
             </ul>
             <div class="Z_login_top" id="loginEntyWrapper" style="cursor: pointer">
                 <a href="login.jsp?from=photoinfo.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
@@ -314,26 +312,19 @@
 <script src="js/jquery-1.11.1.js"></script>
 <script>
     $(function () {
-        function getCookie(cookieName) {
-            var strCookie = document.cookie;
-            var arrCookie = strCookie.split("; ");
-            for(var i = 0; i < arrCookie.length; i++){
-                var arr = arrCookie[i].split("=");
-                if(cookieName == arr[0]){
-                    return arr[1];
-                }
-            }
-            return null;
+        function getCookie() {
+            var session = <%=session.getAttribute(Constant.USER_SESSION)%>
+            return session
         }
-        if(getCookie("user_cookie").length>=8){
-            $("#loginEntyWrapper").html(getCookie("user_cookie"));
+        if(getCookie()!=null){
+            $("#loginEntyWrapper").html(getCookie());
             $("#login_out").show();
         }
         $("#loginEntyWrapper").click(function () {
-            if(getCookie("user_cookie").length>=8){
+            if(getCookie()!=null){
                 window.location.href="myinfo.jsp"
             }
-        });
+        })
         $("#tRegister").click(function () {
             $.ajax({
                 type:"post",
