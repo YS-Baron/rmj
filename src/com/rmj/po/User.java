@@ -15,7 +15,7 @@ public class User {
     //密码
     private String password;
     //电子邮件
-    private String eamil;
+    private String email;
     //头像的地址
     private String image;
     //角色（1：租客；2：房东；0：管理员）
@@ -29,16 +29,16 @@ public class User {
         this.password = password;
     }
 
-    public User(int id, String nickname, String eamil) {
+    public User(int id, String nickname, String email) {
         this.id = id;
         this.nickname = nickname;
-        this.eamil = eamil;
+        this.email = email;
     }
 
-    public User(int id, String nickname, String eamil, String image) {
+    public User(int id, String nickname, String email, String image) {
         this.id = id;
         this.nickname = nickname;
-        this.eamil = eamil;
+        this.email = email;
         this.image = image;
     }
 
@@ -74,12 +74,12 @@ public class User {
         this.password = password;
     }
 
-    public String getEamil() {
-        return eamil;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEamil(String eamil) {
-        this.eamil = eamil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getImage() {
