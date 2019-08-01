@@ -108,9 +108,9 @@ public class HouseServiceImpl implements BaseService<Houses> {
     public Page listUserByPage(ParamVO params) {
         Page page = new Page();
         page.setItems(houseDao.listUser(params));
-        page.setTotalRows(houseDao.countUser(params));
         page.setCurrentPage(params.getPageNum());
         page.setPageSize(params.getPageSize());
+        page.setTotalRows(houseDao.countUser(params));
         return page;
     }
 

@@ -212,12 +212,12 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
                 sql += " and tid=?";
                 list.add(params.getTid());
             }
-            if (params.getsPrice() > 0) {
+            if (params.getsPrice() >= 0) {
                 sql += " and price>? and price < ?";
                 list.add(params.getsPrice());
                 list.add(params.getePrice());
             }
-            if (params.getsArea() > 0) {
+            if (params.getsArea() >= 0) {
                 sql += " and area>? and area < ?";
                 list.add(params.getsArea());
                 list.add(params.geteArea());
@@ -237,6 +237,9 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
                 list.add(params.getAddress());
 
             }
+//            sql += " limit ?,?";
+//            list.add((params.getPageNum() - 1) * params.getPageSize());
+//            list.add(params.getPageSize());
             long count = queryRunner.query(sql, list.toArray(), new ScalarHandler<>());
             res = (int) count;
         } catch (SQLException e) {
@@ -263,6 +266,9 @@ public class HousesDaoImpl implements BaseDAO<Houses> {
                 sql += " and address=?";
                 list.add(params.getAddress());
             }
+            list.add((params.getPageNum() - 1) * params.getPageSize());
+            list.add(params.getPageSize());
+            sql += " limit ?,?";
             long i = queryRunner.query(sql, list.toArray(), new ScalarHandler<>());
             res = (int) i;
         } catch (SQLException e) {
