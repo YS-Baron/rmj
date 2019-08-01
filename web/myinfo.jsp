@@ -88,44 +88,12 @@
                     <tr class="ttl_cs">
                         <td class="td_firsr">房源信息</td>
                         <td class="td_second">价格</td>
-                        <td class="td_second">状态</td>
                         <td class="td_second">收藏时间</td>
-                        <td class="td_second">收藏人气</td>
                         <td class="td_second">操作</td>
-                    </tr>
-                    <tr class="content_cs">
-                        <td>
-                            <div class="left_imgs clearfix">
-                                <div class="imgs">
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://pic.ziroom.com/house_images/g2m1/M00/25/F7/v180x135_ChAFBlx2Wg-AJu-pAAKX2muAfZI181.jpg" onerror="this.src='http://pic.ziroom.com/static/images/slist_1207/small_pzz.jpg'" width="137" height="91">
-                                    </a>
-                                </div>
-                                <div class="txt_li">
-                                    <p class="p1"><a href="javascript:;" target="_blank">龙华区清湖4号线(龙华线)龙华富通天骏4居室</a></p>
-                                    <p class="p2">7/11层 | 10.5 平方米 |合租</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="price_c">1890元/月</td>
-                        <td>可入住</td><td>2019-07-08</td>
-                        <td>3</td>
-                        <td>
-                            <div class="de_v_box" style="position:relative">
-                                <a href="javascript:;" class="delete">删除</a>
-                                <div class="delete_box" style="display:none;">
-                                    <p class="con_de">确认要删除该收藏吗？</p>
-                                    <div class="d_btn">
-                                        <a href="javascript:;" class="confirm">确认</a>
-                                        <a href="javascript:;" class="cancel">取消</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
                     </tr>
                     </tbody>
                 </table>
-                <div id="pagination" style="position: absolute;left:50%;transform: translate(-50%)" ></div>
+                <div id="pagination" style="position: absolute;left:50%;bottom: 65px;" ></div>
             </div><!--ziroom_box_right_c -->
         </div>
     </div>
@@ -273,46 +241,45 @@
             $.ajax({
                 type:"get",
                 url:"${pageContext.request.contextPath}/fav/getAll",
-                data:{"tel":getCookie(),"pageNum":1,"pageSize":3},
+                data:{"tel":getCookie(),"pageNum":1,"pageSize":5},
                 dataType:"json",
                 success:function(data){
                     console.log(data)
-                    <%--$("#pagination").pagination(data.totalRows,    //分布总数量，必须参数--%>
-                        <%--{--%>
-                            <%--callback: getData,  //PageCallback() 为翻页调用次函数。--%>
-                            <%--prev_text: "« 上一页",--%>
-                            <%--next_text: "下一页 »",--%>
-                            <%--items_per_page:data.items.length,--%>
-                            <%--num_edge_entries: 2,       //两侧首尾分页条目数--%>
-                            <%--num_display_entries: 10,    //连续分页主体部分分页条目数--%>
-                            <%--current_page: data.currentPage-1   //当前页索引--%>
-                            <%--// link_to: "?id=__id__"  //分页的js中会自动把"__id__"替换为当前的数。0　--%>
-                        <%--});--%>
-                    <%--var classitem="";--%>
-                    <%--$.each(data.items,function (i,val) {--%>
-                        <%--if(val.tid==1){--%>
-                            <%--var htype="合租";--%>
-                        <%--}else{--%>
-                            <%--htype="整租";--%>
-                        <%--}--%>
-                        <%--classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp?id="'+data.id+' target="_blank" class="pic-wrap"><img class="lazy ifme'+i+'" src="" alt=""></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';--%>
-                        <%--$.ajax({--%>
-                            <%--type:"post",--%>
-                            <%--url:'${pageContext.request.contextPath}/hou/findhid',--%>
-                            <%--data:{"hid":val.id},--%>
-                            <%--dataType:"json",--%>
-                            <%--success:function(data){--%>
-                                <%--if(data.length>0){--%>
-                                    <%--for(var i=0;i<data.length;i++){--%>
-                                        <%--$(".item").find(".ifme"+i).attr("src","${pageContext.request.contextPath}"+data[i].image)--%>
-                                    <%--}--%>
-                                <%--}--%>
-                            <%--}--%>
-                        <%--})--%>
-                    <%--});--%>
-                    <%--$(".Z_list-box").html(classitem);--%>
+                    $("#pagination").pagination(data.totalRows,    //分布总数量，必须参数
+                        {
+                            callback: getData,  //PageCallback() 为翻页调用次函数。
+                            prev_text: "« 上一页",
+                            next_text: "下一页 »",
+                            items_per_page:data.items.length,
+                            num_edge_entries: 2,       //两侧首尾分页条目数
+                            num_display_entries: 10,    //连续分页主体部分分页条目数
+                            current_page: data.currentPage-1   //当前页索引
+                            // link_to: "?id=__id__"  //分页的js中会自动把"__id__"替换为当前的数。0　
+                        });
+                      var tr= '<tr class="ttl_cs"> <td class="td_firsr">房源信息</td> <td class="td_second">价格</td> <td class="td_second">收藏时间</td> <td class="td_second">操作</td> </tr>'
+                    $.each(data.items,function (i,val) {
+                        tr+='<tr class="content_cs" style="line-height: 30px;"><td><a href="javascript:;" target="_blank"> '+val.address+'</a></td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="${pageContext.request.contextPath}/fav/del?tel='+getCookie()+'&hid='+val.hid+'">删除</a>  </div> </td> </tr>'
+                    });
+                    $("#tbody").html(tr);
                 }
             });
+
+            function getData(index,jq) {
+                $.ajax({
+                    type:"get",
+                    url:"${pageContext.request.contextPath}/fav/getAll",
+                    data:{"tel":getCookie(),"pageNum":index+1,"pageSize":3},
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data)
+                        var tr= '<tr class="ttl_cs"> <td class="td_firsr">房源信息</td> <td class="td_second">价格</td> <td class="td_second">收藏时间</td> <td class="td_second">操作</td> </tr>'
+                        $.each(data.items,function (i,val) {
+                            tr+='<tr class="content_cs"  style="line-height: 30px;"><td><a href="javascript:;" target="_blank"> '+val.address+'</a> </td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="javascript:;" class="delete">删除</a> <div class="delete_box" style="display:none;"> <p class="con_de">确认要删除该收藏吗？</p> <div class="d_btn"> <a href="javascript:;" class="confirm">确认</a> <a href="javascript:;" class="cancel">取消</a> </div> </div> </div> </td> </tr>'
+                        });
+                        $("#tbody").html(tr);
+                    }
+                });
+            }
         });
         $("#kj").click(function () {
             $(".mainCon").hide();
@@ -398,15 +365,7 @@
                 })
             }
         });
-        $(".delete").click(function () {
-            $(".delete_box").show();
-            $(".cancel").click(function () {
-                $(".delete_box").hide();
-            });
-            $(".confirm").click(function () {
-                $(this).parents(".content_cs").hide();
-            })
-        });
+
         function getCookie() {
             var session = <%=session.getAttribute(Constant.USER_SESSION)%>
             return session
