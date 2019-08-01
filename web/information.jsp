@@ -91,40 +91,7 @@
 <body>
 <form id="form">
     <div class="header"><h2>房源信息</h2></div>
-    <%--<div class="form-group">--%>
-        <%--<label for="inputTel" class="col-sm-2 control-label">房东电话</label>--%>
-        <%--<div class="col-sm-10">--%>
-           <%--<input type="text" class="form-control" id="inputTel" placeholder="请输入号码">--%>
-            <%--<button type="button" class="btn btn-primary btn-lg" onclick="getInfo()">查询</button>--%>
-        <%--</div>--%>
-    <%--</div>--%>
     <table class="table table-striped" id="tab">
-        <%--<tr>--%>
-            <%--<th>房屋编号</th>--%>
-            <%--<th>房东编号</th>--%>
-            <%--<th>类型编号</th>--%>
-             <%--<th>价格</th>--%>
-             <%--<th>面积</th>--%>
-             <%--<th>所在省份</th>--%>
-             <%--<th>所在城市</th>--%>
-             <%--<th>具体地址</th>--%>
-             <%--<th>房间个数</th>--%>
-             <%--<th>剩余房间个数</th>--%>
-             <%--<th>房间描述</th>--%>
-        <%--</tr>--%>
-        <%--<tr>--%>
-            <%--<td id="id">7</td>--%>
-            <%--<td id="uid">8</td>--%>
-            <%--<td id="tid">1</td>--%>
-            <%--<td id="price">1500.00 </td>--%>
-            <%--<td id="area">15.00</td>--%>
-            <%--<td id="province">深圳</td>--%>
-            <%--<td id="city">龙岗</td>--%>
-            <%--<td id="address">德兴城花园</td>--%>
-            <%--<td id="roomNum">4</td>--%>
-            <%--<td id="lastroom">4</td>--%>
-            <%--<td id="description">该房源为主卧，带明窗，房屋采光比较好，业主用心维护，配置自如家电家私，搭配年轻舒适的装修风格，为您打造温馨舒适的居住环境，适合附近热爱生活的年轻白领或情侣入住</td>--%>
-        <%--</tr>--%>
 
     </table>
     <div id="pagination" style="position: absolute;left:50%;transform: translate(-50%)" ></div>
