@@ -16,38 +16,63 @@
             text-align: center;
             color: #2aabd2;
         }
+        .form-group{
+            margin: 8px;
+        }
+        .form-control{
+            width:90%;
+        }
+        .btn{
+            margin-top: 10px;
+        }
     </style>
-    <script src="js/jquery-1.11.1.js"></script>
+    <script src="js/jquery-3.4.1.js"></script>
     <script>
-        function delTr($this) {
-            $($this).parent().parent().remove();
+        // function delTr($this) {
+        //     $($this).parent().parent().remove();
+        // }
+
+        // $.each(data,function (i,item) {
+        //     con+='<tr>'+'<td>'+data.id+'</td>'+
+        //         '<td>'+data.tid+'</td>'+
+        //         '<td>'+data.price+'</td>'+
+        //         '<td>'+data.area+'</td>'+
+        //         '<td>'+data.province+'</td>'+
+        //         '<td>'+data.city+'</td>'+
+        //         '<td>'+data.address+'</td>'+
+        //         '<td>'+data.uid+'</td>'+
+        //         '<td>'+data.roomNum+'</td>'+'</tr>';
+        // })
+        // $("#tab").html(con);
+        function getId() {
+            var id=$("#inputId").val();
+            $.ajax({
+                url:'${pageContext.request.contextPath}/hou/del',
+                type:'post',
+                dataType:'json',
+                data:{"id":id},
+                success:function (data) {
+                    console.log(data);
+                }
+            })
         }
-        function del() {
-            var id=$()
-        }
+
+
     </script>
 </head>
 <body>
-<form>
+<form class="form-horizontal" id="info">
     <div class="header"><h2>删除房源</h2></div>
-    <table class="table table-striped" id="tab">
-        <tr>
-            <th>房屋编号</th>
-            <th>删除房源</th>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td><button type="button" class="btn btn-info" onclick="delTr(this)">删除</button></td>
-        </tr>
-        <tr>
-            <td>22</td>
-            <td><button type="button" class="btn btn-info">删除</button></td>
-        </tr>
-        <tr>
-            <td>33</td>
-            <td><button type="button" class="btn btn-info">删除</button></td>
-        </tr>
-    </table>
+    <div class="form-group">
+    <label for="inputId" class="col-sm-2 control-label">房屋编号</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputId" placeholder="请输入编号">
+        <button type="button" class="btn btn-primary btn-lg" onclick="getId()">删除</button>
+    </div>
+    </div>
+    <%--<table class="table table-striped" id="tab">--%>
+        <%----%>
+    <%--</table>--%>
 </form>
 
 </body>
