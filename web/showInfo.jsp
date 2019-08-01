@@ -50,33 +50,34 @@
     <%--<script src="js/localResizeIMG.js"></script>--%>
     <%--<script src="js/mobileBUGFix.mini.js"></script>--%>
     <script>
-        //图片上传
+        // 图片上传
         // var picArr = new Array();// 存储图片
         // $(function () {
-
-            // $('input:file').localResizeIMG({
-            //     width: 768,// 宽度
-            //     quality: 0.8, // 压缩参数 1 不压缩 越小清晰度越低
-            //     success: function (result) {
-            //         var img = new Image();
-            //         img.src = result.base64;
-            //         var _str = "<span class='crm-pic-look' style='background-image: url(" +  img.src + ")'><em id='delete_pic'>X</em></span>"
-            //         var _i = picArr.length;
-            //         picArr[_i] = result.base64;
-            //         $('#chose_pic_btn').before(_str);
+        //
+        //     $('input:file').localResizeIMG({
+        //         width: 768,// 宽度
+        //         quality: 0.8, // 压缩参数 1 不压缩 越小清晰度越低
+        //         success: function (result) {
+        //             var img = new Image();
+        //             img.src = result.base64;
+        //             var _str = "<span class='crm-pic-look' style='background-image: url(" +  img.src + ")'><em id='delete_pic'>X</em></span>"
+        //             var _i = picArr.length;
+        //             picArr[_i] = result.base64;
+        //             $('#chose_pic_btn').before(_str);
             //         //picArr[_i] = result.base64;
             //         //picArr[_i] = _i;
             //         // console.log(picArr);
             //     }
             // });
             // 删除
-        //     $(document).on('click', '#delete_pic', function (event) {
-        //         var aa = $(this).parents(".crm-pic-look").index();
-        //         picArr.splice(aa, 1);
-        //         $(this).parents(".crm-pic-look").remove();
+            // $(document).on('click', '#delete_pic', function (event) {
+            //     var aa = $(this).parents(".crm-pic-look").index();
+            //     picArr.splice(aa, 1);
+            //     $(this).parents(".crm-pic-look").remove();
         //         //console.log(picArr);
         //     });
         // });
+
         var cityList = new Array();
         cityList['北京市'] = ['朝阳区','东城区','西城区', '海淀区','宣武区','丰台区','怀柔','延庆','房山'];
         cityList['上海市'] = ['宝山区','长宁区','丰贤区', '虹口区','黄浦区','青浦区','南汇区','徐汇区','卢湾区'];
@@ -133,15 +134,11 @@
             // var lastroom=$("#inputLast").val();
             // var description=$("#description").val();
            var formData=new FormData();
-            var filesList=$("#image")[0].files;
-            console.log(filesList);
-            // var file={};
-            // var len=filesList.length;
-            // for (var i=0;i<len;i++){
-            //     // formData.append('images',filesList[i]);
-            //     console.log(filesList[i]);
-            // }
-            formData.append('images',filesList);
+            var length=$("#image")[0].files.length;
+            for (var i=0;i<length;i++){
+                formData.set('images',$("#image")[0].files[i]);
+                // console.log($("#image")[0].files[i]);
+            }
             formData.set('tel',$("#inputTel").val());
             formData.set('tid',$("#inputType").val());
             formData.set('province',$("#selProvince").val());
@@ -192,7 +189,22 @@
                    $('#inputType').append(option);
                }
             }
-        })
+        });
+        function getCookie(user) {
+            var strCookie=document.cookie;
+            var arrCookie=strCookie.split(";");
+            for (var i=0;i<arrCookie.length;i++){
+                var arr=arrCookie[i].split("=");
+                if (user==arr[0]){
+                    return arr[1]
+                }
+            }
+            return null;
+        }
+        if(getCookie("user_cookie").length>1){
+            $("#inputTel").html(getCookie("user_cookie"));
+        }
+
     </script>
 </head>
 <body>
@@ -270,7 +282,7 @@
             <%--<div class="release_up_pic">--%>
                 <%--<div class="up_pic">--%>
                     <%--<div id="chose_pic_btn">--%>
-                        <%--<input type="file" accept="image/*" id="image" multiple="multiple">--%>
+                        <%--<input type="file" accept="image/*" id="image" multiple>--%>
                     <%--</div>--%>
                 <%--</div>--%>
             <%--</div>--%>
