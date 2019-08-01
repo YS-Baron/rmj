@@ -200,7 +200,7 @@
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>
 </html>
-<script src="js/jquery-1.11.1.js"></script>
+<script src="js/jquery-3.4.1.js"></script>
 <script>
         function getCookie(cookieName) {
             var strCookie = document.cookie;

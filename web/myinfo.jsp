@@ -13,6 +13,11 @@
     <meta content="width=1200, initial-scale=1, maximum-scale=1, user-scalable=1" name="viewport" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <link rel="stylesheet" type="text/css" href="css/myinfo.css" />
+    <style>
+        .curr{
+            color:red;
+        }
+    </style>
 </head>
 <body>
 
@@ -56,7 +61,7 @@
     </div>
 </div><!--/sub-header-->
 
-<div class="area zone_cont clearfix" style="position: relative; z-index: 1">
+<div class="area zone_cont clearfix" style="position: relative; z-index: 1; display:none">
 
     <div class="slideLeft" style="margin-top: 40px">
         <ul>
@@ -92,7 +97,7 @@
                         <td>
                             <div class="left_imgs clearfix">
                                 <div class="imgs">
-                                    <a href="//sz.ziroom.com/z/vr/62066279.html" target="_blank">
+                                    <a href="javascript:;" target="_blank">
                                         <img src="http://pic.ziroom.com/house_images/g2m1/M00/25/F7/v180x135_ChAFBlx2Wg-AJu-pAAKX2muAfZI181.jpg" onerror="this.src='http://pic.ziroom.com/static/images/slist_1207/small_pzz.jpg'" width="137" height="91">
                                     </a>
                                 </div>
@@ -127,12 +132,12 @@
     <div class="mainRight notFrameBox" style="margin-top: 40px">
         <!-- 个人 -->
         <div class="person clearfix">
-            <div class="photo fl">
-                <img src="http://i.ziroom.com/static/2014/images/gjnone.png" onerror="this.src='http://i.ziroom.com/static/2014/images/gjnone.png'">
+            <div class="photo fl" id="oimg">
+                <img src="">
             </div>
             <div class="information fl">
-                <p class="p1">下午好，<span><a href="javascript:;">如美客</a></span></p>
-                <p class="p2"><a href="http://passport.ziroom.com/index.php?r=user/index">修改个人资料</a></p>
+                <p class="p1">欢迎您，<span><a href="javascript:;" id="nick"></a></span></p>
+                <p class="p2"><a href="javascript:;">修改个人资料</a></p>
                 <p class="p3">
                     <span class="active">已绑定手机号</span>
                     <span>未绑定邮箱</span>
@@ -149,7 +154,7 @@
         </div>
     </div>
 </div>
-<div class="clearfix area mainCon" style="display: none">
+<div class="clearfix area mainCon" >
     <div class="slideLeft">
         <div class="user">
             <div class="img" id="head">
@@ -171,11 +176,11 @@
                     <td width="160" ><img src="" width="140" height="140" id="J-m-imgFileImg" style="border-radius: 50%" ></td>
                     <td width="600">
                         <form class="s-m-imgForm">
-                            <input type="hidden" id="inn">
+                            <input type="hidden" id="inn" name="id">
                             <input type="button" value="本地图片" class="ui_btn ui_org_btn" id="uploadImg">
                             <input type="button" value="确认" class="ui_btn ui_org_btn" id="uploadImg1">
-                            <input type="file" name="file" id="J-m-imgFile" class="s-m-file">
-                            <p class="gray mt10">仅支持JPG、PNG格式，文件小于3M。</p>
+                            <input type="file" name="headImage" id="J-m-imgFile" class="s-m-file">
+                            <p class="gray mt10">仅支持JPG、PNG格式，文件小于3M</p>
                         </form>
                     </td>
                 </tr>
@@ -192,12 +197,14 @@
                 <tr  style="">
                     <td>邮箱</td>
                     <td colspan="2">
-                        <input type="text" value="" class="gray" id="yzTel1">
+                        <input type="text" value="" class="gray" id="yzTel1" style="width: 162px">
                 </tr>
                 <tr  style="">
                     <td>密码</td>
                     <td colspan="2">
-                        <input type="password" style="display: none">
+                       <div style="display: none" id="pwdbox">
+                           <input type="password" id="pwd" >  <input type="button" value="确认" class="ui_btn ui_org_btn" id="changeped">
+                       </div>
                         <a href="javascript:;" class="org j-m-change" id="chanmi">修改密码</a>
                     </td>
                 </tr>
@@ -256,9 +263,8 @@
 </body>
 </html>
 <script src="js/jquery-1.11.1.js"></script>
-<script src="js/localResizeIMG.js"></script>
-<script src="js/mobileBUGFix.mini.js"></script>
 <script>
+    $(function () {
         $("#sc").click(function () {
             $(".notFrameBox").hide();
             $(".t_spacemainboxright").show()
@@ -282,54 +288,70 @@
         $("#zi").click(function () {
             $(".zone_cont").hide();
             $(".mainCon").show();
-            $.ajax({
-                type:"post",
-                url:"${pageContext.request.contextPath}/user/get",
-                data:{"name":getCookie("user_cookie")},
-                dataType:"json",
-                success:function(data){
-                    $("#mytel").val(data.tel);
-                    $("#nickname").val(data.nickname);
-                    $("#yzTel1").val(data.email);
-                    $("#head>img").attr("src","${pageContext.request.contextPath}/"+data.image);
-                    $(".trBorder img").attr("src","${pageContext.request.contextPath}/"+data.image);
-                    var id=data.id;
-                    $("#inn").val(id);
-                        $('input:file').localResizeIMG({
-                            success: function (result) {
-                                var img = new Image();
-                                img.src = result.base64;
-                                // $(".trBorder img").attr("src",img.src);
-                                $("#uploadImg1").click(function () {
-                                    var form = new FormData($('.s-m-imgForm'));
-                                $.ajax({
-                                    type:"post",
-                                    url:"${pageContext.request.contextPath}/user/udpateHead",
-                                    data:form,
-                                    processData:false,
-                                    contentType:false,
-                                    success:function(data){
-                                        console.log(data)
-                                    }
-                                })
-                            })
-                            }
-                        })
-                    $("#save_button").click(function () {
-                        var name= $("#nickname").val();
-                        var email= $("#yzTel1").val();
+        });
+        $.ajax({
+            type:"post",
+            url:"${pageContext.request.contextPath}/user/get",
+            data:{"name":getCookie("user_cookie")},
+            dataType:"json",
+            success:function(data){
+                $("#mytel").val(data.tel);
+                $("#nickname").val(data.nickname);
+                $("#nick").html(data.nickname);
+                $("#yzTel1").val(data.email);
+                $("#head>img").attr("src","${pageContext.request.contextPath}/"+data.image);
+                $(".trBorder img").attr("src","${pageContext.request.contextPath}/"+data.image);
+                $("#oimg>img").attr("src","${pageContext.request.contextPath}/"+data.image);
+                var id=data.id;
+                $("#inn").val(id);
+                $("#uploadImg1").click(function () {
+                    var form = new FormData($('.s-m-imgForm'));
+                    form.append("headImage",$("#J-m-imgFile")[0].files[0]);
+                    form.append("id",$("#inn").val());
+                    $.ajax({
+                        type:"post",
+                        url:"${pageContext.request.contextPath}/user/udpateHead",
+                        data:form,
+                        processData:false,
+                        contentType:false,
+                        success:function(data){
+                            location.reload();
+                        }
+                    })
+                });
+                $("#changeped").click(function () {
+                    var email= $("#yzTel1").val();
+                    var password=$("#pwd").val();
                         $.ajax({
                             type:"post",
-                            url:"${pageContext.request.contextPath}/user/updateNormal",
-                            data:{"id":id,"nickname":name,"email":email},
+                            url:"${pageContext.request.contextPath}/user/updatePwd",
+                            data:{"id":id,"password":password,"email":email},
                             dataType:"json",
                             success:function(data){
-                                console.log(data)
+                                if(data.msg=="邮箱不能为空"){
+                                    $("#yzTel1").val(data.msg);
+                                    $("#yzTel1").addClass("curr");
+                                }else{
+                                    $("#pwdbox").html(data.msg);
+                                    $("#pwdbox").addClass("curr");
+                                }
                             }
                         })
+                });
+                $("#save_button").click(function () {
+                    var email= $("#yzTel1").val();
+                    var name= $("#nickname").val();
+                    $.ajax({
+                        type:"post",
+                        url:"${pageContext.request.contextPath}/user/updateNormal",
+                        data:{"id":id,"nickname":name,"email":email},
+                        dataType:"json",
+                        success:function(data){
+                            console.log(data)
+                        }
                     })
-                }
-            })
+                })
+            }
         });
         $(".delete").click(function () {
             $(".delete_box").show();
@@ -354,6 +376,8 @@
         if(getCookie("user_cookie").length>=8){
             $("#username").html(getCookie("user_cookie"));
         };
+
+    })
 
 </script>
 

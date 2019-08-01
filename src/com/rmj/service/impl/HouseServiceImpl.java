@@ -90,27 +90,27 @@ public class HouseServiceImpl implements BaseService<Houses> {
     public Page listObjByPage(ParamVO params) {
         Page page = new Page();
         page.setItems(houseDao.listObj(params));
-        page.setTotalRows(houseDao.countObj(params));
         page.setCurrentPage(params.getPageNum());
         page.setPageSize(params.getPageSize());
+        page.setTotalRows(houseDao.countObj(params));
         return page;
     }
 
     public Page listadminByPage(ParamVO params) {
         Page page = new Page();
         page.setItems(houseDao.listadmin(params));
-        page.setTotalRows(houseDao.countadmin(params));
         page.setCurrentPage(params.getPageNum());
         page.setPageSize(params.getPageSize());
+        page.setTotalRows(houseDao.countadmin(params));
         return page;
     }
 
     public Page listUserByPage(ParamVO params) {
         Page page = new Page();
         page.setItems(houseDao.listUser(params));
-        page.setTotalRows(houseDao.countUser(params));
         page.setCurrentPage(params.getPageNum());
         page.setPageSize(params.getPageSize());
+        page.setTotalRows(houseDao.countUser(params));
         return page;
     }
 

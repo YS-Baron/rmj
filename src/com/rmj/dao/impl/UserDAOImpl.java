@@ -55,7 +55,7 @@ public class UserDAOImpl implements BaseDAO<User> {
         String sql = "update user set nickname = ?,email = ? where id = ?";
         int res = 0;
         try {
-            res = queryRunner.update(sql, user.getNickname(), user.getEamil(), user.getId());
+            res = queryRunner.update(sql, user.getNickname(), user.getEmail(), user.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
