@@ -101,16 +101,20 @@
             if(password1.length<=0){
                 $("#registerPsdHook1").parent().next().html("请再次输入密码！")
             }
-            if(TEL_REGEXP.test($("#registerUserHook").val())&&password.length>=6){
+            if(TEL_REGEXP.test($("#registerUserHook").val())&&password.length>=6&&$("#registerPsdHook1").val()==$("#registerPsdHook").val()){
                 $.ajax({
                     type:"post",
                     url:"${pageContext.request.contextPath}/reg",
                     data:{"name":name,"password":password,"checkCode":checkCode,"role":role},
                     dataType:"json",
                     success:function(data){
-                        $(".ziroom-record-code").find(".ziroom-record-error").html(data.msg);
+                        if(data.msg=="验证码错误！！！"){
+                            $(".ziroom-record-code").find(".ziroom-record-error").html(data.msg);
+                        }else{
+                            alert(data.msg)
+                        }
                         $("#registerUserHook").parent().next().html(data.msgName)
-                        window.location.herf="login.jsp"
+                        window.location.herf="index.jsp"
                     }
                 })
             }
