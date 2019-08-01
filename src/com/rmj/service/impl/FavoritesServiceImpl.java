@@ -62,9 +62,9 @@ public class FavoritesServiceImpl implements BaseService<Favorites> {
     public Page listObjByPage(ParamVO params) {
         Page page = new Page();
         page.setItems(favoritesDAO.listObj(params));
-        page.setTotalRows(favoritesDAO.countObj(params));
         page.setCurrentPage(params.getPageNum());
         page.setPageSize(params.getPageSize());
+        page.setTotalRows(favoritesDAO.countObj(params));
         return page;
     }
 
