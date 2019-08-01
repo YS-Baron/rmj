@@ -200,62 +200,73 @@
     if($("#zheng").is(":checked")){
          tid=2;
     }
-    <%--var sPrice=-1;--%>
-    <%--var ePrice=-1;--%>
-    <%--var sArea=-1;--%>
-    <%--var eArea=-1;--%>
-    <%--var province=$("#selProvince").find("option").val();--%>
-    <%--var city=$("#selCity").find("option").val();--%>
-    <%--var address=$("#Z_search_input").val();--%>
-    <%--$.ajax({--%>
-        <%--type:"get",--%>
-        <%--url:"${pageContext.request.contextPath}/hou/findUser",--%>
-        <%--data:{"tid":0,"sPrice":sPrice,"ePrice":ePrice,"sArea":sArea,"eArea":eArea,"province":province,"city":city,"address":address,"pageNum":1,"pageSize":12},--%>
-        <%--dataType:"json",--%>
-        <%--success:function(data){--%>
-            <%--console.log(data);--%>
-            <%--$("#pagination").pagination(data.totalRows,    //分布总数量，必须参数--%>
-                <%--{--%>
-                    <%--callback: getData,  //PageCallback() 为翻页调用次函数。--%>
-                    <%--prev_text: "« 上一页",--%>
-                    <%--next_text: "下一页 »",--%>
-                    <%--items_per_page:data.items.length,--%>
-                    <%--num_edge_entries: 2,       //两侧首尾分页条目数--%>
-                    <%--num_display_entries: 10,    //连续分页主体部分分页条目数--%>
-                    <%--current_page: data.currentPage-1   //当前页索引--%>
-                    <%--// link_to: "?id=__id__"  //分页的js中会自动把"__id__"替换为当前的数。0　--%>
-                <%--});--%>
-        <%--}--%>
-    <%--});--%>
-    <%--function getData(newindex,jq){--%>
-        <%--var sPrice=-1;--%>
-        <%--var ePrice=-1;--%>
-        <%--var sArea=-1;--%>
-        <%--var eArea=-1;--%>
-        <%--var province=$("#selProvince").find("option").val();--%>
-        <%--var city=$("#selCity").find("option").val();--%>
-        <%--var address=$("#Z_search_input").val();--%>
-        <%--$.ajax({--%>
-            <%--type:"get",--%>
-            <%--url:"${pageContext.request.contextPath}/hou/findUser",--%>
-            <%--data:{"tid":0,"sPrice":sPrice,"ePrice":ePrice,"sArea":sArea,"eArea":eArea,"province":province,"city":city,"address":address,"pageNum":newindex+1,"pageSize":12},--%>
-            <%--dataType:"json",--%>
-            <%--success:function(data){--%>
-                <%--var classitem="";--%>
-                <%--$.each(data.items,function (i,val) {--%>
-                    <%--if(val.tid==1){--%>
-                        <%--var htype="合租";--%>
-                    <%--}else{--%>
-                        <%--htype="整租";--%>
-                    <%--}--%>
-                    <%--classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';--%>
-                <%--})--%>
-                <%--$(".Z_list-box").html(classitem)--%>
-            <%--}--%>
-        <%--});--%>
-    <%--}--%>
+    var sPrice=-1;
+    var ePrice=-1;
+    var sArea=-1;
+    var eArea=-1;
+    var province=$("#selProvince").find("option").val();
+    var city=$("#selCity").find("option").val();
+    var address=$("#Z_search_input").val();
+    $.ajax({
+        type:"get",
+        url:"${pageContext.request.contextPath}/hou/findUser",
+        data:{"tid":0,"sPrice":sPrice,"ePrice":ePrice,"sArea":sArea,"eArea":eArea,"province":province,"city":city,"address":address,"pageNum":1,"pageSize":12},
+        dataType:"json",
+        success:function(data){
+            console.log(data);
 
-//
+            $("#pagination").pagination(data.totalRows,    //分布总数量，必须参数
+                {
+                    callback: getData,  //PageCallback() 为翻页调用次函数。
+                    prev_text: "« 上一页",
+                    next_text: "下一页 »",
+                    items_per_page:data.items.length,
+                    num_edge_entries: 2,       //两侧首尾分页条目数
+                    num_display_entries: 10,    //连续分页主体部分分页条目数
+                    current_page: data.currentPage-1   //当前页索引
+                    // link_to: "?id=__id__"  //分页的js中会自动把"__id__"替换为当前的数。0　
+                });
+            var classitem="";
+            $.each(data.items,function (i,val) {
+                if(val.tid==1){
+                    var htype="合租";
+                }else{
+                    htype="整租";
+                }
+                classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+            })
+            $(".Z_list-box").html(classitem)
+
+        }
+    });
+    function getData(newindex,jq){
+        var sPrice=-1;
+        var ePrice=-1;
+        var sArea=-1;
+        var eArea=-1;
+        var province=$("#selProvince").find("option").val();
+        var city=$("#selCity").find("option").val();
+        var address=$("#Z_search_input").val();
+        $.ajax({
+            type:"get",
+            url:"${pageContext.request.contextPath}/hou/findUser",
+            data:{"tid":0,"sPrice":sPrice,"ePrice":ePrice,"sArea":sArea,"eArea":eArea,"province":province,"city":city,"address":address,"pageNum":newindex+1,"pageSize":12},
+            dataType:"json",
+            success:function(data){
+                var classitem="";
+                $.each(data.items,function (i,val) {
+                    if(val.tid==1){
+                        var htype="合租";
+                    }else{
+                        htype="整租";
+                    }
+                    classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+                })
+                $(".Z_list-box").html(classitem)
+            }
+        });
+    }
+
 $("#Z_search_submit").click(function () {
     var sPrice=$("#range").find(".low").val();
     var ePrice=$("#range").find(".high").val();
@@ -282,9 +293,19 @@ $("#Z_search_submit").click(function () {
                     current_page: data.currentPage-1   //当前页索引
                     // link_to: "?id=__id__"  //分页的js中会自动把"__id__"替换为当前的数。0　
                 });
+            var classitem="";
+            $.each(data.items,function (i,val) {
+                if(val.tid==1){
+                    var htype="合租";
+                }else{
+                    htype="整租";
+                }
+                classitem+='<div class="item"> <div class="pic-box"> <a href="photoinfo.jsp" target="_blank" class="pic-wrap"><img class="lazy" src="images/user-image/pic1.jpg" alt="深圳合租德兴城花园1790租房户型实景图"></a> <span class="ico ico-video"></span> </div> <div class="info-box"> <h5 class="title sign"><a href="photoinfo.jsp" target="_blank" id="title">'+htype+'·'+val.address+'</a></h5> <div class="desc"> <div>'+val.area+'㎡ | '+val.roomNum+'室</div> </div> <div class="price"> <span class="rmb">￥</span><span class="num">'+val.price+'</span><span class="unit">/月</span></div><div class="tag"><span class="ta1">'+val.province+'</span><span class="ta2">'+val.city+'</span><span class="ta3">布丁4.0</span></div><div class="tips  air-high">'+val.description +'</div> </div> </div>';
+            })
+            $(".Z_list-box").html(classitem)
         }
     })
-    })
+});
 
     function PageCallback(newindex,jq)
     {
