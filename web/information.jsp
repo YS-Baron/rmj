@@ -371,7 +371,7 @@
 </form>
 <form id="pic" class="form-horizontal" enctype="multipart/form-data">
 <div class="header"><h2>图片信息</h2></div>
-    <button type="button" class="btn btn-primary" onclick="delPic()">删除</button>
+    <%--<button type="button" class="btn btn-primary" onclick="delPic()">删除</button>--%>
 <div class="pic">
 <%--<img id="img">--%>
 </div>
