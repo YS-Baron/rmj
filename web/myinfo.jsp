@@ -85,7 +85,7 @@
                 </div>
                 <table class="collect_sheet" width="100%" cellspacing="0" cellpadding="0">
                     <tbody id="tbody">
-                    <tr class="ttl_cs">
+                    <tr class="ttl_cs" style="line-height: 2;">
                         <td class="td_firsr">房源信息</td>
                         <td class="td_second">价格</td>
                         <td class="td_second">收藏时间</td>
@@ -166,6 +166,7 @@
                     <td>邮箱</td>
                     <td colspan="2">
                         <input type="text" value="" class="gray" id="yzTel1" style="width: 162px">
+                        <input type="text" value="" class="gray" id="err" style="width: 162px">
                 </tr>
                 <tr  style="">
                     <td>密码</td>
@@ -178,6 +179,9 @@
                 </tr>
                 <tr>
                     <td></td>
+                    <td colspan="2">
+                        <input id="pwderr" type="text">
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
@@ -241,7 +245,7 @@
             $.ajax({
                 type:"get",
                 url:"${pageContext.request.contextPath}/fav/getAll",
-                data:{"tel":getCookie(),"pageNum":1,"pageSize":5},
+                data:{"tel":getCookie(),"pageNum":1,"pageSize":7},
                 dataType:"json",
                 success:function(data){
                     console.log(data)
@@ -258,7 +262,7 @@
                         });
                       var tr= '<tr class="ttl_cs"> <td class="td_firsr">房源信息</td> <td class="td_second">价格</td> <td class="td_second">收藏时间</td> <td class="td_second">操作</td> </tr>'
                     $.each(data.items,function (i,val) {
-                        tr+='<tr class="content_cs" style="line-height: 30px;"><td><a href="javascript:;" target="_blank"> '+val.address+'</a></td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="${pageContext.request.contextPath}/fav/del?tel='+getCookie()+'&hid='+val.hid+'">删除</a>  </div> </td> </tr>'
+                        tr+='<tr class="content_cs" style="line-height: 30px;"><td><a href="houinfo.jsp?hid='+val.uid+'" target="_blank"> '+val.address+'</a></td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="#" onclick="dele('+val.hid+')">删除</a>  </div> </td> </tr>'
                     });
                     $("#tbody").html(tr);
                 }
@@ -268,13 +272,13 @@
                 $.ajax({
                     type:"get",
                     url:"${pageContext.request.contextPath}/fav/getAll",
-                    data:{"tel":getCookie(),"pageNum":index+1,"pageSize":3},
+                    data:{"tel":getCookie(),"pageNum":index+1,"pageSize":7},
                     dataType:"json",
                     success:function(data){
                         console.log(data)
-                        var tr= '<tr class="ttl_cs"> <td class="td_firsr">房源信息</td> <td class="td_second">价格</td> <td class="td_second">收藏时间</td> <td class="td_second">操作</td> </tr>'
+                        var tr= '<tr class="ttl_cs" style="line-height: 2;"> <td class="td_firsr">房源信息</td> <td class="td_second">价格</td> <td class="td_second">收藏时间</td> <td class="td_second">操作</td> </tr>'
                         $.each(data.items,function (i,val) {
-                            tr+='<tr class="content_cs"  style="line-height: 30px;"><td><a href="javascript:;" target="_blank"> '+val.address+'</a> </td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="javascript:;" class="delete">删除</a> <div class="delete_box" style="display:none;"> <p class="con_de">确认要删除该收藏吗？</p> <div class="d_btn"> <a href="javascript:;" class="confirm">确认</a> <a href="javascript:;" class="cancel">取消</a> </div> </div> </div> </td> </tr>'
+                            tr+='<tr class="content_cs" style="line-height: 30px;"><td><a href="houinfo.jsp?hid='+val.uid+'" target="_blank"> '+val.address+'</a></td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="" onclick="dele('+val.hid+')">删除</a>  </div> </td> </tr>'
                         });
                         $("#tbody").html(tr);
                     }
@@ -295,7 +299,11 @@
             $(this).val("")
         });
         $("#yzTel1").focus(function () {
-            $(this).val("")
+            $(this).val("");
+            $(this).next().val("");
+        });
+        $("#pwd").focus(function () {
+            $("#pwderr").val("");
         });
         $("#zi").click(function () {
             $(".zone_cont").hide();
@@ -331,24 +339,29 @@
                         }
                     })
                 });
+                var email= $("#yzTel1").val();
                 $("#changeped").click(function () {
-                    var email= $("#yzTel1").val();
                     var password=$("#pwd").val();
-                        $.ajax({
-                            type:"post",
-                            url:"${pageContext.request.contextPath}/user/updatePwd",
-                            data:{"id":id,"password":password,"email":email},
-                            dataType:"json",
-                            success:function(data){
-                                if(data.msg=="邮箱不能为空"){
-                                    $("#yzTel1").val(data.msg);
-                                    $("#yzTel1").addClass("curr");
-                                }else{
-                                    $("#pwdbox").html(data.msg);
-                                    $("#pwdbox").addClass("curr");
+                        if(password.length>0){
+                            $.ajax({
+                                type:"post",
+                                url:"${pageContext.request.contextPath}/user/updatePwd",
+                                data:{"id":id,"password":password,"email":email},
+                                dataType:"json",
+                                success:function(data){
+                                    if(data.msg=="邮箱不能为空"){
+                                        $("#err").val(data.msg);
+                                        $("#err").addClass("curr");
+                                    }else{
+                                        $("#pwderr").val(data.msg);
+                                        $("#pwderr").addClass("curr");
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }else{
+                            $("#pwderr").val("密码不能为空");
+                            $("#pwderr").addClass("curr");
+                        }
                 });
                 $("#save_button").click(function () {
                     var email= $("#yzTel1").val();
@@ -359,17 +372,13 @@
                         data:{"id":id,"nickname":name,"email":email},
                         dataType:"json",
                         success:function(data){
-                            console.log(data)
+                            location.reload();
                         }
                     })
                 })
             }
         });
 
-        function getCookie() {
-            var session = <%=session.getAttribute(Constant.USER_SESSION)%>
-            return session
-        }
         if(getCookie()!=null){
             $("#username").html(getCookie("user_cookie"));
         }
@@ -380,6 +389,21 @@
         })
 
     })
-
+    function dele(id) {
+        // alert(id);
+        // console.log(id);
+        $.ajax({
+            type:"post",
+            url:"${pageContext.request.contextPath}/fav/del",
+            data:{"hid":id,"tel":getCookie()},
+            // dataType:"json",
+            success:function(data){
+            }
+        })
+    };
+    function getCookie() {
+        var session = <%=session.getAttribute(Constant.USER_SESSION)%>
+        return session
+    }
 </script>
 
