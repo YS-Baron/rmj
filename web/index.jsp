@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.rmj.common.Constant" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 2019/7/25
@@ -42,7 +42,6 @@
                         <li><a href="javascript:;" class="ani active" >首页</a></li>
                         <li><a href="user.jsp " >租房</a></li>
 
-                        <li><a href="javascript:;" class="become_houser" target="_blank">成为房东</a></li>
                     </ul>
                     <div class="Z_login_top" id="loginEntyWrapper" style="cursor: pointer">
                         <a href="login.jsp?from=index.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
@@ -76,7 +75,7 @@
             <div class="container">
                 <div class="carousel-caption">
                     <h1>品质租房选如美家</h1>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="register.jsp" role="button">Sign up today</a></p>
                 </div>
             </div>
         </div>
@@ -85,7 +84,7 @@
             <div class="container">
                 <div class="carousel-caption">
                     <h1>品质租房选如美家</h1>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="user.jsp" role="button">Learn more</a></p>
                 </div>
             </div>
         </div>
@@ -200,28 +199,22 @@
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>
 </html>
+<script src="js/jquery-1.11.1.js"></script>
 <script src="js/jquery-3.4.1.js"></script>
 <script>
-        function getCookie(cookieName) {
-            var strCookie = document.cookie;
-            var arrCookie = strCookie.split("; ");
-            for(var i = 0; i < arrCookie.length; i++){
-                var arr = arrCookie[i].split("=");
-                if(cookieName == arr[0]){
-                    return arr[1];
-                }
-            }
-            return null;
+    function getCookie() {
+        var session = <%=session.getAttribute(Constant.USER_SESSION)%>
+        return session
+    }
+    if(getCookie()!=null){
+        $("#loginEntyWrapper").html(getCookie());
+        $("#login_out").show();
+    }
+    $("#loginEntyWrapper").click(function () {
+        if(getCookie()!=null){
+            window.location.href="myinfo.jsp"
         }
-        if(getCookie("user_cookie").length>=8){
-            $("#loginEntyWrapper").html(getCookie("user_cookie"));
-            $("#login_out").show();
-        }
-        $("#loginEntyWrapper").click(function () {
-            if(getCookie("user_cookie").length>=8){
-                window.location.href="myinfo.jsp"
-            }
-        })
+    })
 
 </script>
 

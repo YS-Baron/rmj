@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.rmj.common.Constant" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 2019/7/25
@@ -80,7 +80,7 @@
                 <div style="margin-bottom:8px;background:#eee;height:40px;line-height:40px;padding-left:10px;" class="clearfix">
 
                     <div class="fl">
-                        <p class="fb color_333"><a href="javascript:;" class="org" onclick="del()">我的收藏</a></p></div>
+                        <p class="fb color_333"><a href="javascript:;" class="org" >我的收藏</a></p></div>
                     <div class="fr page_c" id="page_show"></div>
                 </div>
                 <table class="collect_sheet" width="100%" cellspacing="0" cellpadding="0">
@@ -88,44 +88,12 @@
                     <tr class="ttl_cs">
                         <td class="td_firsr">房源信息</td>
                         <td class="td_second">价格</td>
-                        <td class="td_second">状态</td>
                         <td class="td_second">收藏时间</td>
-                        <td class="td_second">收藏人气</td>
                         <td class="td_second">操作</td>
-                    </tr>
-                    <tr class="content_cs">
-                        <td>
-                            <div class="left_imgs clearfix">
-                                <div class="imgs">
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://pic.ziroom.com/house_images/g2m1/M00/25/F7/v180x135_ChAFBlx2Wg-AJu-pAAKX2muAfZI181.jpg" onerror="this.src='http://pic.ziroom.com/static/images/slist_1207/small_pzz.jpg'" width="137" height="91">
-                                    </a>
-                                </div>
-                                <div class="txt_li">
-                                    <p class="p1"><a href="javascript:;" target="_blank">龙华区清湖4号线(龙华线)龙华富通天骏4居室</a></p>
-                                    <p class="p2">7/11层 | 10.5 平方米 |合租</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="price_c">1890元/月</td>
-                        <td>可入住</td><td>2019-07-08</td>
-                        <td>3</td>
-                        <td>
-                            <div class="de_v_box" style="position:relative">
-                                <a href="javascript:;" class="delete">删除</a>
-                                <div class="delete_box" style="display:none;">
-                                    <p class="con_de">确认要删除该收藏吗？</p>
-                                    <div class="d_btn">
-                                        <a href="javascript:;" class="confirm">确认</a>
-                                        <a href="javascript:;" class="cancel">取消</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
                     </tr>
                     </tbody>
                 </table>
-                <div class="page_collect"></div>
+                <div id="pagination" style="position: absolute;left:50%;bottom: 65px;" ></div>
             </div><!--ziroom_box_right_c -->
         </div>
     </div>
@@ -263,11 +231,55 @@
 </body>
 </html>
 <script src="js/jquery-1.11.1.js"></script>
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/jquery.pagination.js"></script>
 <script>
     $(function () {
         $("#sc").click(function () {
             $(".notFrameBox").hide();
-            $(".t_spacemainboxright").show()
+            $(".t_spacemainboxright").show();
+            $.ajax({
+                type:"get",
+                url:"${pageContext.request.contextPath}/fav/getAll",
+                data:{"tel":getCookie(),"pageNum":1,"pageSize":5},
+                dataType:"json",
+                success:function(data){
+                    console.log(data)
+                    $("#pagination").pagination(data.totalRows,    //分布总数量，必须参数
+                        {
+                            callback: getData,  //PageCallback() 为翻页调用次函数。
+                            prev_text: "« 上一页",
+                            next_text: "下一页 »",
+                            items_per_page:data.items.length,
+                            num_edge_entries: 2,       //两侧首尾分页条目数
+                            num_display_entries: 10,    //连续分页主体部分分页条目数
+                            current_page: data.currentPage-1   //当前页索引
+                            // link_to: "?id=__id__"  //分页的js中会自动把"__id__"替换为当前的数。0　
+                        });
+                      var tr= '<tr class="ttl_cs"> <td class="td_firsr">房源信息</td> <td class="td_second">价格</td> <td class="td_second">收藏时间</td> <td class="td_second">操作</td> </tr>'
+                    $.each(data.items,function (i,val) {
+                        tr+='<tr class="content_cs" style="line-height: 30px;"><td><a href="javascript:;" target="_blank"> '+val.address+'</a></td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="${pageContext.request.contextPath}/fav/del?tel='+getCookie()+'&hid='+val.hid+'">删除</a>  </div> </td> </tr>'
+                    });
+                    $("#tbody").html(tr);
+                }
+            });
+
+            function getData(index,jq) {
+                $.ajax({
+                    type:"get",
+                    url:"${pageContext.request.contextPath}/fav/getAll",
+                    data:{"tel":getCookie(),"pageNum":index+1,"pageSize":3},
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data)
+                        var tr= '<tr class="ttl_cs"> <td class="td_firsr">房源信息</td> <td class="td_second">价格</td> <td class="td_second">收藏时间</td> <td class="td_second">操作</td> </tr>'
+                        $.each(data.items,function (i,val) {
+                            tr+='<tr class="content_cs"  style="line-height: 30px;"><td><a href="javascript:;" target="_blank"> '+val.address+'</a> </td> <td class="price_c">'+val.price+'元/月</td> <td>'+val.date+'</td> <td> <div class="de_v_box" style="position:relative"> <a href="javascript:;" class="delete">删除</a> <div class="delete_box" style="display:none;"> <p class="con_de">确认要删除该收藏吗？</p> <div class="d_btn"> <a href="javascript:;" class="confirm">确认</a> <a href="javascript:;" class="cancel">取消</a> </div> </div> </div> </td> </tr>'
+                        });
+                        $("#tbody").html(tr);
+                    }
+                });
+            }
         });
         $("#kj").click(function () {
             $(".mainCon").hide();
@@ -353,29 +365,19 @@
                 })
             }
         });
-        $(".delete").click(function () {
-            $(".delete_box").show();
-            $(".cancel").click(function () {
-                $(".delete_box").hide();
-            });
-            $(".confirm").click(function () {
-                $(this).parents(".content_cs").hide();
-            })
-        });
-        function getCookie(cookieName) {
-            var strCookie = document.cookie;
-            var arrCookie = strCookie.split("; ");
-            for(var i = 0; i < arrCookie.length; i++){
-                var arr = arrCookie[i].split("=");
-                if(cookieName == arr[0]){
-                    return arr[1];
-                }
-            }
-            return null;
+
+        function getCookie() {
+            var session = <%=session.getAttribute(Constant.USER_SESSION)%>
+            return session
         }
-        if(getCookie("user_cookie").length>=8){
+        if(getCookie()!=null){
             $("#username").html(getCookie("user_cookie"));
-        };
+        }
+        $("#loginEntyWrapper").click(function () {
+            if(getCookie()!=null){
+                window.location.href="myinfo.jsp"
+            }
+        })
 
     })
 

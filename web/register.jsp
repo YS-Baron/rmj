@@ -110,11 +110,9 @@
                     success:function(data){
                         if(data.msg=="验证码错误！！！"){
                             $(".ziroom-record-code").find(".ziroom-record-error").html(data.msg);
-                        }else{
-                            alert(data.msg)
                         }
                         $("#registerUserHook").parent().next().html(data.msgName)
-                        window.location.herf="index.jsp"
+                        window.location.href="index.jsp"
                     }
                 })
             }
