@@ -119,7 +119,8 @@ public class HouseServlet extends HttpServlet {
 
     //房东查询自己所有房子
     private void findAll(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        int uid = Integer.parseInt(req.getParameter("uid"));
+        String tel = req.getParameter("tel");
+        int uid = userService.getByName(tel).getId();
         int pageNum = Integer.parseInt(req.getParameter("pageNum"));
         int pageSize = Integer.parseInt(req.getParameter("pageSize"));
         ParamVO params = new ParamVO(uid, pageNum, pageSize);
