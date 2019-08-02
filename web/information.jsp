@@ -216,7 +216,24 @@
                     $(".pic").html(images);
                 }
             });
-        }
+        };
+        function delPic(){
+            $.ajax({
+                url:"${pageContext.request.contextPath}/hou/delImg?id=4",
+                type:"get",
+                dataType:"json",
+                success:function (data) {
+                    console.log(data);
+                    // var arr=data.Array;
+                    <%--var images="";--%>
+                    <%--for (var i=0;i<data.length;i++){--%>
+                        <%--images+='<img src="${pageContext.request.contextPath}/'+data[i].image+'">';--%>
+                        <%--&lt;%&ndash;$("img").attr("src","${pageContext.request.contextPath}"+data[i].image);&ndash;%&gt;--%>
+                    <%--}--%>
+                    <%--$(".pic").html(images);--%>
+                }
+            });
+        };
 
 
         $(function () {
@@ -247,7 +264,7 @@
                     var item=data.items;
                     var con="";
                     var cont='<tr>\n' +
-                        '<th>房屋编号</th>\n' +
+                        '<th style="display: none;">房屋编号</th>\n' +
                         '<th style="display: none;">房东编号</th>\n' +
                         '<th>类型编号</th>\n' +
                         '<th>价格</th>\n' +
@@ -263,7 +280,7 @@
                         '<th>删除房源</th>\n' +
                         '</tr>';
                     for (var i=0;i<item.length;i++){
-                        con+='<tr><td>'+item[i].id+'</td><td style="display: none;">'+item[i].uid+'</td><td>'+item[i].tid+'</td><td>'+item[i].price+'</td><td>'+item[i].area+'</td><td>'+item[i].province +'</td><td>'+item[i].city+'</td><td>'+item[i].address+'</td><td>'+item[i].roomNum+'</td><td>'+item[i].lastroom+'</td><td>'+item[i].description+'</td><td>'+'<input type="button" value="查看图片" class="btn btn-primary btn-lg" onclick="check('+item[i].id+')">'+'</td><td>'+'<input type="button" value="更新" class="btn btn-primary btn-lg" onclick="update('+item[i].id+')">'+'</td><td>'+'<input type="button" value="删除" class="btn btn-primary btn-lg" onclick="del('+item[i].id+')">'+'</td></tr>';
+                        con+='<tr><td style="display: none;">'+item[i].id+'</td><td style="display: none;">'+item[i].uid+'</td><td>'+item[i].tid+'</td><td>'+item[i].price+'</td><td>'+item[i].area+'</td><td>'+item[i].province +'</td><td>'+item[i].city+'</td><td>'+item[i].address+'</td><td>'+item[i].roomNum+'</td><td>'+item[i].lastroom+'</td><td>'+item[i].description+'</td><td>'+'<input type="button" value="查看图片" class="btn btn-primary btn-lg" onclick="check('+item[i].id+')">'+'</td><td>'+'<input type="button" value="更新" class="btn btn-primary btn-lg" onclick="update('+item[i].id+')">'+'</td><td>'+'<input type="button" value="删除" class="btn btn-primary btn-lg" onclick="del('+item[i].id+')">'+'</td></tr>';
                     }
                     $("#tab").html(cont+con);
                 }
@@ -354,7 +371,7 @@
 </form>
 <form id="pic" class="form-horizontal" enctype="multipart/form-data">
 <div class="header"><h2>图片信息</h2></div>
-    <%--<button type="button" class="btn btn-primary" onclick="show()">删除</button>--%>
+    <button type="button" class="btn btn-primary" onclick="delPic()">删除</button>
 <div class="pic">
 <%--<img id="img">--%>
 </div>
