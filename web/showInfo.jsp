@@ -22,7 +22,7 @@
             vertical-align: middle;
         }
         form{
-            height: 500px;
+            /*height: 500px;*/
             width: 600px;
             margin-top: 10px;
         }
@@ -121,25 +121,16 @@
         }
         window.onload=allCity;
 
+
+
         function show() {
-            // var uid=$("#inputUid").val();
-            // var id=$("#inputId").val();
-            // var tid=$("#inputType").val();
-            // var province=$("#selProvince").val();
-            // var city=$("#selCity").val();
-            // var address=$("#inputAddress").val();
-            // var area=$("#inputArea").val();
-            // var price=$("#inputPrice").val();
-            // var roomNum=$("#inputNum").val();
-            // var lastroom=$("#inputLast").val();
-            // var description=$("#description").val();
            var formData=new FormData();
             var length=$("#image")[0].files.length;
             for (var i=0;i<length;i++){
                 formData.set('images',$("#image")[0].files[i]);
-                // console.log($("#image")[0].files[i]);
+
             }
-            formData.set('tel',$("#inputTel").val());
+            // formData.set('tel',$("#inputTel").val());
             formData.set('tid',$("#inputType").val());
             formData.set('province',$("#selProvince").val());
             formData.set('city',$("#selCity").val());
@@ -149,10 +140,8 @@
             formData.set('roomNum',$("#inputNum").val());
             formData.set('lastroom',$("#inputLast").val());
             formData.set('description',$("#description").val());
-
-
             $.ajax({
-                url:"${pageContext.request.contextPath}/hou/add",
+                url:"${pageContext.request.contextPath}/hou/add?tel="+'13538474875',
                 type:'post',
                 data:formData,
                 cache:false,
@@ -162,21 +151,11 @@
                 success:function (data) {
                     console.log(data);
                 }
-
-            <%--$.ajax({--%>
-                <%--type:"post",--%>
-                <%--url:"${pageContext.request.contextPath}/hou/add",--%>
-                <%--data:{"uid":uid,"id":id,"tid":tid,"province":province,"city":city,"address":address,"area":area,"price":price,"roomNum":roomNum,"lastroom":lastroom,"description":description},--%>
-                <%--dataType:"json",--%>
-                <%--success:function (result) {--%>
-                        <%--console.log(result);--%>
-                <%--},--%>
-                <%--error:function () {--%>
-                    <%--alert("失败");--%>
-                <%--}--%>
-            <%--})--%>
-        })
+            })
         };
+
+
+
         $.ajax({
             url:'${pageContext.request.contextPath}/type/findAll',
             type:'get',
@@ -190,32 +169,27 @@
                }
             }
         });
-        function getCookie(user) {
-            var strCookie=document.cookie;
-            var arrCookie=strCookie.split(";");
-            for (var i=0;i<arrCookie.length;i++){
-                var arr=arrCookie[i].split("=");
-                if (user==arr[0]){
-                    return arr[1]
-                }
-            }
-            return null;
-        }
-        if(getCookie("user_cookie").length>1){
-            $("#inputTel").html(getCookie("user_cookie"));
-        }
+        // function getCookie(user) {
+        //     var strCookie=document.cookie;
+        //     var arrCookie=strCookie.split(";");
+        //     for (var i=0;i<arrCookie.length;i++){
+        //         var arr=arrCookie[i].split("=");
+        //         if (user==arr[0]){
+        //             return arr[1]
+        //         }
+        //     }
+        //     return null;
+        // }
+        // if(getCookie("user_cookie").length>1){
+        //     $("#inputTel").html(getCookie("user_cookie"));
+        // }
 
     </script>
 </head>
 <body>
 <form class="form-horizontal" id="info" enctype="multipart/form-data">
     <div class="header"><h2>发布房屋信息</h2></div>
-    <div class="form-group">
-        <label for="inputTel" class="col-sm-2 control-label">房东手机号</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputTel" placeholder="请输入">
-        </div>
-    </div>
+
     <div class="form-group">
         <label  class="col-sm-2 control-label">房屋类型</label>
         <div class="col-sm-10">

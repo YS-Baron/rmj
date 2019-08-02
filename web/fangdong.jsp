@@ -362,7 +362,7 @@
 
             <div class="right" fade-onload>
 
-                <a href="#apartment" class="hidden-sm text-item">如美公寓</a><a href="#house" class="hidden-sm text-item">如美租房</a><a href="#homestay" class="hidden-sm text-item">如美民宿</a><a href="http://localhost:8080/rmj/delete.jsp" class="hidden-sm text-item">删除房源</a><a href="http://localhost:8080/rmj/information.jsp" class="hidden-sm text-item">发布房源</a>                <!--<a href="/en-us/cart">-->
+                <a href="#apartment" class="hidden-sm text-item">如美公寓</a><a href="#house" class="hidden-sm text-item">如美租房</a><a href="#homestay" class="hidden-sm text-item">如美民宿</a><a href="http://localhost:8080/rmj/information.jsp" class="hidden-sm text-item">查看房源</a><a href="http://localhost:8080/rmj/showInfo.jsp" class="hidden-sm text-item">发布房源</a>                <!--<a href="/en-us/cart">-->
 
 
 
