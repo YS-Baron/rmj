@@ -61,7 +61,7 @@
         <div class="col-md-4">
             <h2>审核房源</h2>
             <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span></p>
-            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <p><a class="btn btn-default" href="http://localhost:8080/rmj/information.jsp" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4 room">
             <h2>管理房屋</h2>
