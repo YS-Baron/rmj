@@ -114,7 +114,7 @@ public class LoginServlet extends HttpServlet {
                     case 0:
                         //管理员界面
 //                        req.getRequestDispatcher("admin.jsp").forward(req, resp);
-                        out.print(JsonUtil.getJsonStr("admin.jsp"));
+                        out.print(JsonUtil.getJsonStr("manager.jsp"));
                         break;
                     case 1:
                         //跳转到点击登入的页面之中

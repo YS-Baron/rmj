@@ -80,6 +80,8 @@ public class UserServlet extends HttpServlet {
         if (code.equals(activeCode)) {
             User user = new User(modifyId, modifyPwd);
             int res = userService.update(user);
+            //链接使用一次后失效
+            code = "";
             if (res > 0) {
                 resp.getWriter().print(JsonUtil.getJsonStr(1, "修改成功"));
             } else {
