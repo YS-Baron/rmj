@@ -11,42 +11,36 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta property="wb:webmaster" content="6aedfa3b11557c1a">
-    <meta property="qc:admins" content="445170677762127756375">
-    <title>其灵公寓·loft铸梦开间-如美家</title>
-    <!--    <link rel="icon" href="/favicon.ico" type="image/x-icon" />-->
-    <!--    <meta name="keywords" content="深圳租房,深圳合租,德兴城花园租房,龙岗区租房,布吉租房">-->
-    <!--    <meta name="description" content="深圳如美家,为租客在龙岗区布吉德兴城花园找到了合租住房,该房源的付款方式为押一付三,月租房价格非常便宜且无中介费,更多有在布吉德兴城花园的合租房源尽在深圳如美家。">-->
-    <!--    <meta http-equiv="cache-control" content="no-cache, must-revalidate">-->
-    <!--    <meta http-equiv="Cache-Control" content="no-transform">-->
-    <!--    <meta http-equiv="Cache-Control" content="no-siteapp">-->
-    <!--    <meta name="location" content="province=广东;city=深圳;coord=114.069562,22.555457">-->
-    <!--    <meta name="mobile-agent" content="format=html5;url=http://www.ziroom.com/">-->
-    <!--    <meta name="renderer" content="webkit">-->
-    <!--    <meta content="width=1152, initial-scale=1, maximum-scale=1, user-scalable=1" name="viewport">-->
-    <!--    <meta name="csrf-param" content="_csrf">-->
-    <!--    <meta name="csrf-token" content="ZHFiaUV1TlUsKBI7IxYKMElcUTY8FDs0XUhTEzAwOgoJMAwmdBsWOg==">-->
-    <!--    <link rel="dns-prefetch" href="//static8.ziroom.com">-->
-    <!--    <link rel="dns-prefetch" href="//webimg.ziroom.com">-->
+    <title>photoinfo</title>
     <link rel="stylesheet" href="//static8.ziroom.com//phoenix/pc/css/2019/iconfont.css">
     <link rel="stylesheet" href="//static8.ziroom.com//phoenix/pc/css/2019/common.css?2019072519">
     <script type="text/javascript" src="//static8.ziroom.com/phoenix/pc/js/2019/lib/jquery.min.1.9.0.js"></script>
     <script type="text/javascript" src="//static8.ziroom.com/phoenix/pc/js/2019/lib/jquery.cookie.min.js"></script>
-    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-    <!--[if lt IE 9]>
-    <div style="background: #eeeeee;border-bottom: 1px solid #cccccc;color: #000;padding: 15px;margin: 0;z-index: 9999;position:fixed;width:100%;height:100%;left:0;top:0;">
-        您的浏览器实在<strong>&nbsp;版本过低</strong>，为了更好的体验，请
-        <a href="https://browsehappy.com/" style="color: #003bb3;font-weight: bold;" target="_blank">&nbsp;升级您的浏览器&nbsp;</a>以获得更好的体验。
-
-    </div>
-    <![endif]-->
-    <!--[if lt IE 9]><script src="//static8.ziroom.com/phoenix/pc/js/lib/2019/html5.min.js"></script><![endif]-->
-    <!-- <a href="javascript:;" style="color: #003bb3;font-weight: bold;"
-    onclick="this.parentNode.parentNode.removeChild(this.parentNode.style.display='none');">&nbsp;点击关闭提示&nbsp;</a> -->
+    <script src="//static8.ziroom.com/phoenix/pc/js/lib/2019/html5.min.js"></script>
     <link href="//at.alicdn.com/t/font_1228129_b253cd1iwks.css" rel="stylesheet">
     <link href="//static8.ziroom.com/phoenix/pc/css/2019/info.css?2019072519" rel="stylesheet"></head>
-<script type="text/javascript">var ZRCONFIG = {"CSS_DOMAIN":"http://static8.ziroom.com/","JS_DOMAIN":"http://static8.ziroom.com/","DOMAIN":"http://sz.ziroom.com","ENV":"","room_id":"62338194","is_whole":0,"house_id":"60368701","house_type":"1","resblock_id":"2411100032521","city_code":"440300","resblock_name":"德兴城花园","is_turn":0,"resblockPosition":[114.120201,22.614861]};</script>
+<style>
+    .Z_swiper_box .Z_setup {
+        position: absolute;
+        right: 0;
+        top: 20px;
+        z-index: 10;
+    }
+    .Z_swiper_box .Z_setup button {
+        background-color: #fff;
+        border: 0;
+        border-radius: 2px;
+        color: #000;
+        color: rgba(0,0,0,.6);
+        float: right;
+        font-size: 15px;
+        height: 36px;
+        line-height: 36px;
+        margin-right: 20px;
+        position: relative;
+        width: 82px;
+    }
+</style>
 <body>
 <!-- Header  头部 -->
 
@@ -58,34 +52,34 @@
     <!-- 房屋基本信息模块 -->
     <section class="Z_info_main">
         <div class="Z_swiper_box" id="Z_swiper_box">
+            <div class="Z_setup ">
+                <button type="button" name="button" id="collect" class="Z_setup_share collect">收藏 <i class="glyphicon glyphicon-heart"></i></button>
+            </div>
             <div class="Z_sliders">
                 <a class="prev change_btn" href="javascript:void(0)">
                     <i class="iconfont iconicon_pageturning_left_x "></i>
                 </a>
-                <ul>
+                <ul id="limg">
+                    <%--<li class="Z_slider" data-type="image" data-t="图片">--%>
+                        <%--<img src="images/img1/apart1.1.jpg"alt="上海其灵自如寓" >--%>
+                    <%--</li>--%>
+                    <%--<li class="Z_slider" data-type="image" data-t="图片">--%>
+                        <%--<img src="images/img1/apart1.2.jpg"alt="上海其灵自如寓" >--%>
+                    <%--</li>--%>
 
+                    <%--<li class="Z_slider" data-type="image" data-t="图片">--%>
+                        <%--<img src="images/img1/apart1.3.jpg" alt="上海其灵自如寓" >--%>
+                    <%--</li>--%>
+                    <%--<li class="Z_slider" data-type="image" data-t="图片">--%>
+                        <%--<img src="images/img1/apart1.4.jpg" alt="上海其灵自如寓" >images/--%>
+                    <%--</li>--%>
+                    <%--<li class="Z_slider" data-type="image" data-t="图片">--%>
+                        <%--<img src="images/img1/apart1.5.jpg" alt="上海其灵自如寓" >--%>
+                    <%--</li>--%>
 
-
-                    <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart1.1.jpg"alt="上海其灵自如寓" >
-                    </li>
-                    <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart1.2.jpg"alt="上海其灵自如寓" >
-                    </li>
-
-                    <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart1.3.jpg" alt="上海其灵自如寓" >
-                    </li>
-                    <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart1.4.jpg" alt="上海其灵自如寓" >images/
-                    </li>
-                    <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart1.5.jpg" alt="上海其灵自如寓" >
-                    </li>
-
-                    <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart1.6.jpg" alt="上海其灵自如寓" >
-                    </li>
+                    <%--<li class="Z_slider" data-type="image" data-t="图片">--%>
+                        <%--<img src="images/img1/apart1.6.jpg" alt="上海其灵自如寓" >--%>
+                    <%--</li>--%>
                 </ul>
                 <a class="next change_btn" href="javascript:void(0)">
                     <i class="iconfont iconicon_pageturning_right_"></i>
@@ -95,31 +89,26 @@
                 <a class="prev" href="javascript:void(0)">
                     <i class="iconfont iconicon_pageturning_left_x "></i>
                 </a>
-                <ul class="Z_swiper_thumb_inner Z_sliders_nav">
+                <ul class="Z_swiper_thumb_inner Z_sliders_nav" id="simg">
+                    <%--<li class="" data-index="1">--%>
+                        <%--<img src="images/img1/apart1.1.jpg">--%>
+                    <%--</li>--%>
+                    <%--<li class="" data-index="2">--%>
+                        <%--<img src="images/img1/apart1.2.jpg">--%>
+                    <%--</li>--%>
 
-
-
-
-
-                    <li class="" data-index="1">
-                        <img src="images/img1/apart1.1.jpg">
-                    </li>
-                    <li class="" data-index="2">
-                        <img src="images/img1/apart1.2.jpg">
-                    </li>
-
-                    <li class="" data-index="3">
-                        <img src="images/img1/apart1.3.jpg">
-                    </li>
-                    <li class="" data-index="4">
-                        <img src="images/img1/apart1.4.jpg">
-                    </li>
-                    <li class="" data-index="5">
-                        <img src="images/img1/apart1.5.jpg">
-                    </li>
-                    <li class="" data-index="6">
-                        <img src="images/img1/apart1.6.jpg">
-                    </li>
+                    <%--<li class="" data-index="3">--%>
+                        <%--<img src="images/img1/apart1.3.jpg">--%>
+                    <%--</li>--%>
+                    <%--<li class="" data-index="4">--%>
+                        <%--<img src="images/img1/apart1.4.jpg">--%>
+                    <%--</li>--%>
+                    <%--<li class="" data-index="5">--%>
+                        <%--<img src="images/img1/apart1.5.jpg">--%>
+                    <%--</li>--%>
+                    <%--<li class="" data-index="6">--%>
+                        <%--<img src="images/img1/apart1.6.jpg">--%>
+                    <%--</li>--%>
                 </ul>
                 <a class="next" href="javascript:void(0)">
                     <i class="iconfont iconicon_pageturning_right_"></i>
@@ -146,7 +135,6 @@
             <h2 class="Z_info_title ">房源简介</h2>
             <p class="house_sourcecode mt10">编号  SZZRGY0819447176_05</p>
             <div class="Z_rent_desc">
-                LOFT户型，上层卧室，下层起居。 功能齐全，动静分离，适合追求宽敞空间的租客居住。 全景落地窗，房间通透明丽。 超大整体衣柜储物墙，物品较多时也能轻松存放。 多功能工作台，室外景观阳台，开启元气一天。 独立卫浴、开放式厨房，即刻开启精致生活 （户型面积均为自如实地测量面积，如有误差以实际为准。）
             </div>
             <div class="Z_info_icons ">
                 <dl>
@@ -295,13 +283,10 @@
 
     <!-- 右侧边栏 -->
     <aside class="Z_info_aside" >
-        <h1 class="Z_name"><i class="status iconicon_sign"></i>其灵公寓·loft铸梦开间</h1>
+        <h1 class="Z_name"><i class="status iconicon_sign"></i><span></span></h1>
         <div class="Z_price">
             <span>￥</span>
-            <i class="num" style="background-position:-31.24px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
-            <i class="num" style="background-position:-93.72px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
-            <i class="num" style="background-position:-62.48px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
-            <i class="num" style="background-position:-187.44px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
+           <span id="pri"></span>
             <span>/月（季付价）</span>
         </div>
 
@@ -309,19 +294,21 @@
         <ul class="Z_activity">
 
             <li>
-                <span class="label">海燕计划</span>毕业生租房月付/0押金/送搬家券                        </li>
+                <span class="label">海燕计划</span>毕业生租房月付/0押金/送搬家券</li>
             <li>
-                <span class="label">签约福利</span>领2019元入住礼包/好物0元送                        </li>
+                <span class="label">签约福利</span>领2019元入住礼包/好物0元送</li>
             <li>
-                <span class="label">如美搬家</span>师傅全程搬运 价格合理透明                        </li>
+                <span class="label">如美搬家</span>师傅全程搬运 价格合理透明</li>
         </ul>
         <div class="Z_tags">
-            <span class="tag">布丁4.0</span>																<span class="tag">独立阳台</span>																<span class="tag">智能锁</span>																<span class="tag">首次出租</span>																<span class="tag">离地铁近</span>																<span class="tag">免物业费</span>
+            <span class="tag1 tag"></span>
+            <span class="tag2 tag "></span>
+            <span class="tag3 tag"></span>
         </div>
         <div class="Z_home_info">
             <div class="Z_home_b clearfix">
-                <dl class="">
-                    <dd>35.0㎡</dd>
+                <dl class="marea">
+                    <dd></dd>
                     <dt>使用面积</dt>
                 </dl>
                 <dl class="">
@@ -336,13 +323,10 @@
 
             <ul class="Z_home_o">
                 <li>
-                    <span class="la">位置</span><span class="va">上海市闵行区都会路 368 号</span>
+                    <span class="la">位置</span><span class="va wei"></span>
                 </li>
                 <li>
                     <span class="la">电梯</span><span class="va">有</span>
-                </li>
-                <li>
-                    <span class="la">年代</span><span class="va">1999年建成</span>
                 </li>
                 <li>
                     <span class="la">门锁</span><span class="va">智能门锁</span>
@@ -547,4 +531,41 @@
 <script src="//static8.ziroom.com/phoenix/pc/js/2019/info.js?2019072519"></script>
 </body>
 </html>
-
+<script>
+    $(function () {
+        $.ajax({
+            type:"post",
+            url:'${pageContext.request.contextPath}/hou/getid',
+            data:{"id":7},
+            dataType:"json",
+            success:function(data){
+                $(".Z_name").find("span").html(data.address);
+                $(".marea").find("dd").html(data.area+"㎡");
+                $("#pri").html(data.price);
+                $(".tag1").html(data.province);
+                $(".tag2").html(data.city);
+                $(".tag3").html(data.roomNum+"室");
+                $(".wei").html(data.province+data.city);
+                $(".Z_rent_desc").html(data.description);
+            }
+        })
+        $.ajax({
+            type:"post",
+            url:'${pageContext.request.contextPath}/hou/findhid',
+            data:{"hid":7},
+            dataType:"json",
+            success:function(data){
+                if(data.length>0){
+                    var limg='';
+                    var simg='';
+                    $.each(data,function (i,val) {
+                        limg+='<li class="Z_slider" data-type="image" data-t="图片"> <img src="${pageContext.request.contextPath}'+val.image+'"alt="" > </li>'
+                        simg+='<li class="" data-index="3"> <img src="${pageContext.request.contextPath}'+val.image+'"> </li>'
+                    });
+                    $("#limg").html(limg);
+                    $("#simg").html(simg);
+                }
+            }
+        })
+    })
+</script>

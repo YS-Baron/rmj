@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.rmj.common.Constant" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 2019/7/28
@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta property="wb:webmaster" content="6aedfa3b11557c1a">
     <meta property="qc:admins" content="445170677762127756375">
-    <title>其灵公寓·loft启航开间-如美家</title>
+    <title></title>
     <!--    <link rel="icon" href="/favicon.ico" type="image/x-icon" />-->
     <!--    <meta name="keywords" content="深圳租房,深圳合租,德兴城花园租房,龙岗区租房,布吉租房">-->
     <!--    <meta name="description" content="深圳如美家,为租客在龙岗区布吉德兴城花园找到了合租住房,该房源的付款方式为押一付三,月租房价格非常便宜且无中介费,更多有在布吉德兴城花园的合租房源尽在深圳如美家。">-->
@@ -47,43 +47,197 @@
     <link href="//at.alicdn.com/t/font_1228129_b253cd1iwks.css" rel="stylesheet">
     <link href="//static8.ziroom.com/phoenix/pc/css/2019/info.css?2019072519" rel="stylesheet"></head>
 <script type="text/javascript">var ZRCONFIG = {"CSS_DOMAIN":"http://static8.ziroom.com/","JS_DOMAIN":"http://static8.ziroom.com/","DOMAIN":"http://sz.ziroom.com","ENV":"","room_id":"62338194","is_whole":0,"house_id":"60368701","house_type":"1","resblock_id":"2411100032521","city_code":"440300","resblock_name":"德兴城花园","is_turn":0,"resblockPosition":[114.120201,22.614861]};</script>
+<style>
+    .Z_layout_head {
+        -webkit-transition:all 1s;
+        background-color:#fff;
+        color: #000000;
+        height:60px;
+        left:0;
+        line-height:60px;
+        position:fixed;
+        top:0;
+        transition:all 1s;
+        width:100%;
+        z-index:11
+    }
+    .Z_header_main a{
+        color: #000;
+        text-decoration: none;
+    }
+    .Z_layout_head .Z_header_main .Z_logo_box {
+        float:left;
+        height:100%;
+        margin:0;
+        padding:14px 0;
+        width:160px;
+    }
+    .Z_layout_head .Z_header_main .Z_logo_box img{
+        height: 60px;
+        margin-top: -15px;
+    }
+    .Z_layout_head .Z_header_main .Z_logo {
+        float:left;
+        width:160px
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box {
+        float:left;
+        font-size:0;
+        height:60px;
+        text-align:right;
+        width:687px
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box li {
+        display:inline-block
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box a {
+        font-size:15px;
+        margin-right:20px;
+        padding:9px 0
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box .active {
+        position:relative
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box .active:after {
+        -webkit-transform:translateX(-50%);
+        background:#ff961e;
+        border-radius:1px;
+        bottom:0;
+        content:"";
+        height:2px;
+        left:50%;
+        position:absolute;
+        transform:translateX(-50%);
+        width:100%
+    }
+    .Z_header_main{
+        width: 1127px;
+        margin: 0 auto;
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box .become_houser {
+        border:1px solid #fff;
+        border-radius:2px;
+        font-size:15px;
+        padding:6px 14px;
+        position:relative;
+        text-align:center
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box .app_download {
+        display:inline-block;
+        line-height:1;
+        position:relative
+    }
+    .Z_layout_head .Z_header_main .Z_nav_box .app_download:hover .qcode_box {
+        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+        -webkit-transform:scale(1);
+        opacity:1;
+        transform:scale(1)
+    }
+    .Z_layout_head .Z_header_main .Z_login_top {
+        float:left;
+        font-size:15px;
+        height:100%;
+        text-align:right;
+        width:120px
+    }
+    .Z_layout_head .Z_header_main .Z_login_top a {
+        font-size:15px
+    }
+    .Z_layout_head .Z_header_main .Z_login_top .Z_headtop_tel {
+        margin-left:10px;
+        margin-right:10px
+    }
+    .Z_layout_head .Z_header_main .Z_login_top .Z_headtop_tel:hover {
+        text-decoration:underline
+    }
+    .Z_layout_head .Z_header_main .Z_login_top .Z_exit {
+        margin-right:0
+    }
+    .Z_layout_head .Z_header_main .Z_login_top .Z_exit:hover {
+        text-decoration:underline
+    }
+    .Z_layout_head .Z_header_main .Z_login_top .Z_exit_line {
+        margin-left:10px;
+        margin-right:10px
+    }
+    .Z_layout_head_active {
+        -webkit-box-shadow:0 2px 8px 0 rgba(0,0,0,.08);
+        background-color:#fff;
+        box-shadow:0 2px 8px 0 rgba(0,0,0,.08);
+        color:#000!important;
+        color:rgba(0,0,0,.85)!important
+    }
+    .Z_layout_head_active .Z_header_main .Z_nav_box .become_houser {
+        border:1px solid #000;
+        border:1px solid rgba(0,0,0,.4);
+        border-radius:2px;
+        font-size:15px;
+        padding:6px 14px;
+        text-align:center
+    }
+</style>
 <body>
 <!-- Header  头部 -->
-
+<header class="Z_layout_head" id="Z_layout_head">
+    <div class="Z_layout_main">
+        <div class="Z_container Z_header_main">
+            <h1 class="Z_logo_box">
+                <a href="javascript:;">
+                    <!-- 首页logo 区别于其他页面logo -->
+                    <img class="Z_logo" id="Z_logo" src="images/index-image/logo.png" alt="" />
+                </a>
+            </h1>
+            <!-- 顶部导航 -->
+            <ul class="Z_nav_box">
+                <li><a href="index.jsp" class="ani " >首页</a></li>
+                <li><a href="user.jsp" class="ani active " >租房</a></li>
+            </ul>
+            <div class="Z_login_top" id="loginEntyWrapper" style="cursor: pointer">
+                <a href="login.jsp?from=houinfo.jsp" class="Z_exit" rel="nofollow" id="zLogin">登录</a>
+                <a href="javascript:;" class="Z_exit_line">|</a>
+                <a href="register.jsp" class=" Z_exit" rel="nofollow" id="zRegister">注册</a>
+            </div>
+            <div class="Z_login_top" style="display: none" id="login_out">
+                <a href="#" class=" Z_headtop_tel" rel="nofollow"></a>
+                <a href="${pageContext.request.contextPath}/logout" class=" Z_exit" rel="nofollow" id="tRegister">退出</a>
+            </div>
+        </div>
+    </div>
+</header>
 
 <!--初始化参数-->
 <!--<input type="hidden" value="" id="yk_name">-->
 <!--<input type="hidden" value="" id="yk_phone">-->
-<section class="Z_container Z_main">
+<section class="Z_container Z_main" style="padding-top:50px">
     <!-- 房屋基本信息模块 -->
     <section class="Z_info_main">
         <div class="Z_swiper_box" id="Z_swiper_box">
+            <div class="Z_setup ">
+                <button type="button" name="button" id="collect" class="Z_setup_share collect">收藏 <i class="glyphicon glyphicon-heart"></i></button>
+            </div>
             <div class="Z_sliders">
                 <a class="prev change_btn" href="javascript:void(0)">
                     <i class="iconfont iconicon_pageturning_left_x "></i>
                 </a>
-                <ul>
-
-
-
+                <ul id="limg">
                     <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart2.1.jpg"alt="上海其灵自如寓" >
+                        <img src=""alt="上海其灵自如寓" >
                     </li>
                     <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart2.2.jpg"alt="上海其灵自如寓" >
+                        <img src=""alt="" >
                     </li>
 
                     <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart2.3.jpg" alt="上海其灵自如寓" >
+                        <img src="" alt="" >
                     </li>
                     <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart2.4.jpg" alt="上海其灵自如寓" >
+                        <img src="" alt="" >
                     </li>
                     <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart2.5.jpg" alt="上海其灵自如寓" >
+                        <img src="" alt="" >
                     </li>
                     <li class="Z_slider" data-type="image" data-t="图片">
-                        <img src="images/img1/apart2.6.jpg" alt="上海其灵自如寓" >
+                        <img src="" alt="" >
                     </li>
                 </ul>
                 <a class="next change_btn" href="javascript:void(0)">
@@ -94,30 +248,25 @@
                 <a class="prev" href="javascript:void(0)">
                     <i class="iconfont iconicon_pageturning_left_x "></i>
                 </a>
-                <ul class="Z_swiper_thumb_inner Z_sliders_nav">
-
-
-
-
-
+                <ul class="Z_swiper_thumb_inner Z_sliders_nav" id="simg">
                     <li class="" data-index="1">
-                        <img src="images/img1/apart2.1.jpg">
+                        <img src="">
                     </li>
                     <li class="" data-index="2">
-                        <img src="images/img1/apart2.2.jpg">
+                        <img src="">
                     </li>
 
                     <li class="" data-index="3">
-                        <img src="images/img1/apart2.3.jpg">
+                        <img src="">
                     </li>
                     <li class="" data-index="4">
-                        <img src="images/img1/apart2.4.jpg">
+                        <img src="">
                     </li>
                     <li class="" data-index="5">
-                        <img src="images/img1/apart2.5.jpg">
+                        <img src="">
                     </li>
                     <li class="" data-index="6">
-                        <img src="images/img1/apart2.6.jpg">
+                        <img src="">
                     </li>
                 </ul>
                 <a class="next" href="javascript:void(0)">
@@ -145,8 +294,7 @@
             <h2 class="Z_info_title ">房源简介</h2>
             <p class="house_sourcecode mt10">编号  SZZRGY0819447176_05</p>
             <div class="Z_rent_desc">
-                LOFT户型，上层卧室，下层起居。 功能齐全，动静分离，适合追求宽敞空间的租客居住。 全景落地窗，房间通透明丽。 玄关超大整体衣柜，物品较多时也能轻松存放。 多功能工作台，室外景观阳台，开启元气一天。 惬意宽敞空间，生活尽显优雅从容。 （户型面积均为自如实地测量面积，如有误差以实际为准。）
-            </div>
+               </div>
             <div class="Z_info_icons ">
                 <dl>
                     <dd><i class="iconfont iconzhinengsuo"></i></dd>
@@ -211,7 +359,7 @@
                     <li><span class="info_label">空置时长</span>  <span class="info_value">承诺空置30天，已超过30天</span></li>
 
                     <li><span class="info_label">检测日期</span>  <span class="info_value">2019-07-07</span></li>
-                    <li><span class="info_label">检测报告</span>  <a class="info_value_active text_underline" alt="房屋空气质量检测报告" title="房屋空气质量检测报告" href="https://special.ziroom.com/2018/air_test_report/index.html?code=GUEOlYe3BVklYl8tVzZhGncGt14W0cnOSnveuLpW0qI" target="_blank" >房屋空气质量检测报告</a></li>
+                    <li><span class="info_label">检测报告</span>  <a class="info_value_active text_underline" alt="房屋空气质量检测报告" title="房屋空气质量检测报告" href="javascript:;" target="_blank" >房屋空气质量检测报告</a></li>
                 </ul>
             </div>
         </div>
@@ -276,13 +424,10 @@
 
     <!-- 右侧边栏 -->
     <aside class="Z_info_aside" >
-        <h1 class="Z_name"><i class="status iconicon_sign"></i>其灵公寓·loft启航开间</h1>
+        <h1 class="Z_name"><i class="status iconicon_sign"></i><span></span></h1>
         <div class="Z_price">
             <span>￥</span>
-            <i class="num" style="background-position:-31.24px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
-            <i class="num" style="background-position:-93.72px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
-            <i class="num" style="background-position:-62.48px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
-            <i class="num" style="background-position:-187.44px;background-image: url(//static8.ziroom.com/phoenix/pc/images/2019/price/6f8787069ac0a69b36c8cf13aacb016b.png);" ></i>
+            <span id="pri"></span>
             <span>/月（季付价）</span>
         </div>
 
@@ -290,18 +435,20 @@
         <ul class="Z_activity">
 
             <li>
-                <span class="label">海燕计划</span>毕业生租房月付/0押金/送搬家券                        </li>
+                <span class="label">海燕计划</span>毕业生租房月付/0押金/送搬家券 </li>
             <li>
-                <span class="label">签约福利</span>领2019元入住礼包/好物0元送                        </li>
+                <span class="label">签约福利</span>领2019元入住礼包/好物0元送 </li>
             <li>
-                <span class="label">如美搬家</span>师傅全程搬运 价格合理透明                        </li>
+                <span class="label">如美搬家</span>师傅全程搬运 价格合理透明  </li>
         </ul>
         <div class="Z_tags">
-            <span class="tag">布丁4.0</span>																<span class="tag">独立阳台</span>																<span class="tag">智能锁</span>																<span class="tag">首次出租</span>																<span class="tag">离地铁近</span>																<span class="tag">免物业费</span>
+            <span class="tag tag1"></span>
+            <span class="tag tag2"></span>
+            <span class="tag tag3"></span>																"
         </div>
         <div class="Z_home_info">
             <div class="Z_home_b clearfix">
-                <dl class="">
+                <dl class="marea">
                     <dd>28.0㎡</dd>
                     <dt>使用面积</dt>
                 </dl>
@@ -317,13 +464,10 @@
 
             <ul class="Z_home_o">
                 <li>
-                    <span class="la">位置</span><span class="va">上海市闵行区都会路 368 号</span>
+                    <span class="la">位置</span><span class="va wei"></span>
                 </li>
                 <li>
                     <span class="la">电梯</span><span class="va">有</span>
-                </li>
-                <li>
-                    <span class="la">年代</span><span class="va">1999年建成</span>
                 </li>
                 <li>
                     <span class="la">门锁</span><span class="va">智能门锁</span>
@@ -528,3 +672,78 @@
 <script src="//static8.ziroom.com/phoenix/pc/js/2019/info.js?2019072519"></script>
 </body>
 </html>
+<script>
+    $(function () {
+        // console.log(window.location.href);
+        // console.log($.getUrlParam('id'));
+        // console.log(getUrlParam('id'));
+        $("#Z_logo").attr("src","images/index-image/logo.png");
+        $.ajax({
+            type:"post",
+            url:'${pageContext.request.contextPath}/hou/getid',
+            data:{"id":<%=request.getQueryString().split("=")[1]%>},
+            dataType:"json",
+            success:function(data){
+                $(".Z_name").find("span").html(data.address);
+                $(".marea").find("dd").html(data.area+"㎡");
+                $("#pri").html(data.price);
+                $(".tag1").html(data.province);
+                $(".tag2").html(data.city);
+                $(".tag3").html(data.roomNum+"室");
+                $(".wei").html(data.province+data.city);
+                $(".Z_rent_desc").html(data.description);
+            }
+        });
+        $.ajax({
+            type:"post",
+            url:'${pageContext.request.contextPath}/hou/findhid',
+            data:{"hid":<%=request.getQueryString().split("=")[1]%>},
+            dataType:"json",
+            success:function(data){
+                if(data.length>0){
+                    var limg='';
+                    var simg='';
+                    $.each(data,function (i,val) {
+                        limg+='<li class="Z_slider" data-type="image" data-t="图片" style="float:left;width:764px;"> <img src="${pageContext.request.contextPath}'+val.image+'"alt=""> </li>'
+                        simg+='<li class="" data-index="3"> <img src="${pageContext.request.contextPath}'+val.image+'"> </li>'
+                    });
+                    $("#limg").html(limg);
+                    $("#simg").html(simg);
+                }
+            }
+        })
+        $("#collect").click(function () {
+            $.ajax({
+                type:"post",
+                url:'${pageContext.request.contextPath}/fav/add',
+                data:{"hid":<%=request.getQueryString().split("=")[1]%>,"tel":getCookie()},
+                dataType:"json",
+                success:function(data){
+                    console.log(data)
+                }
+            })
+        })
+        if(getCookie()!=null){
+            $("#loginEntyWrapper").html(getCookie());
+            $("#login_out").show();
+        }
+        $("#loginEntyWrapper").click(function () {
+            if(getCookie()!=null){
+                window.location.href="myinfo.jsp"
+            }
+        })
+    })
+    function getCookie() {
+        var session = <%=session.getAttribute(Constant.USER_SESSION)%>
+        return session
+    }
+    // function getUrlParam(name){
+    //     //构造一个含有目标参数的正则表达式对象
+    //     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    //     //匹配目标参数
+    //     var r = window.location.search.substr(1).match(reg);
+    //     //返回参数值
+    //     if (r!=null) return unescape(r[2]);
+    //     return null;
+    // }
+</script>
